@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>CareerBridge | Connect Talent & Opportunity</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="#home" class="brand-logo">
+                    <i class="fas fa-bridge"></i> Career<span>Bridge</span>
+                </a>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <!-- For Job Seekers -->
+                <li class="nav-dropdown">
+                    <a href="#" class="nav-link"><i class="fas fa-users"></i> Job Seekers <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                    <div class="dropdown-content">
+                        <a href="#browse-jobs"><i class="fas fa-search"></i> Browse Jobs</a>
+                        <a href="#companies"><i class="fas fa-building"></i> Companies</a>
+                        <a href="#career-advice"><i class="fas fa-lightbulb"></i> Career Advice</a>
+                        <a href="#resume-tips"><i class="fas fa-file-alt"></i> Resume Tips</a>
+                        <a href="#salary-guide"><i class="fas fa-dollar-sign"></i> Salary Guide</a>
+                    </div>
+                </li>
+                <!-- For Employers -->
+                <li class="nav-dropdown">
+                    <a href="#" class="nav-link"><i class="fas fa-briefcase"></i> Employers <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                    <div class="dropdown-content">
+                        <a href="#post-job"><i class="fas fa-plus-circle"></i> Post a Job</a>
+                        <a href="#search-candidates"><i class="fas fa-user-search"></i> Search Candidates</a>
+                        <a href="#pricing"><i class="fas fa-tag"></i> Pricing</a>
+                        <a href="#recruitment-solutions"><i class="fas fa-handshake"></i> Recruitment Solutions</a>
+                        <a href="#employer-branding"><i class="fas fa-star"></i> Employer Branding</a>
+                    </div>
+                </li>
+                <!-- Company -->
+                <li class="nav-dropdown">
+                    <a href="#" class="nav-link"><i class="fas fa-flag"></i> Company <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                    <div class="dropdown-content">
+                        <a href="#about-us"><i class="fas fa-info-circle"></i> About Us</a>
+                        <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+                        <a href="#press"><i class="fas fa-newspaper"></i> Press</a>
+                        <a href="#blog"><i class="fas fa-blog"></i> Blog</a>
+                        <a href="#careers"><i class="fas fa-user-tie"></i> Careers</a>
+                    </div>
+                </li>
+                <li class="nav-divider"></li>
+                <li><a href="#login" class="nav-link auth-link" id="loginBtn"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                <li><a href="#register" class="nav-link auth-link btn-primary" id="registerBtn"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+                <li class="user-profile" id="userProfile" style="display: none;">
+                    <img src="https://ui-avatars.com/api/?name=Alex+Morgan&background=4361ee&color=fff" alt="Profile">
+                    <span id="userName">Alex Morgan</span>
+                    <i class="fas fa-chevron-down"></i>
+                    <div class="dropdown-menu">
+                        <a href="#dashboard"><i class="fas fa-chart-pie"></i> Dashboard</a>
+                        <a href="candidate-profile.html?id=1"><i class="fas fa-user-circle"></i> My Profile</a>
+                        <a href="#applications"><i class="fas fa-file-signature"></i> My Applications</a>
+                        <a href="#saved-jobs"><i class="fas fa-bookmark"></i> Saved Jobs</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
+                        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content - All Pages -->
+    <main id="main-content">
+        <!-- HOME PAGE -->
+        <section id="home-page" class="page active">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <span class="hero-badge">🚀 Your Career Journey Starts Here</span>
+                    <h1>Bridge the gap between <span class="gradient-text">talent</span> and <span class="gradient-text">opportunity</span></h1>
+                    <p class="hero-subtitle">Join 500K+ professionals and 10K+ companies on CareerBridge – where dream careers take flight.</p>
+                    
+                    <div class="hero-cta">
+                        <a href="#browse-jobs" class="btn btn-primary btn-large">
+                            <i class="fas fa-search"></i> Find Jobs
+                        </a>
+                        <a href="#post-job" class="btn btn-outline btn-large">
+                            <i class="fas fa-plus-circle"></i> Post a Job
+                        </a>
+                    </div>
+                    
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <span class="stat-value">500K+</span>
+                            <span class="stat-label">Job Seekers</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="stat-value">10K+</span>
+                            <span class="stat-label">Companies</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="stat-value">50K+</span>
+                            <span class="stat-label">Jobs Posted</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Team collaboration">
+                    <div class="hero-card">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>2,345+</strong>
+                            <span>Jobs added today</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trusted Companies -->
+            <div class="trusted-section">
+                <p>Trusted by industry leaders</p>
+                <div class="company-logos">
+                    <span><i class="fab fa-microsoft"></i> Microsoft</span>
+                    <span><i class="fab fa-google"></i> Google</span>
+                    <span><i class="fab fa-amazon"></i> Amazon</span>
+                    <span><i class="fab fa-meta"></i> Meta</span>
+                    <span><i class="fab fa-apple"></i> Apple</span>
+                    <span><i class="fab fa-netflix"></i> Netflix</span>
+                </div>
+            </div>
+
+            <!-- For Job Seekers Section -->
+            <div class="section-header">
+                <h2><i class="fas fa-users"></i> For Job Seekers</h2>
+                <p>Tools and resources to accelerate your career</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card" onclick="navigateToPage('browse-jobs-page')">
+                    <div class="feature-icon" style="background: #e3f2fd; color: #1976d2;">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Browse Jobs</h3>
+                    <p>Explore thousands of opportunities across industries</p>
+                    <span class="feature-link">Find jobs <i class="fas fa-arrow-right"></i></span>
+                </div>
+                
+                <div class="feature-card" onclick="navigateToPage('companies-page')">
+                    <div class="feature-icon" style="background: #e8f5e9; color: #388e3c;">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Companies</h3>
+                    <p>Research and follow your dream employers</p>
+                    <span class="feature-link">View companies <i class="fas fa-arrow-right"></i></span>
+                </div>
+                
+                <div class="feature-card" onclick="navigateToPage('career-advice-page')">
+                    <div class="feature-icon" style="background: #fff3e0; color: #f57c00;">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Career Advice</h3>
+                    <p>Expert tips on interviews, networking, and growth</p>
+                    <span class="feature-link">Learn more <i class="fas fa-arrow-right"></i></span>
+                </div>
+                
+                <div class="feature-card" onclick="navigateToPage('resume-tips-page')">
+                    <div class="feature-icon" style="background: #fce4ec; color: #c2185b;">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Resume Tips</h3>
+                    <p>Create ATS-friendly resumes that stand out</p>
+                    <span class="feature-link">Build resume <i class="fas fa-arrow-right"></i></span>
+                </div>
+                
+                <div class="feature-card" onclick="navigateToPage('salary-guide-page')">
+                    <div class="feature-icon" style="background: #e0f2fe; color: #0284c7;">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3>Salary Guide</h3>
+                    <p>Know your worth with real-time salary data</p>
+                    <span class="feature-link">Check salaries <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </div>
+
+            <!-- For Employers Section -->
+            <div class="section-header">
+                <h2><i class="fas fa-briefcase"></i> For Employers</h2>
+                <p>Hire the best talent, faster and smarter</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card" onclick="navigateToPage('post-job-page')">
+                    <div class="feature-icon" style="background: #ede7f6; color: #512da8;">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <h3>Post a Job</h3>
+                    <p>Reach millions of qualified candidates</p>
+                    <span class="feature-link">Start hiring <i class="fas fa-arrow-right"></i></span>
+                </div>
+                
+                <div class="feature-card" onclick="navigateToPage('search-candidates-page')">
+                    <div class="feature-icon" style="background: #ffebee; color: #c62828;">
+                        <i class="fas fa-user-search"></i>
+                    </div>
+                    <h3>Search Candidates</h3>
+                    <p>Access our database of pre-screened talent</p>
+                    <span class="feature-link">Find talent <i class="fas fa-arrow-right"></i></span>
+                </div>
+                
+                <div class="feature-card" onclick="navigateToPage('pricing-page')">
+                    <div class="feature-icon" style="background: #f1f8e9; color: #558b2f;">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h3>Pricing</h3>
+                    <p>Flexible plans for every business size</p>
+                    <span class="feature-link">View plans <i class="fas fa-arrow-right"></i></span>
+                </div>
+                
+                <div class="feature-card" onclick="navigateToPage('recruitment-solutions-page')">
+                    <div class="feature-icon" style="background: #e1bee7; color: #6a1b9a;">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Recruitment Solutions</h3>
+                    <p>End-to-end hiring solutions for enterprises</p>
+                    <span class="feature-link">Learn more <i class="fas fa-arrow-right"></i></span>
+                </div>
+                
+                <div class="feature-card" onclick="navigateToPage('employer-branding-page')">
+                    <div class="feature-icon" style="background: #fff9c4; color: #f57f17;">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Employer Branding</h3>
+                    <p>Showcase your company culture</p>
+                    <span class="feature-link">Build brand <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </div>
+
+            <!-- Company Section -->
+            <div class="section-header">
+                <h2><i class="fas fa-flag"></i> Company</h2>
+                <p>Learn more about CareerBridge</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card" onclick="navigateToPage('about-us-page')">
+                    <div class="feature-icon" style="background: #f3e5f5; color: #7b1fa2;">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h3>About Us</h3>
+                    <p>Our mission, vision, and values</p>
+                    <span class="feature-link">Read story <i class="fas fa-arrow-right"></i></span>
+                </div>
+                
+                <div class="feature-card" onclick="navigateToPage('contact-page')">
+                    <div class="feature-icon" style="background: #e8eaf6; color: #1a237e;">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Contact</h3>
+                    <p>Get in touch with our team</p>
+                    <span class="feature-link">Contact us <i class="fas fa-arrow-right"></i></span>
+                </div>
+                
+                <div class="feature-card" onclick="navigateToPage('press-page')">
+                    <div class="feature-icon" style="background: #ffe0b2; color: #e65100;">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <h3>Press</h3>
+                    <p>Latest news and media resources</p>
+                    <span class="feature-link">Press room <i class="fas fa-arrow-right"></i></span>
+                </div>
+                
+                <div class="feature-card" onclick="navigateToPage('blog-page')">
+                    <div class="feature-icon" style="background: #c8e6c9; color: #1b5e20;">
+                        <i class="fas fa-blog"></i>
+                    </div>
+                    <h3>Blog</h3>
+                    <p>Insights, trends, and stories</p>
+                    <span class="feature-link">Read blog <i class="fas fa-arrow-right"></i></span>
+                </div>
+                
+                <div class="feature-card" onclick="navigateToPage('careers-page')">
+                    <div class="feature-icon" style="background: #ffccbc; color: #bf360c;">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>Careers</h3>
+                    <p>Join the CareerBridge team</p>
+                    <span class="feature-link">View openings <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </div>
+
+            <!-- Featured Jobs -->
+            <div class="section-header">
+                <h2><i class="fas fa-fire"></i> Featured Jobs</h2>
+                <a href="#browse-jobs" class="view-all">View all jobs <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="jobs-grid" id="featuredJobs"></div>
+            
+            <!-- Testimonials -->
+            <div class="testimonials-section">
+                <h2>Success stories from our community</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah">
+                        <div class="testimonial-content">
+                            <p>"Found my product manager role at Google within 3 weeks. CareerBridge's resume tips were game-changing!"</p>
+                            <h4>Sarah Chen</h4>
+                            <span>Product Manager, Google</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Michael">
+                        <div class="testimonial-content">
+                            <p>"We hired 5 developers in 2 weeks through CareerBridge. Best investment for our recruiting team."</p>
+                            <h4>Michael Rodriguez</h4>
+                            <span>CTO, TechStart</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BROWSE JOBS PAGE -->
+        <section id="browse-jobs-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-search"></i> Browse Jobs</h1>
+                <p>Discover thousands of opportunities from top companies</p>
+            </div>
+            
+            <div class="jobs-layout">
+                <div class="filters-sidebar">
+                    <h3><i class="fas fa-filter"></i> Filters</h3>
+                    <button class="btn btn-outline btn-sm clear-filters" id="clearJobFilters">
+                        <i class="fas fa-times"></i> Clear all
+                    </button>
+                    
+                    <div class="filter-group">
+                        <label><i class="fas fa-search"></i> Keywords</label>
+                        <input type="text" id="jobKeywordFilter" placeholder="Job title, skills, company">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label><i class="fas fa-map-marker-alt"></i> Location</label>
+                        <input type="text" id="jobLocationFilter" placeholder="City, state, or remote">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label><i class="fas fa-briefcase"></i> Job Type</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" value="full-time"> Full-time</label>
+                            <label><input type="checkbox" value="part-time"> Part-time</label>
+                            <label><input type="checkbox" value="contract"> Contract</label>
+                            <label><input type="checkbox" value="internship"> Internship</label>
+                            <label><input type="checkbox" value="remote"> Remote</label>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label><i class="fas fa-dollar-sign"></i> Salary Range</label>
+                        <select id="salaryFilter">
+                            <option value="">Any salary</option>
+                            <option value="0-50000">Under $50k</option>
+                            <option value="50000-80000">$50k - $80k</option>
+                            <option value="80000-100000">$80k - $100k</option>
+                            <option value="100000-150000">$100k - $150k</option>
+                            <option value="150000+">$150k+</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label><i class="fas fa-clock"></i> Date Posted</label>
+                        <select id="dateFilter">
+                            <option value="any">Any time</option>
+                            <option value="24h">Last 24 hours</option>
+                            <option value="3d">Last 3 days</option>
+                            <option value="7d">Last 7 days</option>
+                            <option value="14d">Last 14 days</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label><i class="fas fa-graduation-cap"></i> Experience Level</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" value="entry"> Entry level</label>
+                            <label><input type="checkbox" value="mid"> Mid level</label>
+                            <label><input type="checkbox" value="senior"> Senior level</label>
+                            <label><input type="checkbox" value="lead"> Lead / Manager</label>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="applyJobFilters">
+                        <i class="fas fa-check"></i> Apply Filters
+                    </button>
+                </div>
+                
+                <div class="jobs-main">
+                    <div class="jobs-header">
+                        <h2><span id="jobsCount">0</span> jobs found</h2>
+                        <div class="sort-by">
+                            <label>Sort by:</label>
+                            <select id="jobSort">
+                                <option value="newest">Most recent</option>
+                                <option value="oldest">Oldest</option>
+                                <option value="salary-high">Highest salary</option>
+                                <option value="salary-low">Lowest salary</option>
+                                <option value="relevance">Relevance</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div id="jobsList" class="jobs-list"></div>
+                    
+                    <div id="pagination" class="pagination"></div>
+                </div>
+            </div>
+            
+            <!-- Job Details Modal -->
+            <div id="jobModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <div id="jobDetailsContent"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMPANIES PAGE -->
+        <section id="companies-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-building"></i> Companies</h1>
+                <p>Research and follow companies hiring now</p>
+            </div>
+            
+            <div class="company-search">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="companySearch" placeholder="Search companies by name, industry, or location">
+                </div>
+                <button class="btn btn-primary" id="searchCompaniesBtn">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+            
+            <div class="featured-companies">
+                <h3><i class="fas fa-star"></i> Featured Companies</h3>
+                <div class="companies-grid" id="featuredCompanies"></div>
+            </div>
+            
+            <div class="all-companies">
+                <h3><i class="fas fa-list"></i> All Companies</h3>
+                <div class="companies-grid" id="allCompanies"></div>
+            </div>
+            
+            <!-- Company Profile Modal -->
+            <div id="companyModal" class="modal">
+                <div class="modal-content modal-lg">
+                    <span class="close-modal">&times;</span>
+                    <div id="companyDetailsContent"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CAREER ADVICE PAGE -->
+        <section id="career-advice-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-lightbulb"></i> Career Advice</h1>
+                <p>Expert guidance to accelerate your professional journey</p>
+            </div>
+            
+            <div class="advice-categories">
+                <div class="category-card" onclick="filterAdvice('interview')">
+                    <i class="fas fa-handshake"></i>
+                    <h4>Interview Tips</h4>
+                </div>
+                <div class="category-card" onclick="filterAdvice('networking')">
+                    <i class="fas fa-users"></i>
+                    <h4>Networking</h4>
+                </div>
+                <div class="category-card" onclick="filterAdvice('skills')">
+                    <i class="fas fa-code"></i>
+                    <h4>Skill Development</h4>
+                </div>
+                <div class="category-card" onclick="filterAdvice('leadership')">
+                    <i class="fas fa-chart-line"></i>
+                    <h4>Leadership</h4>
+                </div>
+                <div class="category-card" onclick="filterAdvice('workplace')">
+                    <i class="fas fa-building"></i>
+                    <h4>Workplace Culture</h4>
+                </div>
+            </div>
+            
+            <div class="advice-grid" id="careerAdvice"></div>
+        </section>
+
+        <!-- RESUME TIPS PAGE -->
+        <section id="resume-tips-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-file-alt"></i> Resume Tips</h1>
+                <p>Create a standout resume that gets you hired</p>
+            </div>
+            
+            <div class="resume-builder">
+                <div class="resume-sidebar">
+                    <div class="resume-guide-card active" onclick="showResumeTip('basics')">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h4>Resume Basics</h4>
+                            <p>Format, length, and key sections</p>
+                        </div>
+                    </div>
+                    <div class="resume-guide-card" onclick="showResumeTip('ats')">
+                        <i class="fas fa-robot"></i>
+                        <div>
+                            <h4>ATS Optimization</h4>
+                            <p>Beat the applicant tracking systems</p>
+                        </div>
+                    </div>
+                    <div class="resume-guide-card" onclick="showResumeTip('experience')">
+                        <i class="fas fa-briefcase"></i>
+                        <div>
+                            <h4>Experience Section</h4>
+                            <p>Highlight your achievements</p>
+                        </div>
+                    </div>
+                    <div class="resume-guide-card" onclick="showResumeTip('skills')">
+                        <i class="fas fa-code"></i>
+                        <div>
+                            <h4>Skills Section</h4>
+                            <p>Showcase your technical abilities</p>
+                        </div>
+                    </div>
+                    <div class="resume-guide-card" onclick="showResumeTip('education')">
+                        <i class="fas fa-graduation-cap"></i>
+                        <div>
+                            <h4>Education & Certifications</h4>
+                            <p>Present your credentials</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="resume-content" id="resumeTipContent">
+                    <!-- Dynamic content loads here -->
+                </div>
+            </div>
+            
+            <div class="resume-templates">
+                <h3>Free Resume Templates</h3>
+                <div class="templates-grid">
+                    <div class="template-card">
+                        <div class="template-preview modern"></div>
+                        <h4>Modern Professional</h4>
+                        <button class="btn btn-outline">Use Template</button>
+                    </div>
+                    <div class="template-card">
+                        <div class="template-preview creative"></div>
+                        <h4>Creative Design</h4>
+                        <button class="btn btn-outline">Use Template</button>
+                    </div>
+                    <div class="template-card">
+                        <div class="template-preview minimalist"></div>
+                        <h4>Minimalist</h4>
+                        <button class="btn btn-outline">Use Template</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SALARY GUIDE PAGE -->
+        <section id="salary-guide-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-dollar-sign"></i> Salary Guide</h1>
+                <p>Real-time salary data across industries and roles</p>
+            </div>
+            
+            <div class="salary-search">
+                <div class="salary-search-box">
+                    <input type="text" id="salaryJobTitle" placeholder="Job title (e.g. Software Engineer)">
+                    <input type="text" id="salaryLocation" placeholder="Location">
+                    <button class="btn btn-primary" id="checkSalaryBtn">
+                        <i class="fas fa-search"></i> Check Salary
+                    </button>
+                </div>
+            </div>
+            
+            <div class="salary-categories">
+                <div class="salary-card" onclick="showSalaryRole('technology')">
+                    <i class="fas fa-laptop-code"></i>
+                    <h4>Technology</h4>
+                    <span>$85k - $165k</span>
+                </div>
+                <div class="salary-card" onclick="showSalaryRole('finance')">
+                    <i class="fas fa-chart-bar"></i>
+                    <h4>Finance</h4>
+                    <span>$75k - $155k</span>
+                </div>
+                <div class="salary-card" onclick="showSalaryRole('marketing')">
+                    <i class="fas fa-megaphone"></i>
+                    <h4>Marketing</h4>
+                    <span>$60k - $130k</span>
+                </div>
+                <div class="salary-card" onclick="showSalaryRole('sales')">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <h4>Sales</h4>
+                    <span>$55k - $145k</span>
+                </div>
+                <div class="salary-card" onclick="showSalaryRole('hr')">
+                    <i class="fas fa-users-cog"></i>
+                    <h4>Human Resources</h4>
+                    <span>$58k - $120k</span>
+                </div>
+                <div class="salary-card" onclick="showSalaryRole('operations')">
+                    <i class="fas fa-cogs"></i>
+                    <h4>Operations</h4>
+                    <span>$62k - $125k</span>
+                </div>
+            </div>
+            
+            <div id="salaryResults" class="salary-results" style="display: none;">
+                <h3>Salary Insights for <span id="salaryRoleDisplay"></span></h3>
+                <div class="salary-chart">
+                    <div class="salary-stat">
+                        <span class="stat-label">Entry Level</span>
+                        <span class="stat-value" id="entrySalary">$65k</span>
+                    </div>
+                    <div class="salary-stat">
+                        <span class="stat-label">Mid Level</span>
+                        <span class="stat-value" id="midSalary">$95k</span>
+                    </div>
+                    <div class="salary-stat">
+                        <span class="stat-label">Senior Level</span>
+                        <span class="stat-value" id="seniorSalary">$135k</span>
+                    </div>
+                    <div class="salary-stat">
+                        <span class="stat-label">Lead/Manager</span>
+                        <span class="stat-value" id="leadSalary">$165k</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- POST JOB PAGE -->
+        <section id="post-job-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-plus-circle"></i> Post a Job</h1>
+                <p>Reach millions of qualified candidates in minutes</p>
+            </div>
+            
+            <div class="post-job-container">
+                <form id="postJobForm" class="post-job-form">
+                    <div class="form-section">
+                        <h3>Job Details</h3>
+                        
+                        <div class="form-group">
+                            <label>Job Title *</label>
+                            <input type="text" id="jobTitle" placeholder="e.g. Senior Frontend Developer" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <label>Company Name *</label>
+                                <input type="text" id="jobCompany" placeholder="e.g. Google, Microsoft" required>
+                            </div>
+                            <div class="form-group col-6">
+                                <label>Company Logo</label>
+                                <input type="text" id="jobLogo" placeholder="Company initials (e.g. GOOG)">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Job Description *</label>
+                            <textarea id="jobDescription" rows="6" placeholder="Describe the role, responsibilities, and ideal candidate..." required></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group col-4">
+                                <label>Employment Type *</label>
+                                <select id="jobType" required>
+                                    <option value="">Select type</option>
+                                    <option value="Full-time">Full-time</option>
+                                    <option value="Part-time">Part-time</option>
+                                    <option value="Contract">Contract</option>
+                                    <option value="Internship">Internship</option>
+                                    <option value="Temporary">Temporary</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-4">
+                                <label>Experience Level *</label>
+                                <select id="jobLevel" required>
+                                    <option value="">Select level</option>
+                                    <option value="Entry level">Entry level</option>
+                                    <option value="Mid level">Mid level</option>
+                                    <option value="Senior level">Senior level</option>
+                                    <option value="Lead">Lead / Manager</option>
+                                    <option value="Executive">Executive</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-4">
+                                <label>Category</label>
+                                <select id="jobCategory">
+                                    <option value="">Select category</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Sales">Sales</option>
+                                    <option value="Marketing">Marketing</option>
+                                    <option value="Finance">Finance</option>
+                                    <option value="HR">Human Resources</option>
+                                    <option value="Operations">Operations</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Location & Compensation</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <label>Location *</label>
+                                <input type="text" id="jobLocation" placeholder="e.g. New York, NY or Remote" required>
+                            </div>
+                            <div class="form-group col-6">
+                                <label>Remote Policy</label>
+                                <select id="jobRemote">
+                                    <option value="On-site">On-site</option>
+                                    <option value="Hybrid">Hybrid</option>
+                                    <option value="Fully Remote">Fully Remote</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group col-4">
+                                <label>Salary Minimum ($)</label>
+                                <input type="number" id="jobSalaryMin" placeholder="60000">
+                            </div>
+                            <div class="form-group col-4">
+                                <label>Salary Maximum ($)</label>
+                                <input type="number" id="jobSalaryMax" placeholder="90000">
+                            </div>
+                            <div class="form-group col-4">
+                                <label>Salary Period</label>
+                                <select id="jobSalaryPeriod">
+                                    <option value="year">Per year</option>
+                                    <option value="month">Per month</option>
+                                    <option value="hour">Per hour</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Skills & Requirements</h3>
+                        
+                        <div class="form-group">
+                            <label>Required Skills</label>
+                            <div class="skills-input">
+                                <input type="text" id="skillInput" placeholder="Type a skill and press Enter">
+                                <div id="skillsList" class="skills-list"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Qualifications</label>
+                            <textarea id="jobQualifications" rows="3" placeholder="List the minimum qualifications..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="previewJobBtn">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                        <button type="submit" class="btn btn-primary btn-large">
+                            <i class="fas fa-cloud-upload-alt"></i> Publish Job
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="post-job-sidebar">
+                    <div class="pricing-card">
+                        <h4><i class="fas fa-rocket"></i> Boost Your Job Post</h4>
+                        <p>Get 5x more applicants with featured listing</p>
+                        <div class="pricing-option">
+                            <input type="radio" name="promotion" id="standard" checked>
+                            <label for="standard">
+                                <span class="plan">Standard</span>
+                                <span class="price">Free</span>
+                            </label>
+                        </div>
+                        <div class="pricing-option">
+                            <input type="radio" name="promotion" id="featured">
+                            <label for="featured">
+                                <span class="plan">Featured</span>
+                                <span class="price">$99</span>
+                            </label>
+                        </div>
+                        <div class="pricing-option">
+                            <input type="radio" name="promotion" id="urgent">
+                            <label for="urgent">
+                                <span class="plan">Urgent</span>
+                                <span class="price">$199</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="tips-card">
+                        <h4><i class="fas fa-lightbulb"></i> Tips for great job posts</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Use a clear, specific title</li>
+                            <li><i class="fas fa-check"></i> Highlight key responsibilities</li>
+                            <li><i class="fas fa-check"></i> List required skills first</li>
+                            <li><i class="fas fa-check"></i> Include salary range</li>
+                            <li><i class="fas fa-check"></i> Describe your company culture</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEARCH CANDIDATES PAGE -->
+        <section id="search-candidates-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-user-search"></i> Search Candidates</h1>
+                <p>Find and hire the best talent for your team</p>
+            </div>
+            
+            <div class="candidates-search">
+                <div class="search-filters">
+                    <div class="filter-group">
+                        <label>Skills / Keywords</label>
+                        <input type="text" placeholder="e.g. React, Python, Marketing">
+                    </div>
+                    <div class="filter-group">
+                        <label>Location</label>
+                        <input type="text" placeholder="City or remote">
+                    </div>
+                    <div class="filter-group">
+                        <label>Experience</label>
+                        <select>
+                            <option>Any experience</option>
+                            <option>0-2 years</option>
+                            <option>3-5 years</option>
+                            <option>5-8 years</option>
+                            <option>8+ years</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-search"></i> Search Candidates
+                    </button>
+                </div>
+                
+                <div class="candidates-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">12,345+</span>
+                        <span class="stat-label">Active Candidates</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">5,678</span>
+                        <span class="stat-label">Available Now</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">892</span>
+                        <span class="stat-label">Added Today</span>
+                    </div>
+                </div>
+                
+                <div class="candidates-grid">
+                    <div class="candidate-card">
+                        <div class="candidate-header">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Candidate">
+                            <div>
+                                <h4>Jessica Wong</h4>
+                                <p>Senior Frontend Developer</p>
+                            </div>
+                            <span class="availability available">Available Now</span>
+                        </div>
+                        <div class="candidate-skills">
+                            <span>React</span>
+                            <span>TypeScript</span>
+                            <span>Next.js</span>
+                            <span>Tailwind</span>
+                            <span>Node.js</span>
+                        </div>
+                        <div class="candidate-footer">
+                            <span><i class="fas fa-map-marker-alt"></i> San Francisco, CA</span>
+                            <span><i class="fas fa-briefcase"></i> 5 years</span>
+                            <button class="btn btn-outline btn-sm" onclick="window.location.href='candidate-profile.html?id=1'">View Profile</button>
+                        </div>
+                    </div>
+                    
+                    <div class="candidate-card">
+                        <div class="candidate-header">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Candidate">
+                            <div>
+                                <h4>David Kim</h4>
+                                <p>Product Manager</p>
+                            </div>
+                            <span class="availability">Open to Offers</span>
+                        </div>
+                        <div class="candidate-skills">
+                            <span>Product Strategy</span>
+                            <span>Agile</span>
+                            <span>User Research</span>
+                            <span>Analytics</span>
+                            <span>Roadmapping</span>
+                        </div>
+                        <div class="candidate-footer">
+                            <span><i class="fas fa-map-marker-alt"></i> New York, NY</span>
+                            <span><i class="fas fa-briefcase"></i> 7 years</span>
+                            <button class="btn btn-outline btn-sm" onclick="window.location.href='candidate-profile.html?id=2'">View Profile</button>
+                        </div>
+                    </div>
+                    
+                    <div class="candidate-card">
+                        <div class="candidate-header">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Candidate">
+                            <div>
+                                <h4>Priya Patel</h4>
+                                <p>DevOps Engineer</p>
+                            </div>
+                            <span class="availability available">Available Now</span>
+                        </div>
+                        <div class="candidate-skills">
+                            <span>AWS</span>
+                            <span>Kubernetes</span>
+                            <span>Terraform</span>
+                            <span>CI/CD</span>
+                            <span>Docker</span>
+                        </div>
+                        <div class="candidate-footer">
+                            <span><i class="fas fa-map-marker-alt"></i> Remote</span>
+                            <span><i class="fas fa-briefcase"></i> 4 years</span>
+                            <button class="btn btn-outline btn-sm" onclick="window.location.href='candidate-profile.html?id=3'">View Profile</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRICING PAGE -->
+        <section id="pricing-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-tag"></i> Simple, transparent pricing</h1>
+                <p>Choose the perfect plan for your hiring needs</p>
+            </div>
+            
+            <div class="pricing-toggle">
+                <span>Monthly</span>
+                <label class="switch">
+                    <input type="checkbox" id="pricingToggle">
+                    <span class="slider"></span>
+                </label>
+                <span>Yearly <span class="save-badge">Save 20%</span></span>
+            </div>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card featured">
+                    <div class="popular-badge">Most Popular</div>
+                    <h3>Starter</h3>
+                    <div class="price">
+                        <span class="currency">$</span>
+                        <span class="amount" id="starterPrice">99</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <p class="price-description">For small teams and startups</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Post 5 jobs per month</li>
+                        <li><i class="fas fa-check"></i> Search candidate database</li>
+                        <li><i class="fas fa-check"></i> Basic analytics</li>
+                        <li><i class="fas fa-check"></i> Email support</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Featured listings</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Priority support</li>
+                    </ul>
+                    <button class="btn btn-outline btn-block">Get Started</button>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Professional</h3>
+                    <div class="price">
+                        <span class="currency">$</span>
+                        <span class="amount" id="professionalPrice">249</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <p class="price-description">For growing companies</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Post 20 jobs per month</li>
+                        <li><i class="fas fa-check"></i> Advanced candidate search</li>
+                        <li><i class="fas fa-check"></i> Full analytics suite</li>
+                        <li><i class="fas fa-check"></i> Priority email support</li>
+                        <li><i class="fas fa-check"></i> 5 featured listings</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Dedicated account manager</li>
+                    </ul>
+                    <button class="btn btn-primary btn-block">Get Started</button>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">
+                        <span class="currency">$</span>
+                        <span class="amount" id="enterprisePrice">599</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <p class="price-description">For large organizations</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Unlimited job posts</li>
+                        <li><i class="fas fa-check"></i> Premium candidate search</li>
+                        <li><i class="fas fa-check"></i> Custom analytics</li>
+                        <li><i class="fas fa-check"></i> 24/7 phone support</li>
+                        <li><i class="fas fa-check"></i> Unlimited featured listings</li>
+                        <li><i class="fas fa-check"></i> Dedicated account manager</li>
+                    </ul>
+                    <button class="btn btn-outline btn-block">Contact Sales</button>
+                </div>
+            </div>
+            
+            <div class="faq-section">
+                <h3>Frequently Asked Questions</h3>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h4>Can I cancel anytime?</h4>
+                        <p>Yes, you can cancel your subscription at any time. No long-term contracts required.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>What payment methods do you accept?</h4>
+                        <p>We accept all major credit cards, PayPal, and bank transfers for enterprise plans.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Do you offer discounts for non-profits?</h4>
+                        <p>Yes, we offer special pricing for qualified non-profit organizations. Contact us to learn more.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Is there a free trial?</h4>
+                        <p>Yes, all plans come with a 14-day free trial. No credit card required.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RECRUITMENT SOLUTIONS PAGE -->
+        <section id="recruitment-solutions-page" class="page">
+            <div class="solutions-hero">
+                <h1>Enterprise Recruitment Solutions</h1>
+                <p>End-to-end hiring solutions for forward-thinking companies</p>
+            </div>
+            
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>AI-Powered Matching</h3>
+                    <p>Our algorithm identifies the best candidates based on skills, experience, and cultural fit.</p>
+                </div>
+                <div class="solution-card">
+                    <i class="fas fa-video"></i>
+                    <h3>Video Interviews</h3>
+                    <p>Built-in one-way and live video interviewing platform.</p>
+                </div>
+                <div class="solution-card">
+                    <i class="fas fa-file-signature"></i>
+                    <h3>Offer Management</h3>
+                    <p>Streamlined offer creation, approval, and electronic signatures.</p>
+                </div>
+                <div class="solution-card">
+                    <i class="fas fa-chart-bar"></i>
+                    <h3>Hiring Analytics</h3>
+                    <p>Comprehensive metrics on time-to-hire, cost-per-hire, and source quality.</p>
+                </div>
+                <div class="solution-card">
+                    <i class="fas fa-building"></i>
+                    <h3>Employer Branding</h3>
+                    <p>Custom career pages and branded recruitment marketing.</p>
+                </div>
+                <div class="solution-card">
+                    <i class="fas fa-globe"></i>
+                    <h3>Global Hiring</h3>
+                    <p>Compliance and payroll solutions for international talent.</p>
+                </div>
+            </div>
+            
+            <div class="cta-section">
+                <h2>Ready to transform your hiring?</h2>
+                <button class="btn btn-primary btn-large">Schedule a Demo</button>
+            </div>
+        </section>
+
+        <!-- EMPLOYER BRANDING PAGE -->
+        <section id="employer-branding-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-star"></i> Employer Branding</h1>
+                <p>Showcase what makes your company unique</p>
+            </div>
+            
+            <div class="branding-showcase">
+                <div class="branding-card">
+                    <i class="fas fa-images"></i>
+                    <h3>Company Profile</h3>
+                    <p>Create a compelling company page with photos, videos, and culture highlights</p>
+                    <button class="btn btn-outline">Set Up Profile</button>
+                </div>
+                <div class="branding-card">
+                    <i class="fas fa-video"></i>
+                    <h3>Video Stories</h3>
+                    <p>Share employee testimonials and day-in-the-life videos</p>
+                    <button class="btn btn-outline">Upload Video</button>
+                </div>
+                <div class="branding-card">
+                    <i class="fas fa-medal"></i>
+                    <h3>Awards & Recognition</h3>
+                    <p>Highlight your achievements and workplace certifications</p>
+                    <button class="btn btn-outline">Add Awards</button>
+                </div>
+            </div>
+            
+            <div class="branding-preview">
+                <h3>How your company page looks</h3>
+                <div class="company-preview">
+                    <div class="preview-header">
+                        <div class="company-logo-large">CB</div>
+                        <div>
+                            <h2>CareerBridge</h2>
+                            <p>Technology • 200-500 employees • San Francisco, CA</p>
+                        </div>
+                    </div>
+                    <div class="preview-stats">
+                        <div>
+                            <strong>12</strong>
+                            <span>Open jobs</span>
+                        </div>
+                        <div>
+                            <strong>5.2k</strong>
+                            <span>Followers</span>
+                        </div>
+                        <div>
+                            <strong>4.8</strong>
+                            <span>Rating</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT US PAGE -->
+        <section id="about-us-page" class="page">
+            <div class="about-hero">
+                <h1>We're on a mission to <span class="gradient-text">bridge careers</span></h1>
+                <p>CareerBridge connects talented professionals with innovative companies worldwide.</p>
+            </div>
+            
+            <div class="stats-showcase">
+                <div class="stat-block">
+                    <span class="stat-number">500K+</span>
+                    <span class="stat-label">Job Seekers</span>
+                </div>
+                <div class="stat-block">
+                    <span class="stat-number">10K+</span>
+                    <span class="stat-label">Companies</span>
+                </div>
+                <div class="stat-block">
+                    <span class="stat-number">50K+</span>
+                    <span class="stat-label">Jobs Filled</span>
+                </div>
+                <div class="stat-block">
+                    <span class="stat-number">15</span>
+                    <span class="stat-label">Countries</span>
+                </div>
+            </div>
+            
+            <div class="values-section">
+                <h2>Our Values</h2>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <i class="fas fa-handshake"></i>
+                        <h3>Trust</h3>
+                        <p>We build trust through transparency and reliability.</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Innovation</h3>
+                        <p>We continuously evolve to serve our community better.</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-users"></i>
+                        <h3>Community</h3>
+                        <p>We believe in the power of meaningful connections.</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Growth</h3>
+                        <p>We empower careers and businesses to reach new heights.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="team-section">
+                <h2>Leadership Team</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="CEO">
+                        <h4>James Wilson</h4>
+                        <p>Co-Founder & CEO</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="CTO">
+                        <h4>Sarah Chen</h4>
+                        <p>Co-Founder & CTO</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="COO">
+                        <h4>Michael Adebayo</h4>
+                        <p>Chief Operating Officer</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT PAGE -->
+        <section id="contact-page" class="page">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h1>Get in touch</h1>
+                    <p>We're here to help and answer any questions you might have.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <p>support@careerbridge.com</p>
+                                <p>sales@careerbridge.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Phone</h4>
+                                <p>+1 (888) 123-4567</p>
+                                <p>Mon-Fri, 9am-6pm EST</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Office</h4>
+                                <p>123 Market Street, Suite 400</p>
+                                <p>San Francisco, CA 94105</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-contact">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h2>Send us a message</h2>
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <label>First Name</label>
+                                <input type="text" placeholder="John">
+                            </div>
+                            <div class="form-group col-6">
+                                <label>Last Name</label>
+                                <input type="text" placeholder="Doe">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <select>
+                                <option>General Inquiry</option>
+                                <option>Sales Question</option>
+                                <option>Technical Support</option>
+                                <option>Partnerships</option>
+                                <option>Careers</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea rows="5" placeholder="How can we help?"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRESS PAGE -->
+        <section id="press-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-newspaper"></i> Press Room</h1>
+                <p>Latest news, announcements, and media resources</p>
+            </div>
+            
+            <div class="press-grid">
+                <div class="press-card featured">
+                    <div class="press-date">March 15, 2026</div>
+                    <h3>CareerBridge Raises $50M Series C to Expand Global Footprint</h3>
+                    <p>New funding will accelerate product development and international expansion.</p>
+                    <a href="#" class="read-more">Read Press Release <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="press-card">
+                    <div class="press-date">February 28, 2026</div>
+                    <h3>CareerBridge Launches AI-Powered Candidate Matching</h3>
+                    <p>New feature helps employers find qualified candidates 3x faster.</p>
+                    <a href="#" class="read-more">Read Article</a>
+                </div>
+                
+                <div class="press-card">
+                    <div class="press-date">January 10, 2026</div>
+                    <h3>Named in Forbes' Best Startup Employers 2026</h3>
+                    <p>CareerBridge recognized for employee satisfaction and growth.</p>
+                    <a href="#" class="read-more">Read Article</a>
+                </div>
+            </div>
+            
+            <div class="media-resources">
+                <h2>Media Resources</h2>
+                <div class="resources-grid">
+                    <div class="resource-item">
+                        <i class="fas fa-file-image"></i>
+                        <h4>Logos & Brand Assets</h4>
+                        <button class="btn btn-outline btn-sm">Download</button>
+                    </div>
+                    <div class="resource-item">
+                        <i class="fas fa-file-alt"></i>
+                        <h4>Fact Sheet</h4>
+                        <button class="btn btn-outline btn-sm">Download</button>
+                    </div>
+                    <div class="resource-item">
+                        <i class="fas fa-file-image"></i>
+                        <h4>Leadership Photos</h4>
+                        <button class="btn btn-outline btn-sm">Download</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOG PAGE -->
+        <section id="blog-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-blog"></i> CareerBridge Blog</h1>
+                <p>Insights, trends, and stories from the world of work</p>
+            </div>
+            
+            <div class="blog-grid">
+                <div class="blog-card featured">
+                    <div class="blog-image"></div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="fas fa-user"></i> Sarah Chen</span>
+                            <span><i class="fas fa-clock"></i> 5 min read</span>
+                        </div>
+                        <h3>The Future of Remote Work: 2026 Trends</h3>
+                        <p>How companies are adapting to hybrid and distributed teams.</p>
+                        <a href="#" class="read-more">Read Article <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-image"></div>
+                    <h4>10 Resume Mistakes Costing You Interviews</h4>
+                    <p class="blog-excerpt">Avoid these common pitfalls to land more interviews.</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-image"></div>
+                    <h4>How to Negotiate Your Salary Like a Pro</h4>
+                    <p class="blog-excerpt">Expert tips and scripts for compensation conversations.</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CAREERS PAGE -->
+        <section id="careers-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-user-tie"></i> Join the CareerBridge Team</h1>
+                <p>Help us build the future of work</p>
+            </div>
+            
+            <div class="careers-hero">
+                <div class="careers-content">
+                    <h2>Why work with us?</h2>
+                    <div class="perks-grid">
+                        <div class="perk">
+                            <i class="fas fa-home"></i>
+                            <span>Remote-first culture</span>
+                        </div>
+                        <div class="perk">
+                            <i class="fas fa-heart"></i>
+                            <span>Comprehensive benefits</span>
+                        </div>
+                        <div class="perk">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Equity for all employees</span>
+                        </div>
+                        <div class="perk">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>$2k learning stipend</span>
+                        </div>
+                        <div class="perk">
+                            <i class="fas fa-plane"></i>
+                            <span>Annual team retreats</span>
+                        </div>
+                        <div class="perk">
+                            <i class="fas fa-clock"></i>
+                            <span>Flexible hours</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="open-roles">
+                <h3>Open Positions</h3>
+                <div class="roles-list">
+                    <div class="role-item">
+                        <div>
+                            <h4>Senior Software Engineer</h4>
+                            <p>Engineering • Remote • Full-time</p>
+                        </div>
+                        <button class="btn btn-outline btn-sm">Apply Now</button>
+                    </div>
+                    <div class="role-item">
+                        <div>
+                            <h4>Product Manager</h4>
+                            <p>Product • San Francisco • Full-time</p>
+                        </div>
+                        <button class="btn btn-outline btn-sm">Apply Now</button>
+                    </div>
+                    <div class="role-item">
+                        <div>
+                            <h4>Enterprise Account Executive</h4>
+                            <p>Sales • New York • Full-time</p>
+                        </div>
+                        <button class="btn btn-outline btn-sm">Apply Now</button>
+                    </div>
+                    <div class="role-item">
+                        <div>
+                            <h4>Customer Success Manager</h4>
+                            <p>Success • Remote • Full-time</p>
+                        </div>
+                        <button class="btn btn-outline btn-sm">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DASHBOARD PAGE -->
+        <section id="dashboard-page" class="page">
+            <div class="dashboard-header">
+                <h1>Welcome back, <span id="dashboardUserName">Alex</span>!</h1>
+                <p>Here's what's happening with your career</p>
+            </div>
+            
+            <div id="jobseekerDashboard" class="dashboard-content">
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-file-alt"></i>
+                        <div>
+                            <span class="stat-label">Applications</span>
+                            <span class="stat-number">12</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-bookmark"></i>
+                        <div>
+                            <span class="stat-label">Saved Jobs</span>
+                            <span class="stat-number">8</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-eye"></i>
+                        <div>
+                            <span class="stat-label">Profile Views</span>
+                            <span class="stat-number">45</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <div>
+                            <span class="stat-label">Interviews</span>
+                            <span class="stat-number">3</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Recent Applications</h3>
+                        <div class="application-item">
+                            <div>
+                                <h4>Senior Frontend Developer</h4>
+                                <p>Google • Applied 2 days ago</p>
+                            </div>
+                            <span class="status pending">Under Review</span>
+                        </div>
+                        <div class="application-item">
+                            <div>
+                                <h4>Product Designer</h4>
+                                <p>Apple • Applied 5 days ago</p>
+                            </div>
+                            <span class="status interview">Interview</span>
+                        </div>
+                        <a href="#" class="view-all-link">View all applications →</a>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <h3>Recommended Jobs</h3>
+                        <div class="job-item">
+                            <h4>Staff Engineer</h4>
+                            <p>Netflix • Remote</p>
+                        </div>
+                        <div class="job-item">
+                            <h4>Engineering Manager</h4>
+                            <p>Meta • Hybrid</p>
+                        </div>
+                        <a href="#" class="view-all-link">View all recommendations →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="employerDashboard" style="display: none;">
+                <!-- Employer dashboard content -->
+            </div>
+        </section>
+
+        <!-- LOGIN PAGE -->
+        <section id="login-page" class="page">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <div class="auth-header">
+                        <i class="fas fa-bridge auth-logo"></i>
+                        <h2>Welcome back</h2>
+                        <p>Sign in to your CareerBridge account</p>
+                    </div>
+                    
+                    <form id="loginForm" class="auth-form">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="loginEmail" placeholder="you@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="loginPassword" placeholder="••••••••" required>
+                            <a href="#" class="forgot-link">Forgot password?</a>
+                        </div>
+                        
+                        <div class="role-selector">
+                            <p>I'm a:</p>
+                            <div class="role-options">
+                                <label class="role-option">
+                                    <input type="radio" name="loginRole" value="jobseeker" checked>
+                                    <span><i class="fas fa-user"></i> Job Seeker</span>
+                                </label>
+                                <label class="role-option">
+                                    <input type="radio" name="loginRole" value="employer">
+                                    <span><i class="fas fa-building"></i> Employer</span>
+                                </label>
+                                <label class="role-option">
+                                    <input type="radio" name="loginRole" value="admin">
+                                    <span><i class="fas fa-shield-alt"></i> Admin</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        </button>
+                    </form>
+                    
+                    <div class="auth-footer">
+                        <p>Don't have an account? <a href="#register" onclick="navigateToPage('register-page')">Sign up</a></p>
+                    </div>
+                    
+                    <div class="auth-divider">
+                        <span>or continue with</span>
+                    </div>
+                    
+                    <div class="social-auth">
+                        <button class="btn-social">
+                            <i class="fab fa-google"></i> Google
+                        </button>
+                        <button class="btn-social">
+                            <i class="fab fa-linkedin-in"></i> LinkedIn
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REGISTER PAGE -->
+        <section id="register-page" class="page">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <div class="auth-header">
+                        <i class="fas fa-bridge auth-logo"></i>
+                        <h2>Create your account</h2>
+                        <p>Join CareerBridge today</p>
+                    </div>
+                    
+                    <div class="account-type-selector">
+                        <button class="type-btn active" id="registerSeekerBtn" onclick="switchAccountType('seeker')">
+                            <i class="fas fa-user"></i>
+                            <span>Job Seeker</span>
+                        </button>
+                        <button class="type-btn" id="registerEmployerBtn" onclick="switchAccountType('employer')">
+                            <i class="fas fa-building"></i>
+                            <span>Employer</span>
+                        </button>
+                    </div>
+                    
+                    <form id="registerForm" class="auth-form">
+                        <div id="seekerRegisterFields">
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <label>First Name</label>
+                                    <input type="text" placeholder="Alex" required>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>Last Name</label>
+                                    <input type="text" placeholder="Morgan" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="employerRegisterFields" style="display: none;">
+                            <div class="form-group">
+                                <label>Company Name</label>
+                                <input type="text" placeholder="e.g. Google, Microsoft" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="you@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" placeholder="Create a password" required>
+                            <small class="password-hint">Minimum 8 characters with 1 number and 1 letter</small>
+                        </div>
+                        
+                        <div class="form-group terms">
+                            <label class="checkbox">
+                                <input type="checkbox" required> I agree to the 
+                                <a href="#">Terms of Service</a> and 
+                                <a href="#">Privacy Policy</a>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-user-plus"></i> Create Account
+                        </button>
+                    </form>
+                    
+                    <div class="auth-footer">
+                        <p>Already have an account? <a href="#login" onclick="navigateToPage('login-page')">Sign in</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-bridge"></i> Career<span>Bridge</span>
+                    </div>
+                    <p>Bridging talent and opportunity worldwide.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>For Job Seekers</h4>
+                    <ul>
+                        <li><a href="#browse-jobs" onclick="navigateToPage('browse-jobs-page')">Browse Jobs</a></li>
+                        <li><a href="#companies" onclick="navigateToPage('companies-page')">Companies</a></li>
+                        <li><a href="#career-advice" onclick="navigateToPage('career-advice-page')">Career Advice</a></li>
+                        <li><a href="#resume-tips" onclick="navigateToPage('resume-tips-page')">Resume Tips</a></li>
+                        <li><a href="#salary-guide" onclick="navigateToPage('salary-guide-page')">Salary Guide</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>For Employers</h4>
+                    <ul>
+                        <li><a href="#post-job" onclick="navigateToPage('post-job-page')">Post a Job</a></li>
+                        <li><a href="#search-candidates" onclick="navigateToPage('search-candidates-page')">Search Candidates</a></li>
+                        <li><a href="#pricing" onclick="navigateToPage('pricing-page')">Pricing</a></li>
+                        <li><a href="#recruitment-solutions" onclick="navigateToPage('recruitment-solutions-page')">Recruitment Solutions</a></li>
+                        <li><a href="#employer-branding" onclick="navigateToPage('employer-branding-page')">Employer Branding</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#about-us" onclick="navigateToPage('about-us-page')">About Us</a></li>
+                        <li><a href="#contact" onclick="navigateToPage('contact-page')">Contact</a></li>
+                        <li><a href="#press" onclick="navigateToPage('press-page')">Press</a></li>
+                        <li><a href="#blog" onclick="navigateToPage('blog-page')">Blog</a></li>
+                        <li><a href="#careers" onclick="navigateToPage('careers-page')">Careers</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 CareerBridge. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Cookies</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-content">
+            <i class="fas fa-check-circle toast-icon"></i>
+            <span id="toastMessage">Success!</span>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+<!-- Connect additional JS files for full interactivity -->
+<script src="app.js"></script>
+<script src="login-role-selector.js"></script>
+<script src="role-selector.js"></script>
+</html>
+</body>
+</html>
