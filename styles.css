@@ -23,6 +23,7 @@
     --radius-xl: 16px;
     --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --navbar-height: 72px;
 }
 
 /* ===== RESET & BASE ===== */
@@ -2421,7 +2422,11 @@ body.role-jobseeker .jobseeker-only {
     border-radius: var(--radius);
     box-shadow: var(--shadow-sm);
     position: sticky;
-    top: 92px;
+    top: calc(var(--navbar-height) + 8px);
+    z-index: 40;
+    max-height: calc(100vh - (var(--navbar-height) + 48px));
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .search-filters .filter-group {
