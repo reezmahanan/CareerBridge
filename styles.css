@@ -2409,10 +2409,12 @@ body.role-jobseeker .jobseeker-only {
 /* ===== CANDIDATES SEARCH PAGE ===== */
 .candidates-search {
     display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 24px;
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 32px;
     align-items: start;
     margin-top: 24px;
+    padding-bottom: 40px;
+    padding-top: 12px;
 }
 
 .search-filters {
@@ -2481,6 +2483,13 @@ body.role-jobseeker .jobseeker-only {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 18px;
+    margin-top: 64px;
+}
+
+/* Make sure right column content has extra top padding so cards don't sit directly under filters */
+.candidates-search > .candidates-stats,
+.candidates-search > .candidates-grid {
+    padding-top: 8px;
 }
 
 .candidate-card {
