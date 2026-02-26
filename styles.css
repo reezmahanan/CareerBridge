@@ -2723,3 +2723,80 @@ body.role-jobseeker .jobseeker-only {
     .pricing-grid { grid-template-columns: 1fr; }
     .solutions-hero { padding: 32px 0; }
 }
+
+/* ===== Employer Branding Styles ===== */
+.branding-hero {
+    padding: 48px 0 12px;
+}
+.branding-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 460px;
+    gap: 30px;
+    align-items: center;
+}
+.branding-copy h1 {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+}
+.branding-copy .lead {
+    color: var(--gray);
+    margin-bottom: 16px;
+}
+.branding-list {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+}
+.branding-list li {
+    background: var(--gray-light);
+    padding: 8px 12px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+.branding-visual img { border-radius: 12px; box-shadow: var(--shadow-lg); width:100%; }
+.branding-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+    margin: 28px 0;
+}
+.branding-feature {
+    background: var(--white);
+    padding: 20px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    text-align: left;
+    border: 1px solid var(--border-color);
+}
+.branding-feature i { font-size: 1.5rem; color: var(--primary); margin-bottom: 8px; }
+.branding-preview-section { margin: 28px 0; }
+.company-preview-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    background: var(--white);
+    padding: 18px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+.company-banner { height: 90px; background: linear-gradient(90deg,var(--primary) 0%, #6a1b9a 100%); border-radius: 8px; margin-bottom: 12px; }
+.company-info { display:flex; gap:12px; align-items:center; margin-bottom: 12px; }
+.company-logo-large { width:56px; height:56px; border-radius:12px; background:var(--primary); color:var(--white); display:flex; align-items:center; justify-content:center; font-weight:700; }
+.company-stats { display:flex; gap:18px; color:var(--gray); margin-top:8px; }
+.preview-right h4 { margin-bottom:8px; }
+.preview-cta { display:flex; gap:10px; margin-top:12px; }
+.branding-gallery { margin: 28px 0; }
+.gallery-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; }
+.gallery-grid img { width:100%; height:140px; object-fit:cover; border-radius:8px; }
+.branding-cta { text-align:center; padding: 24px 12px; margin: 28px 0 80px; border-radius:12px; background: linear-gradient(90deg, rgba(67,97,238,0.04), rgba(58,86,212,0.02)); }
+
+@media (max-width: 900px) {
+    .branding-hero-inner { grid-template-columns: 1fr; }
+    .company-preview-card { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr; }
+}
