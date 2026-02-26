@@ -2580,3 +2580,146 @@ body.role-jobseeker .jobseeker-only {
         top: 0;
     }
 }
+
+/* ===== Recruitment Solutions Styles ===== */
+.solutions-hero {
+    padding: 56px 0 24px;
+}
+.solutions-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 480px;
+    gap: 40px;
+    align-items: center;
+}
+.solutions-hero-copy h1 {
+    font-size: 2.6rem;
+    margin-bottom: 12px;
+}
+.solutions-hero-copy .lead {
+    color: var(--gray);
+    font-size: 1.05rem;
+    margin-bottom: 18px;
+}
+.hero-highlights {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.hero-highlights li {
+    background: var(--gray-light);
+    padding: 8px 12px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--dark);
+    font-weight: 600;
+}
+.solutions-hero-visual img {
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+    display: block;
+}
+.solutions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin: 32px 0 48px;
+}
+.solution-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    box-shadow: var(--shadow);
+    text-align: left;
+    border: 1px solid var(--border-color);
+}
+.solution-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    background: var(--primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+}
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 40px 0;
+}
+.pricing-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+}
+.pricing-featured {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+.pricing-card h4 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+.pricing-card .price {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 12px;
+}
+.pricing-card ul {
+    text-align: left;
+    color: var(--gray);
+    margin: 12px 0 18px;
+}
+.pricing-card ul li {
+    margin-bottom: 8px;
+}
+.case-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    margin-bottom: 36px;
+}
+.case-card {
+    display: flex;
+    gap: 14px;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+.case-card img {
+    width: 140px;
+    height: 100%;
+    object-fit: cover;
+}
+.case-card div {
+    padding: 14px;
+}
+.cta-section.compact {
+    background: linear-gradient(90deg, rgba(67,97,238,0.06), rgba(58,86,212,0.04));
+    padding: 28px;
+    border-radius: 12px;
+    text-align: center;
+    margin: 40px 0 80px;
+}
+.cta-section.compact h2 {
+    margin-bottom: 8px;
+}
+
+@media (max-width: 900px) {
+    .solutions-hero-inner { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .solutions-hero { padding: 32px 0; }
+}
