@@ -224,6 +224,8 @@ function navigateToPage(pageId) {
             renderCareerAdvice();
         } else if (pageId === 'resume-tips-page') {
             showResumeTip('basics');
+        } else if (pageId === 'profile-page') {
+            renderProfilePage();
         }
         
         // Update active nav link
@@ -340,6 +342,41 @@ function updateDashboard() {
     } else if (currentUser.role === 'employer') {
         if (jobseekerDashboard) jobseekerDashboard.style.display = 'none';
         if (employerDashboard) employerDashboard.style.display = 'block';
+    }
+}
+
+// ===== PROFILE RENDERING =====
+function renderProfilePage() {
+    const nameEl = document.getElementById('profileName');
+    const emailEl = document.getElementById('profileEmail');
+    const roleEl = document.getElementById('profileRole');
+    const avatarEl = document.getElementById('profileAvatar');
+    const bioEl = document.getElementById('profileBio');
+    const skillsEl = document.getElementById('profileSkills');
+
+    if (!currentUser) {
+        // Not logged in: redirect to login
+        navigateToPage('login-page');
+        showToast('Please sign in to view your profile', 'error');
+        return;
+    }
+
+    if (nameEl) nameEl.textContent = currentUser.name || (currentUser.email || '').split('@')[0];
+    if (emailEl) emailEl.textContent = currentUser.email || '';
+    if (roleEl) roleEl.textContent = (currentUser.role === 'employer') ? 'Employer' : 'Job Seeker';
+    if (avatarEl) avatarEl.src = currentUser.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent((currentUser.name || '').replace(/\s+/g,'+'))}&background=4361ee&color=fff`;
+    if (bioEl) bioEl.textContent = currentUser.bio || 'Tell us about yourself.';
+
+    // Render skills if present
+    if (skillsEl) {
+        skillsEl.innerHTML = '';
+        const userSkills = currentUser.skills || ['Communication', 'Teamwork'];
+        userSkills.forEach(s => {
+            const span = document.createElement('span');
+            span.className = 'skill-tag';
+            span.textContent = s;
+            skillsEl.appendChild(span);
+        });
     }
 }
 

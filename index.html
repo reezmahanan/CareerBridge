@@ -66,7 +66,7 @@
                     <i class="fas fa-chevron-down"></i>
                     <div class="dropdown-menu">
                         <a href="#dashboard"><i class="fas fa-chart-pie"></i> Dashboard</a>
-                        <a href="candidate-profile.html?id=1"><i class="fas fa-user-circle"></i> My Profile</a>
+                        <a href="#profile" class="nav-link"><i class="fas fa-user-circle"></i> My Profile</a>
                         <a href="#applications"><i class="fas fa-file-signature"></i> My Applications</a>
                         <a href="#saved-jobs"><i class="fas fa-bookmark"></i> Saved Jobs</a>
                         <div class="dropdown-divider"></div>
@@ -379,6 +379,38 @@
                             <h3>Engineering Manager</h3>
                             <div class="company-name">Meta</div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROFILE PAGE -->
+        <section id="profile-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-user-circle"></i> My Profile</h1>
+                <p>View and edit your profile information</p>
+            </div>
+
+            <div class="profile-card dashboard-card">
+                <div style="display:flex; gap:20px; align-items:center;">
+                    <img id="profileAvatar" src="https://ui-avatars.com/api/?name=Alex+Morgan&background=4361ee&color=fff" alt="avatar" style="width:84px;height:84px;border-radius:50%;object-fit:cover;">
+                    <div>
+                        <h2 id="profileName">Alex Morgan</h2>
+                        <div id="profileRole">Job Seeker</div>
+                        <div id="profileEmail" style="color:var(--gray);">admin@example.com</div>
+                    </div>
+                </div>
+
+                <div style="margin-top:20px;">
+                    <h3>About</h3>
+                    <p id="profileBio">Experienced professional. Update your bio in settings.</p>
+                </div>
+
+                <div style="margin-top:16px;">
+                    <h3>Skills</h3>
+                    <div id="profileSkills" class="skills-list">
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">TypeScript</span>
                     </div>
                 </div>
             </div>
