@@ -1168,6 +1168,23 @@ function setupEventListeners() {
             renderAllCompanies();
         });
     }
+
+    // Social auth buttons (simulate OAuth flow)
+    document.querySelectorAll('.btn-social').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const text = (this.textContent || '').toLowerCase();
+            let provider = 'social';
+            if (text.includes('google')) provider = 'Google';
+            else if (text.includes('linkedin') || text.includes('linkedin-in')) provider = 'LinkedIn';
+
+            // Simulate a social login by creating a provider-based email
+            const email = (provider === 'Google' ? 'google_user@example.com' : (provider === 'LinkedIn' ? 'linkedin_user@example.com' : 'user@example.com'));
+            showToast(`Signing in with ${provider}...`, 'success');
+            setTimeout(() => {
+                login(email, 'jobseeker');
+            }, 600);
+        });
+    });
     
     // Job filters
     const applyFilters = document.getElementById('applyJobFilters');
