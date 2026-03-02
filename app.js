@@ -1169,20 +1169,37 @@ function setupEventListeners() {
         });
     }
 
-    // Social auth buttons (simulate OAuth flow)
+    // Social auth buttons — redirect to OAuth authorize endpoints when configured,
+    // otherwise open the provider login page in a new tab.
+    const OAUTH = {
+        googleClientId: '', // Set your Google client ID here (or leave empty to open login page)
+        linkedinClientId: '', // Set your LinkedIn client ID here
+        redirectUri: window.location.origin + '/oauth-callback.html' // Configure your redirect URI in the provider console
+    };
+
     document.querySelectorAll('.btn-social').forEach(btn => {
         btn.addEventListener('click', function() {
             const text = (this.textContent || '').toLowerCase();
-            let provider = 'social';
-            if (text.includes('google')) provider = 'Google';
-            else if (text.includes('linkedin') || text.includes('linkedin-in')) provider = 'LinkedIn';
-
-            // Simulate a social login by creating a provider-based email
-            const email = (provider === 'Google' ? 'google_user@example.com' : (provider === 'LinkedIn' ? 'linkedin_user@example.com' : 'user@example.com'));
-            showToast(`Signing in with ${provider}...`, 'success');
-            setTimeout(() => {
-                login(email, 'jobseeker');
-            }, 600);
+            if (text.includes('google')) {
+                if (OAUTH.googleClientId) {
+                    const scope = encodeURIComponent('profile email');
+                    const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(OAUTH.googleClientId)}&redirect_uri=${encodeURIComponent(OAUTH.redirectUri)}&response_type=code&scope=${scope}&include_granted_scopes=true&prompt=select_account`;
+                    window.location.href = url;
+                } else {
+                    window.open('https://accounts.google.com/signin', '_blank');
+                }
+            } else if (text.includes('linkedin') || text.includes('linkedin-in')) {
+                if (OAUTH.linkedinClientId) {
+                    const scope = encodeURIComponent('r_liteprofile r_emailaddress');
+                    const url = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${encodeURIComponent(OAUTH.linkedinClientId)}&redirect_uri=${encodeURIComponent(OAUTH.redirectUri)}&scope=${scope}`;
+                    window.location.href = url;
+                } else {
+                    window.open('https://www.linkedin.com/login', '_blank');
+                }
+            } else {
+                // fallback: open provider home
+                window.open('https://www.google.com', '_blank');
+            }
         });
     });
     
