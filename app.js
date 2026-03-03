@@ -226,6 +226,10 @@ function navigateToPage(pageId) {
             showResumeTip('basics');
         } else if (pageId === 'profile-page') {
             renderProfilePage();
+        } else if (pageId === 'saved-jobs-page') {
+            renderSavedJobs();
+        } else if (pageId === 'settings-page') {
+            renderSettings();
         }
         
         // Update active nav link
@@ -380,6 +384,133 @@ function renderProfilePage() {
     }
 }
 
+// ===== SAVED JOBS =====
+function renderSavedJobs() {
+    if (!currentUser) {
+        navigateToPage('login-page');
+        showToast('Please sign in to view saved jobs', 'error');
+        return;
+    }
+
+    const listEl = document.getElementById('savedJobsList');
+    if (!listEl) return;
+
+    // Use user's saved jobs; if none, seed with sample items and persist so View works
+    let saved = Array.isArray(currentUser.savedJobs) ? currentUser.savedJobs.slice() : [];
+    if (!saved.length) {
+        saved = [
+            { id: 101, title: 'Frontend Engineer', company: 'StartupX', location: 'Remote', description: 'Remote frontend role.' },
+            { id: 102, title: 'Product Designer', company: 'Designly', location: 'New York, NY', description: 'Design-focused role.' }
+        ];
+        currentUser.savedJobs = saved.slice();
+        localStorage.setItem('careerbridge_user', JSON.stringify(currentUser));
+    }
+
+    listEl.innerHTML = saved.map(job => `
+        <div class="job-item">
+            <div>
+                <h4>${job.title}</h4>
+                <p class="muted">${job.company} • ${job.location}</p>
+            </div>
+            <div class="job-actions">
+                <a class="btn btn-outline" href="job-details.html?id=${job.id}">View</a>
+                <button class="btn" onclick="saveJob(${job.id})">Remove</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Render a full page view for a job (used by job-details.html)
+function renderJobDetailsPage(jobId) {
+    if (!jobId) return;
+    jobId = parseInt(jobId, 10);
+
+    let job = jobs.find(j => j.id === jobId);
+    if (!job) {
+        const saved = currentUser?.savedJobs || [];
+        job = saved.find(s => s.id === jobId);
+        if (!job) {
+            const container = document.getElementById('jobDetailsPageContent');
+            if (container) container.innerHTML = `<div class="page-header"><h2>Job not found</h2><p>Unable to locate this job.</p></div>`;
+            return;
+        }
+        job = Object.assign({ title: 'Job', company: '', companyLogo: '', location: '', type: '', level: '', salary: '', description: 'No description available.', posted: '', skills: [], remote: '' }, job);
+    }
+
+    const container = document.getElementById('jobDetailsPageContent');
+    if (!container) return;
+
+    container.innerHTML = `
+        <div style="max-width:1100px;margin:40px auto;padding:24px;background:#fff;border-radius:12px;">
+            <div style="display:flex;gap:24px;align-items:center;margin-bottom:24px;">
+                <div style="width:84px;height:84px;background:var(--primary-light);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:700;color:var(--primary);">${job.companyLogo}</div>
+                <div>
+                    <h1 style="margin:0 0 6px 0;">${job.title}</h1>
+                    <div style="color:var(--gray);">${job.company} • ${job.location}</div>
+                </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px;">
+                <div><div style="color:var(--gray);font-size:0.85rem;margin-bottom:6px;">Job Type</div><div style="font-weight:600;">${job.type}</div></div>
+                <div><div style="color:var(--gray);font-size:0.85rem;margin-bottom:6px;">Experience</div><div style="font-weight:600;">${job.level}</div></div>
+                <div><div style="color:var(--gray);font-size:0.85rem;margin-bottom:6px;">Salary</div><div style="font-weight:600;color:var(--success);">${job.salary}</div></div>
+                <div><div style="color:var(--gray);font-size:0.85rem;margin-bottom:6px;">Remote</div><div style="font-weight:600;">${job.remote}</div></div>
+            </div>
+
+            <div style="margin-bottom:20px;">
+                <h3>Job Description</h3>
+                <p style="color:var(--dark);line-height:1.6;">${job.description}</p>
+            </div>
+
+            <div style="margin-bottom:20px;">
+                <h3>Required Skills</h3>
+                <div style="display:flex;flex-wrap:wrap;gap:10px;">${(job.skills || []).map(s => `<span style="background:var(--primary-light);color:var(--primary);padding:8px 16px;border-radius:20px;font-weight:600;">${s}</span>`).join('')}</div>
+            </div>
+
+            <div style="display:flex;gap:12px;">
+                <button class="btn btn-primary" onclick="applyForJob(${job.id})">Apply Now</button>
+                <button class="btn btn-outline" onclick="saveJob(${job.id})">Save</button>
+                <a href="index.html#saved-jobs" class="btn" style="margin-left:auto;">Back to Saved Jobs</a>
+            </div>
+        </div>
+    `;
+}
+
+// ===== SETTINGS =====
+function renderSettings() {
+    if (!currentUser) {
+        navigateToPage('login-page');
+        showToast('Please sign in to edit settings', 'error');
+        return;
+    }
+
+    const nameInput = document.getElementById('settingsName');
+    const emailInput = document.getElementById('settingsEmail');
+    const notifSelect = document.getElementById('settingsNotifications');
+
+    if (nameInput) nameInput.value = currentUser.name || '';
+    if (emailInput) emailInput.value = currentUser.email || '';
+    if (notifSelect) notifSelect.value = currentUser.notifications || 'all';
+}
+
+function saveSettings(e) {
+    e && e.preventDefault();
+    if (!currentUser) return;
+
+    const name = document.getElementById('settingsName')?.value || currentUser.name;
+    const email = document.getElementById('settingsEmail')?.value || currentUser.email;
+    const notifications = document.getElementById('settingsNotifications')?.value || 'all';
+
+    currentUser.name = name;
+    currentUser.email = email;
+    currentUser.notifications = notifications;
+
+    localStorage.setItem('careerbridge_user', JSON.stringify(currentUser));
+    updateUIForAuth();
+    showToast('Settings saved', 'success');
+    renderProfilePage();
+}
+
 // ===== JOBS FUNCTIONS =====
 function renderFeaturedJobs() {
     const container = document.getElementById('featuredJobs');
@@ -530,8 +661,15 @@ function renderJobsList() {
 }
 
 function viewJobDetails(jobId) {
-    const job = jobs.find(j => j.id === jobId);
-    if (!job) return;
+    let job = jobs.find(j => j.id === jobId);
+    if (!job) {
+        // Try to find in user's saved jobs
+        const saved = currentUser?.savedJobs || [];
+        job = saved.find(s => s.id === jobId);
+        if (!job) return;
+        // If saved entry is minimal, ensure fields exist
+        job = Object.assign({ title: 'Job', company: '', companyLogo: '', location: '', type: '', level: '', salary: '', description: 'No description available.', posted: '', skills: [], remote: '' }, job);
+    }
     
     const modal = document.getElementById('jobModal');
     const content = document.getElementById('jobDetailsContent');
@@ -616,8 +754,32 @@ function saveJob(jobId) {
         showToast('Please login to save jobs', 'error');
         return;
     }
-    
+
+    // Ensure savedJobs array
+    if (!Array.isArray(currentUser.savedJobs)) currentUser.savedJobs = [];
+
+    const idx = currentUser.savedJobs.findIndex(j => j.id === jobId);
+    if (idx >= 0) {
+        // remove
+        currentUser.savedJobs.splice(idx, 1);
+        localStorage.setItem('careerbridge_user', JSON.stringify(currentUser));
+        showToast('Removed from saved jobs', 'success');
+        // If currently viewing saved jobs page, re-render
+        if (currentPage === 'saved-jobs-page' || document.getElementById('saved-jobs-page')?.classList.contains('active')) {
+            renderSavedJobs();
+        }
+        return;
+    }
+
+    // Try to find full job data
+    const job = jobs.find(j => j.id === jobId);
+    const toSave = job ? { id: job.id, title: job.title, company: job.company, location: job.location } : { id: jobId, title: 'Saved Job', company: '', location: '' };
+    currentUser.savedJobs.push(toSave);
+    localStorage.setItem('careerbridge_user', JSON.stringify(currentUser));
     showToast('Job saved to your profile', 'success');
+    if (currentPage === 'saved-jobs-page' || document.getElementById('saved-jobs-page')?.classList.contains('active')) {
+        renderSavedJobs();
+    }
 }
 
 // ===== COMPANIES FUNCTIONS =====
@@ -1304,6 +1466,15 @@ function setupEventListeners() {
             logout();
         });
     }
+
+    // Settings form save
+    const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+    if (saveSettingsBtn) {
+        saveSettingsBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            saveSettings();
+        });
+    }
     
     // Modal close buttons
     document.querySelectorAll('.close-modal').forEach(btn => {
@@ -1347,3 +1518,6 @@ window.removeSkill = removeSkill;
 window.togglePricing = togglePricing;
 window.login = login;
 window.logout = logout;
+window.renderSavedJobs = renderSavedJobs;
+window.renderSettings = renderSettings;
+window.saveSettings = saveSettings;

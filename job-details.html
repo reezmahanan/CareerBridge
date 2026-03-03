@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Job Details - CareerBridge</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand-logo"><i class="fas fa-bridge"></i> Career<span>Bridge</span></a>
+        </div>
+    </nav>
+
+    <main style="padding:40px;background:var(--page-bg);min-height:80vh;">
+        <div id="jobDetailsPageContent" style="max-width:1100px;margin:0 auto;">
+            <!-- Job details will render here -->
+            <div class="page-header">
+                <h2>Loading...</h2>
+            </div>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+    <script>
+        // Parse id from query string and render the page
+        (function() {
+            function getQueryParam(name) {
+                const params = new URLSearchParams(window.location.search);
+                return params.get(name);
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const id = getQueryParam('id');
+                if (typeof renderJobDetailsPage === 'function') {
+                    renderJobDetailsPage(id);
+                } else {
+                    // If app.js hasn't defined it yet, wait briefly
+                    setTimeout(() => { if (typeof renderJobDetailsPage === 'function') renderJobDetailsPage(id); }, 100);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
