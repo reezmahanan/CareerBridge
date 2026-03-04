@@ -65,12 +65,12 @@
                     <span id="userName">Alex Morgan</span>
                     <i class="fas fa-chevron-down"></i>
                     <div class="dropdown-menu">
-                        <a href="#dashboard"><i class="fas fa-chart-pie"></i> Dashboard</a>
+                        <a href="#dashboard" class="nav-link"><i class="fas fa-chart-pie"></i> Dashboard</a>
                         <a href="#profile" class="nav-link"><i class="fas fa-user-circle"></i> My Profile</a>
-                        <a href="#applications"><i class="fas fa-file-signature"></i> My Applications</a>
-                        <a href="#saved-jobs"><i class="fas fa-bookmark"></i> Saved Jobs</a>
+                        <a href="#applications" class="nav-link"><i class="fas fa-file-signature"></i> My Applications</a>
+                        <a href="#saved-jobs" class="nav-link"><i class="fas fa-bookmark"></i> Saved Jobs</a>
                         <div class="dropdown-divider"></div>
-                        <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
+                        <a href="#settings" class="nav-link"><i class="fas fa-cog"></i> Settings</a>
                         <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </li>
@@ -413,6 +413,50 @@
                         <span class="skill-tag">TypeScript</span>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- SAVED JOBS PAGE -->
+        <section id="saved-jobs-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-bookmark"></i> Saved Jobs</h1>
+                <p>Your bookmarked opportunities.</p>
+            </div>
+
+            <div id="savedJobsList" class="applications-list">
+                <!-- Saved jobs will render here -->
+            </div>
+        </section>
+
+        <!-- SETTINGS PAGE -->
+        <section id="settings-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-cog"></i> Settings</h1>
+                <p>Manage your account preferences</p>
+            </div>
+
+            <div class="dashboard-card">
+                <form id="settingsForm" class="form-grid">
+                    <div class="form-group">
+                        <label for="settingsName">Full name</label>
+                        <input id="settingsName" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="settingsEmail">Email</label>
+                        <input id="settingsEmail" type="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="settingsNotifications">Email notifications</label>
+                        <select id="settingsNotifications">
+                            <option value="all">All notifications</option>
+                            <option value="important">Only important</option>
+                            <option value="none">None</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button id="saveSettingsBtn" class="btn">Save Settings</button>
+                    </div>
+                </form>
             </div>
         </section>
 
