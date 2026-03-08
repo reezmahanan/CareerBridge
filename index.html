@@ -964,6 +964,7 @@
             
             <div class="candidates-search">
                 <div class="search-filters">
+                    <h3 class="filters-title"><i class="fas fa-sliders-h"></i> Filters</h3>
                     <div class="filter-group">
                         <label>Skills / Keywords</label>
                         <input type="text" placeholder="e.g. React, Python, Marketing">
@@ -973,7 +974,7 @@
                         <input type="text" placeholder="City or remote">
                     </div>
                     <div class="filter-group">
-                        <label>Experience</label>
+                        <label>Experience Level</label>
                         <select>
                             <option>Any experience</option>
                             <option>0-2 years</option>
@@ -982,26 +983,57 @@
                             <option>8+ years</option>
                         </select>
                     </div>
-                    <button class="btn btn-primary">
+                    <div class="filter-group">
+                        <label>Availability</label>
+                        <select>
+                            <option>Any status</option>
+                            <option>Available Now</option>
+                            <option>Open to Offers</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Job Type</label>
+                        <select>
+                            <option>All types</option>
+                            <option>Full-time</option>
+                            <option>Part-time</option>
+                            <option>Contract</option>
+                            <option>Remote</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary btn-block-filter">
                         <i class="fas fa-search"></i> Search Candidates
                     </button>
+                    <button class="btn btn-reset">
+                        <i class="fas fa-redo"></i> Reset Filters
+                    </button>
                 </div>
-                
-                <div class="candidates-stats">
-                    <div class="stat-item">
-                        <span class="stat-value">12,345+</span>
-                        <span class="stat-label">Active Candidates</span>
+
+                <div class="candidates-right">
+                    <div class="candidates-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <span class="stat-value">12,345+</span>
+                                <span class="stat-label">Active Candidates</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <span class="stat-value">5,678</span>
+                                <span class="stat-label">Available Now</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-bolt"></i>
+                            <div>
+                                <span class="stat-value">892</span>
+                                <span class="stat-label">Added Today</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-value">5,678</span>
-                        <span class="stat-label">Available Now</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value">892</span>
-                        <span class="stat-label">Added Today</span>
-                    </div>
-                </div>
-                
+
                 <div class="candidates-grid">
                     <div class="candidate-card">
                         <div class="candidate-header">
@@ -1072,6 +1104,7 @@
                         </div>
                     </div>
                 </div>
+                </div><!-- /.candidates-right -->
             </div>
         </section>
 
