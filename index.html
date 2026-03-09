@@ -1375,96 +1375,231 @@
 
         <!-- EMPLOYER BRANDING PAGE -->
         <section id="employer-branding-page" class="page">
-            <div class="branding-hero container">
-                <div class="branding-hero-inner">
-                    <div class="branding-copy">
-                        <h1><i class="fas fa-star"></i> Employer Branding</h1>
-                        <p class="lead">Showcase your culture, attract top talent, and build an employer brand that stands out.</p>
-                        <ul class="branding-list">
-                            <li><i class="fas fa-check-circle"></i> Branded career pages</li>
-                            <li><i class="fas fa-check-circle"></i> Video & storytelling tools</li>
-                            <li><i class="fas fa-check-circle"></i> Employee advocacy programs</li>
+
+            <!-- HERO -->
+            <div class="eb-hero">
+                <div class="eb-hero-inner container">
+                    <div class="eb-hero-copy">
+                        <span class="eb-badge"><i class="fas fa-star"></i> Employer Branding</span>
+                        <h1>Build a Brand<br>Top Talent <span class="gradient-text">Loves</span></h1>
+                        <p>Showcase your culture, tell your story, and attract the right candidates — before they even apply.</p>
+                        <ul class="eb-checklist">
+                            <li><i class="fas fa-check-circle"></i> Branded career pages that convert</li>
+                            <li><i class="fas fa-check-circle"></i> Video &amp; employee storytelling tools</li>
+                            <li><i class="fas fa-check-circle"></i> AI-powered candidate targeting</li>
+                            <li><i class="fas fa-check-circle"></i> Real-time analytics &amp; insights</li>
                         </ul>
-                        <div class="branding-actions">
-                            <a href="javascript:void(0)" class="btn btn-primary" onclick="requireLogin(() => navigateToPage('post-job-page'))">Create Profile</a>
-                            <a href="javascript:void(0)" class="btn btn-outline" onclick="navigateToPage('contact-page')">Request Demo</a>
+                        <div class="eb-hero-actions">
+                            <a href="javascript:void(0)" class="btn btn-primary btn-large" onclick="requireLogin(() => navigateToPage('post-job-page'))"><i class="fas fa-rocket"></i> Get Started Free</a>
+                            <a href="javascript:void(0)" class="btn btn-outline btn-large" onclick="navigateToPage('contact-page')"><i class="fas fa-calendar"></i> Book a Demo</a>
                         </div>
                     </div>
-                    <div class="branding-visual">
-                        <img src="https://images.unsplash.com/photo-1532619675605-4c1f1b2f2f2b?auto=format&fit=crop&w=900&q=80" alt="Employer branding visual">
+                    <div class="eb-hero-visual">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=85&auto=format&fit=crop" alt="Team collaboration" class="eb-hero-img">
+                        <div class="eb-hero-badge-card eb-badge-card-1">
+                            <i class="fas fa-users" style="color:var(--primary);font-size:1.4rem;"></i>
+                            <div><strong>2.4M+</strong><span>Candidates reached</span></div>
+                        </div>
+                        <div class="eb-hero-badge-card eb-badge-card-2">
+                            <i class="fas fa-chart-line" style="color:#10b981;font-size:1.4rem;"></i>
+                            <div><strong>3x</strong><span>More qualified applicants</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
 
+            <!-- STATS STRIP -->
+            <div class="eb-stats-strip">
+                <div class="container eb-stats-inner">
+                    <div class="eb-stat"><span class="eb-stat-num">10,000+</span><span class="eb-stat-label">Companies trust us</span></div>
+                    <div class="eb-stat-divider"></div>
+                    <div class="eb-stat"><span class="eb-stat-num">2.4M</span><span class="eb-stat-label">Candidates reached monthly</span></div>
+                    <div class="eb-stat-divider"></div>
+                    <div class="eb-stat"><span class="eb-stat-num">68%</span><span class="eb-stat-label">Faster time-to-hire</span></div>
+                    <div class="eb-stat-divider"></div>
+                    <div class="eb-stat"><span class="eb-stat-num">4.9 &#9733;</span><span class="eb-stat-label">Average employer rating</span></div>
+                </div>
+            </div>
+
+            <!-- FEATURES -->
             <div class="container">
-                <div class="branding-grid">
-                    <div class="branding-feature">
-                        <i class="fas fa-images"></i>
-                        <h3>Company Profile</h3>
-                        <p>Build a rich company page with photos, videos, benefits and culture highlights.</p>
-                        <button class="btn btn-outline" onclick="requireLogin(() => navigateToPage('post-job-page'))">Set Up Profile</button>
+                <div class="eb-section-header">
+                    <h2>Everything you need to win top talent</h2>
+                    <p>A complete toolkit to build, manage, and amplify your employer brand.</p>
+                </div>
+                <div class="eb-features-grid">
+                    <div class="eb-feature-card">
+                        <div class="eb-feature-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80&auto=format&fit=crop" alt="Company profile">
+                        </div>
+                        <div class="eb-feature-body">
+                            <div class="eb-feature-icon"><i class="fas fa-id-badge"></i></div>
+                            <h3>Branded Company Profile</h3>
+                            <p>Build a stunning career page with your logo, culture photos, benefits, and team highlights — no design skills needed.</p>
+                            <a href="javascript:void(0)" class="eb-feature-link" onclick="requireLogin(() => navigateToPage('post-job-page'))">Set Up Profile <i class="fas fa-arrow-right"></i></a>
+                        </div>
                     </div>
-                    <div class="branding-feature">
-                        <i class="fas fa-video"></i>
-                        <h3>Video Stories</h3>
-                        <p>Share employee testimonials and day-in-the-life videos that candidates love.</p>
-                        <button class="btn btn-outline" onclick="requireLogin(() => navigateToPage('dashboard-page'))">Upload Video</button>
+                    <div class="eb-feature-card">
+                        <div class="eb-feature-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&q=80&auto=format&fit=crop" alt="Video stories">
+                        </div>
+                        <div class="eb-feature-body">
+                            <div class="eb-feature-icon"><i class="fas fa-film"></i></div>
+                            <h3>Employee Video Stories</h3>
+                            <p>Let your team speak directly to candidates. Share authentic day-in-the-life videos and testimonials that build real trust.</p>
+                            <a href="javascript:void(0)" class="eb-feature-link" onclick="requireLogin(() => navigateToPage('dashboard-page'))">Upload Videos <i class="fas fa-arrow-right"></i></a>
+                        </div>
                     </div>
-                    <div class="branding-feature">
-                        <i class="fas fa-medal"></i>
-                        <h3>Awards & Recognition</h3>
-                        <p>Showcase awards, certifications, and industry recognition to build trust.</p>
-                        <button class="btn btn-outline" onclick="requireLogin(() => navigateToPage('dashboard-page'))">Add Awards</button>
+                    <div class="eb-feature-card">
+                        <div class="eb-feature-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80&auto=format&fit=crop" alt="Analytics dashboard">
+                        </div>
+                        <div class="eb-feature-body">
+                            <div class="eb-feature-icon"><i class="fas fa-chart-bar"></i></div>
+                            <h3>Real-Time Analytics</h3>
+                            <p>Track profile views, follower growth, application rates, and candidate quality in one clean dashboard.</p>
+                            <a href="javascript:void(0)" class="eb-feature-link" onclick="requireLogin(() => navigateToPage('dashboard-page'))">View Dashboard <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="eb-feature-card">
+                        <div class="eb-feature-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=80&auto=format&fit=crop" alt="Awards and recognition">
+                        </div>
+                        <div class="eb-feature-body">
+                            <div class="eb-feature-icon"><i class="fas fa-trophy"></i></div>
+                            <h3>Awards &amp; Recognition</h3>
+                            <p>Display certifications, Great Place to Work badges, and industry awards to build credibility with passive candidates.</p>
+                            <a href="javascript:void(0)" class="eb-feature-link" onclick="requireLogin(() => navigateToPage('dashboard-page'))">Add Awards <i class="fas fa-arrow-right"></i></a>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="branding-preview-section">
-                    <h3>Live Preview</h3>
-                    <div class="company-preview-card">
-                        <div class="preview-left">
-                            <div class="company-banner"></div>
-                            <div class="company-info">
-                                <div class="company-logo-large">CB</div>
-                                <div>
+            <!-- COMPANY PROFILE PREVIEW -->
+            <div class="eb-preview-section">
+                <div class="container">
+                    <div class="eb-section-header">
+                        <h2>See how your profile looks to candidates</h2>
+                        <p>A live, interactive preview — exactly what top talent sees when they discover your company.</p>
+                    </div>
+                    <div class="eb-profile-preview">
+                        <div class="eb-profile-banner">
+                            <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1200&q=80&auto=format&fit=crop" alt="Office banner">
+                        </div>
+                        <div class="eb-profile-body">
+                            <div class="eb-profile-top">
+                                <div class="eb-profile-logo">CB</div>
+                                <div class="eb-profile-meta">
                                     <h2>CareerBridge</h2>
-                                    <p class="muted">Technology • 200-500 employees • San Francisco, CA</p>
+                                    <p><i class="fas fa-laptop-code"></i> Technology &nbsp;·&nbsp; <i class="fas fa-users"></i> 200–500 employees &nbsp;·&nbsp; <i class="fas fa-map-marker-alt"></i> San Francisco, CA</p>
+                                </div>
+                                <div class="eb-profile-follow-btns">
+                                    <a class="btn btn-primary" href="javascript:void(0)" onclick="requireLogin(() => showToast('Now following CareerBridge!', 'success'))"><i class="fas fa-bell"></i> Follow</a>
+                                    <a class="btn btn-outline" href="javascript:void(0)" onclick="navigateToPage('browse-jobs-page')"><i class="fas fa-briefcase"></i> View Jobs</a>
                                 </div>
                             </div>
-                            <div class="company-stats">
-                                <div><strong>12</strong><span>Open jobs</span></div>
-                                <div><strong>5.2k</strong><span>Followers</span></div>
-                                <div><strong>4.8</strong><span>Rating</span></div>
+                            <div class="eb-profile-stats">
+                                <div class="eb-pstat"><strong>12</strong><span>Open positions</span></div>
+                                <div class="eb-pstat"><strong>5.2k</strong><span>Followers</span></div>
+                                <div class="eb-pstat"><strong>4.8 &#9733;</strong><span>Rating</span></div>
+                                <div class="eb-pstat"><strong>94%</strong><span>Response rate</span></div>
+                            </div>
+                            <div class="eb-profile-about">
+                                <h4>About Us</h4>
+                                <p>We're on a mission to bridge careers — connecting talented professionals with companies that truly value their potential. We believe in meaningful work, a culture of inclusion, and the power of growth for everyone.</p>
+                            </div>
+                            <div class="eb-profile-gallery">
+                                <h4>Life at CareerBridge</h4>
+                                <div class="eb-gallery-grid">
+                                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&q=80&auto=format&fit=crop" alt="Team meeting">
+                                    <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=400&q=80&auto=format&fit=crop" alt="Office">
+                                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&q=80&auto=format&fit=crop" alt="Collaboration">
+                                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&q=80&auto=format&fit=crop" alt="Office event">
+                                </div>
                             </div>
                         </div>
-                        <div class="preview-right">
-                            <h4>About Us</h4>
-                            <p>We’re on a mission to bridge careers — combining meaningful work with growth opportunities and an inclusive culture.</p>
-                            <div class="preview-cta">
-                                <a class="btn btn-primary" href="javascript:void(0)" onclick="requireLogin(() => showToast('Following CareerBridge!', \'success\'))">Follow</a>
-                                <a class="btn btn-outline" href="javascript:void(0)" onclick="navigateToPage('browse-jobs-page')">View Jobs</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="branding-gallery">
-                    <h3>Gallery</h3>
-                    <div class="gallery-grid">
-                        <img src="https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?auto=format&fit=crop&w=600&q=80" alt="office">
-                        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80" alt="team">
-                        <img src="https://images.unsplash.com/photo-1496317899792-9d7dbcd928a1?auto=format&fit=crop&w=600&q=80" alt="event">
-                    </div>
-                </div>
-
-                <div class="branding-cta">
-                    <h2>Ready to showcase your employer brand?</h2>
-                    <p>Create a company profile and start attracting better-fit candidates today.</p>
-                    <div class="hero-actions">
-                        <a href="javascript:void(0)" class="btn btn-primary btn-large" onclick="requireLogin(() => navigateToPage('post-job-page'))">Create Company Profile</a>
-                        <a href="javascript:void(0)" class="btn btn-outline btn-large" onclick="navigateToPage('contact-page')">Contact Sales</a>
                     </div>
                 </div>
             </div>
+
+            <!-- HOW IT WORKS -->
+            <div class="container">
+                <div class="eb-section-header">
+                    <h2>Get started in 3 simple steps</h2>
+                    <p>Your employer brand goes live in minutes, not months.</p>
+                </div>
+                <div class="eb-steps">
+                    <div class="eb-step">
+                        <div class="eb-step-num">1</div>
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&q=80&auto=format&fit=crop" alt="Create profile">
+                        <h3>Create Your Profile</h3>
+                        <p>Add your company info, upload your logo, and describe your culture using our guided setup.</p>
+                    </div>
+                    <div class="eb-step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="eb-step">
+                        <div class="eb-step-num">2</div>
+                        <img src="https://images.unsplash.com/photo-1543269664-7eef42226a21?w=500&q=80&auto=format&fit=crop" alt="Share stories">
+                        <h3>Share Your Story</h3>
+                        <p>Upload team photos, employee videos, benefits, and awards to bring your culture to life.</p>
+                    </div>
+                    <div class="eb-step-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="eb-step">
+                        <div class="eb-step-num">3</div>
+                        <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=500&q=80&auto=format&fit=crop" alt="Attract talent">
+                        <h3>Attract Better Talent</h3>
+                        <p>Watch qualified, culture-fit candidates discover your company and apply faster than ever.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TESTIMONIALS -->
+            <div class="eb-testimonials-section">
+                <div class="container">
+                    <div class="eb-section-header">
+                        <h2>Loved by leading employers</h2>
+                        <p>Hear from companies that transformed their hiring with CareerBridge Employer Branding.</p>
+                    </div>
+                    <div class="eb-testimonials-grid">
+                        <div class="eb-testimonial">
+                            <p class="eb-tquote">"Our application quality went through the roof. Candidates come in already aligned with our values — the profile does the pre-screening for us."</p>
+                            <div class="eb-tauthor">
+                                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=80&q=80&auto=format&fit=crop&crop=face" alt="Sarah Kim">
+                                <div><strong>Sarah Kim</strong><span>Head of Talent, NovaTech</span></div>
+                            </div>
+                        </div>
+                        <div class="eb-testimonial">
+                            <p class="eb-tquote">"We cut time-to-hire by 40% in two months. The analytics show us exactly which content is driving applications — it's a game changer."</p>
+                            <div class="eb-tauthor">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80&auto=format&fit=crop&crop=face" alt="Marcus Rivera">
+                                <div><strong>Marcus Rivera</strong><span>VP People, GreenScale</span></div>
+                            </div>
+                        </div>
+                        <div class="eb-testimonial">
+                            <p class="eb-tquote">"The video stories feature is incredible. Candidates tell us they chose us because they felt connected to our team before the first interview."</p>
+                            <div class="eb-tauthor">
+                                <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=80&q=80&auto=format&fit=crop&crop=face" alt="Jordan Lee">
+                                <div><strong>Jordan Lee</strong><span>Talent Director, Axion Labs</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTTOM CTA -->
+            <div class="container">
+                <div class="eb-bottom-cta">
+                    <div class="eb-cta-copy">
+                        <h2>Ready to build a brand top talent loves?</h2>
+                        <p>Join 10,000+ companies already attracting better candidates with CareerBridge.</p>
+                        <div class="eb-cta-actions">
+                            <a href="javascript:void(0)" class="btn btn-primary btn-large" onclick="requireLogin(() => navigateToPage('post-job-page'))"><i class="fas fa-rocket"></i> Create Company Profile</a>
+                            <a href="javascript:void(0)" class="btn btn-outline btn-large" onclick="navigateToPage('contact-page')"><i class="fas fa-headset"></i> Talk to Sales</a>
+                        </div>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=500&q=80&auto=format&fit=crop" alt="Team" class="eb-cta-img">
+                </div>
+            </div>
+
         </section>
 
         <!-- ABOUT US PAGE -->
