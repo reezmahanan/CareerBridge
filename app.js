@@ -137,25 +137,73 @@ const careerAdvice = [
         id: 1,
         title: "How to Ace Your Technical Interview",
         category: "interview",
-        image: "interview-tips",
+        image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80&auto=format&fit=crop",
         excerpt: "Master the art of technical interviews with these proven strategies...",
-        readTime: "8 min read"
+        readTime: "8 min read",
+        author: "Jordan Lee",
+        fullContent: `
+            <p>Technical interviews can be daunting, but with the right preparation you can walk in with confidence. Here's what top candidates do differently.</p>
+            <h4>1. Master Data Structures & Algorithms</h4>
+            <p>Practice common patterns daily — arrays, linked lists, trees, graphs, and dynamic programming. Aim for at least two problems per day on LeetCode or HackerRank in the month before your interview.</p>
+            <h4>2. Think Out Loud</h4>
+            <p>Interviewers evaluate your problem-solving approach, not just the final answer. Narrate your thinking as you work through the problem — this shows communication skills and lets interviewers guide you if you go off track.</p>
+            <h4>3. Ask Clarifying Questions</h4>
+            <p>Before writing a single line of code, verify your understanding of the problem. Ask about edge cases, expected input sizes, and constraints. This signals strong engineering judgment.</p>
+            <h4>4. Practice on a Whiteboard or Paper</h4>
+            <p>Get comfortable writing code without an IDE. Make sure your solution is readable and your variable names are meaningful — interviewers read your code, not just run it.</p>
+            <h4>5. Review System Design Fundamentals</h4>
+            <p>For mid-to-senior roles, expect system design questions. Study load balancing, caching strategies, database sharding, and how to design for scale and fault tolerance.</p>
+            <h4>6. Prepare Your Behavioral Stories</h4>
+            <p>Use the STAR method (Situation, Task, Action, Result) to craft concise stories about past challenges — especially around conflict resolution, leadership, and failure.</p>
+        `
     },
     {
         id: 2,
         title: "Building a Professional Network That Works",
         category: "networking",
-        image: "networking",
+        image: "https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=600&q=80&auto=format&fit=crop",
         excerpt: "Learn how to network effectively and build meaningful professional relationships...",
-        readTime: "6 min read"
+        readTime: "6 min read",
+        author: "Sarah Chen",
+        fullContent: `
+            <p>Networking is not about collecting contacts — it's about building genuine, mutually beneficial relationships. Here's how to do it right.</p>
+            <h4>1. Start With Who You Know</h4>
+            <p>Reconnect with former colleagues, classmates, and mentors. These warm connections are your strongest starting point and often lead to the best opportunities.</p>
+            <h4>2. Be Genuinely Helpful First</h4>
+            <p>The best networkers give before they ask. Share a useful article, make an introduction, or offer feedback freely. People remember those who add value.</p>
+            <h4>3. Attend Industry Events & Meetups</h4>
+            <p>Conferences, local meetups, and virtual webinars put you in proximity with like-minded professionals. Come prepared with a clear, authentic description of what you do and what you're looking for.</p>
+            <h4>4. Optimize Your LinkedIn Presence</h4>
+            <p>Post thoughtful content, engage with others' posts, and personalize every connection request with a brief note explaining why you want to connect.</p>
+            <h4>5. Conduct Informational Interviews</h4>
+            <p>Reach out to people in roles or companies that interest you and ask for a 20-minute chat. Most professionals are happy to share their experience — and these conversations often lead directly to opportunities.</p>
+            <h4>6. Follow Up Consistently</h4>
+            <p>A network you don't nurture fades quickly. A brief check-in every few months — sharing an article they'd find interesting, congratulating them on a milestone — keeps relationships alive.</p>
+        `
     },
     {
         id: 3,
         title: "Essential Skills for 2026",
         category: "skills",
-        image: "skills",
+        image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80&auto=format&fit=crop",
         excerpt: "Discover the most in-demand skills that employers are looking for...",
-        readTime: "10 min read"
+        readTime: "10 min read",
+        author: "Marcus Rivera",
+        fullContent: `
+            <p>The job market shifts faster than ever. These are the skills employers are actively seeking in 2026 — and how to build them.</p>
+            <h4>1. AI & Generative Tool Literacy</h4>
+            <p>You don't need to be a data scientist, but understanding how to prompt AI tools effectively, automate repetitive tasks, and evaluate AI-generated output is now a baseline expectation in most knowledge-work roles.</p>
+            <h4>2. Data Analysis & Visualization</h4>
+            <p>The ability to interpret data and communicate insights clearly is valued across every department. Learn Excel/Sheets deeply, add SQL basics, and explore tools like Tableau or Power BI.</p>
+            <h4>3. Cloud Platform Fundamentals</h4>
+            <p>Familiarity with AWS, Azure, or Google Cloud — even at a non-technical level — is increasingly required for both technical and operational roles. Introductory certifications signal genuine commitment.</p>
+            <h4>4. Emotional Intelligence & Collaboration</h4>
+            <p>As automation handles routine tasks, the skills that remain uniquely human — empathy, conflict resolution, cross-cultural communication, and mentoring — become ever more valuable.</p>
+            <h4>5. Cybersecurity Awareness</h4>
+            <p>Every employee is now a security stakeholder. Understanding phishing, safe data handling, and organizational security policies is a minimum requirement in most industries.</p>
+            <h4>6. Adaptability & Continuous Learning</h4>
+            <p>The half-life of specific technical skills is shrinking. Employers value candidates who demonstrate a habit of learning — through courses, side projects, or open-source contributions — over those who simply list static credentials.</p>
+        `
     }
 ];
 
@@ -900,23 +948,72 @@ function renderCareerAdvice() {
     if (!container) return;
     
     container.innerHTML = careerAdvice.map(advice => `
-        <div class="advice-card" style="background: var(--white); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow);">
-            <div style="background: linear-gradient(135deg, var(--primary), var(--primary-dark)); height: 160px; border-radius: var(--radius); margin-bottom: 20px; display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-lightbulb" style="font-size: 3rem; color: rgba(255,255,255,0.3);"></i>
+        <div class="advice-card" style="background: var(--white); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column;">
+            <div style="height: 200px; overflow: hidden; position: relative;">
+                <img 
+                    src="${advice.image}" 
+                    alt="${advice.title}"
+                    style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease;"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                />
+                <div style="display:none; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); height: 100%; align-items: center; justify-content: center; position: absolute; inset: 0;">
+                    <i class="fas fa-lightbulb" style="font-size: 3rem; color: rgba(255,255,255,0.4);"></i>
+                </div>
             </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                <span style="background: var(--primary-light); color: var(--primary); padding: 4px 12px; border-radius: 30px; font-size: 0.8rem; font-weight: 600;">
-                    ${advice.category.charAt(0).toUpperCase() + advice.category.slice(1)}
-                </span>
-                <span style="color: var(--gray); font-size: 0.85rem;"><i class="fas fa-clock"></i> ${advice.readTime}</span>
+            <div style="padding: 24px; flex: 1; display: flex; flex-direction: column;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                    <span style="background: var(--primary-light); color: var(--primary); padding: 4px 12px; border-radius: 30px; font-size: 0.8rem; font-weight: 600;">
+                        ${advice.category.charAt(0).toUpperCase() + advice.category.slice(1)}
+                    </span>
+                    <span style="color: var(--gray); font-size: 0.85rem;"><i class="fas fa-clock"></i> ${advice.readTime}</span>
+                </div>
+                <h3 style="margin-bottom: 12px; font-size: 1.15rem; line-height: 1.4;">${advice.title}</h3>
+                <p style="color: var(--gray); margin-bottom: 20px; flex: 1; line-height: 1.6;">${advice.excerpt}</p>
+                <a href="javascript:void(0)" onclick="openArticle(${advice.id})" class="read-more" style="color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 8px; text-decoration: none;">
+                    Read Article <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
-            <h3 style="margin-bottom: 12px; font-size: 1.2rem;">${advice.title}</h3>
-            <p style="color: var(--gray); margin-bottom: 20px;">${advice.excerpt}</p>
-            <a href="#" class="read-more" style="color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 8px;">
-                Read Article <i class="fas fa-arrow-right"></i>
-            </a>
         </div>
     `).join('');
+}
+
+function openArticle(id) {
+    const advice = careerAdvice.find(a => a.id === id);
+    if (!advice) return;
+
+    const modal = document.getElementById('articleModal');
+    const content = document.getElementById('articleContent');
+    if (!modal || !content) return;
+
+    content.innerHTML = `
+        <div style="overflow: hidden; border-radius: var(--radius-lg) var(--radius-lg) 0 0;">
+            <img src="${advice.image}" alt="${advice.title}"
+                 style="width: 100%; height: 280px; object-fit: cover; display: block;"
+                 onerror="this.style.background='linear-gradient(135deg,var(--primary),var(--primary-dark))'; this.style.height='200px';">
+        </div>
+        <div style="padding: 32px 40px 40px;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap;">
+                <span style="background: var(--primary-light); color: var(--primary); padding: 4px 14px; border-radius: 30px; font-size: 0.85rem; font-weight: 600;">
+                    ${advice.category.charAt(0).toUpperCase() + advice.category.slice(1)}
+                </span>
+                <span style="color: var(--gray); font-size: 0.9rem;"><i class="fas fa-clock"></i> ${advice.readTime}</span>
+                <span style="color: var(--gray); font-size: 0.9rem; margin-left: auto;"><i class="fas fa-user"></i> ${advice.author}</span>
+            </div>
+            <h2 style="font-size: 1.7rem; margin-bottom: 24px; line-height: 1.3;">${advice.title}</h2>
+            <div style="color: var(--dark); line-height: 1.8; font-size: 1rem;">
+                ${advice.fullContent}
+            </div>
+        </div>
+    `;
+
+    content.querySelectorAll('h4').forEach(h => {
+        h.style.cssText = 'margin: 24px 0 8px; font-size: 1.1rem; color: var(--dark);';
+    });
+    content.querySelectorAll('p').forEach(p => {
+        p.style.cssText = 'margin-bottom: 14px; color: #555;';
+    });
+
+    modal.classList.add('show');
 }
 
 function filterAdvice(category) {
