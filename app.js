@@ -349,6 +349,16 @@ function logout() {
     navigateToPage('home-page');
 }
 
+// Helper: run callback if logged in, otherwise redirect to login
+function requireLogin(callback) {
+    if (currentUser) {
+        callback();
+    } else {
+        showToast('Please sign in to continue', 'error');
+        setTimeout(() => navigateToPage('login-page'), 1200);
+    }
+}
+
 function updateUIForAuth() {
     const loginBtn = document.getElementById('loginBtn');
     const registerBtn = document.getElementById('registerBtn');

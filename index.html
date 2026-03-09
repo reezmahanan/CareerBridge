@@ -43,7 +43,7 @@
                         <a href="#search-candidates"><i class="fas fa-search"></i> Search Candidates</a>
                         <a href="#pricing"><i class="fas fa-tag"></i> Pricing</a>
                         <a href="#recruitment-solutions"><i class="fas fa-handshake"></i> Recruitment Solutions</a>
-                        <a href="#employer-branding"><i class="fas fa-star"></i> Employer Branding</a>
+                        <a href="#employer-branding" onclick="navigateToPage('employer-branding-page')"><i class="fas fa-star"></i> Employer Branding</a>
                     </div>
                 </li>
                 <!-- Company -->
@@ -1386,8 +1386,8 @@
                             <li><i class="fas fa-check-circle"></i> Employee advocacy programs</li>
                         </ul>
                         <div class="branding-actions">
-                            <a href="#" class="btn btn-primary">Create Profile</a>
-                            <a href="#employer-branding" class="btn btn-outline">Request Demo</a>
+                            <a href="javascript:void(0)" class="btn btn-primary" onclick="requireLogin(() => navigateToPage('post-job-page'))">Create Profile</a>
+                            <a href="javascript:void(0)" class="btn btn-outline" onclick="navigateToPage('contact-page')">Request Demo</a>
                         </div>
                     </div>
                     <div class="branding-visual">
@@ -1402,19 +1402,19 @@
                         <i class="fas fa-images"></i>
                         <h3>Company Profile</h3>
                         <p>Build a rich company page with photos, videos, benefits and culture highlights.</p>
-                        <button class="btn btn-outline">Set Up Profile</button>
+                        <button class="btn btn-outline" onclick="requireLogin(() => navigateToPage('post-job-page'))">Set Up Profile</button>
                     </div>
                     <div class="branding-feature">
                         <i class="fas fa-video"></i>
                         <h3>Video Stories</h3>
                         <p>Share employee testimonials and day-in-the-life videos that candidates love.</p>
-                        <button class="btn btn-outline">Upload Video</button>
+                        <button class="btn btn-outline" onclick="requireLogin(() => navigateToPage('dashboard-page'))">Upload Video</button>
                     </div>
                     <div class="branding-feature">
                         <i class="fas fa-medal"></i>
                         <h3>Awards & Recognition</h3>
                         <p>Showcase awards, certifications, and industry recognition to build trust.</p>
-                        <button class="btn btn-outline">Add Awards</button>
+                        <button class="btn btn-outline" onclick="requireLogin(() => navigateToPage('dashboard-page'))">Add Awards</button>
                     </div>
                 </div>
 
@@ -1440,8 +1440,8 @@
                             <h4>About Us</h4>
                             <p>We’re on a mission to bridge careers — combining meaningful work with growth opportunities and an inclusive culture.</p>
                             <div class="preview-cta">
-                                <a class="btn btn-primary" href="#">Follow</a>
-                                <a class="btn btn-outline" href="#">View Jobs</a>
+                                <a class="btn btn-primary" href="javascript:void(0)" onclick="requireLogin(() => showToast('Following CareerBridge!', \'success\'))">Follow</a>
+                                <a class="btn btn-outline" href="javascript:void(0)" onclick="navigateToPage('browse-jobs-page')">View Jobs</a>
                             </div>
                         </div>
                     </div>
@@ -1460,8 +1460,8 @@
                     <h2>Ready to showcase your employer brand?</h2>
                     <p>Create a company profile and start attracting better-fit candidates today.</p>
                     <div class="hero-actions">
-                        <a href="#" class="btn btn-primary btn-large">Create Company Profile</a>
-                        <a href="#" class="btn btn-outline btn-large">Contact Sales</a>
+                        <a href="javascript:void(0)" class="btn btn-primary btn-large" onclick="requireLogin(() => navigateToPage('post-job-page'))">Create Company Profile</a>
+                        <a href="javascript:void(0)" class="btn btn-outline btn-large" onclick="navigateToPage('contact-page')">Contact Sales</a>
                     </div>
                 </div>
             </div>
