@@ -8,6 +8,8 @@
 ![No Framework](https://img.shields.io/badge/Framework-None-lightgrey?style=flat)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat)
 
+### 🌐 [Live Demo → https://reezmahanan.github.io/CareerBridge/](https://reezmahanan.github.io/CareerBridge/)
+
 ---
 
 ## 👋 What is CareerBridge?
