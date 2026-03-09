@@ -1020,6 +1020,77 @@ function filterAdvice(category) {
     showToast('Filtering by: ' + category, 'success');
 }
 
+// ===== RESUME TEMPLATE FUNCTIONS =====
+const resumeTemplates = {
+    modern: {
+        name: 'Modern Professional',
+        image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=900&q=85&auto=format&fit=crop',
+        description: 'A clean, structured layout ideal for corporate roles in tech, finance, and consulting. ATS-friendly with clearly defined sections.',
+        features: ['ATS Optimized', 'Clean Typography', 'Two-Column Layout', 'Skills Sidebar'],
+        accentColor: '#667eea',
+        profilePage: 'candidate-profile.html'
+    },
+    creative: {
+        name: 'Creative Design',
+        image: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=900&q=85&auto=format&fit=crop',
+        description: 'A bold, visually striking template for designers, marketers, and creative professionals who want to stand out.',
+        features: ['Vibrant Color Accents', 'Portfolio Section', 'Icon-Based Skills', 'Custom Header'],
+        accentColor: '#f5576c',
+        profilePage: 'candidate-profile.html'
+    },
+    minimalist: {
+        name: 'Minimalist',
+        image: 'https://images.unsplash.com/photo-1542435503-956c469947f6?w=900&q=85&auto=format&fit=crop',
+        description: 'A refined, whitespace-driven design for executives and senior professionals who prefer understated elegance.',
+        features: ['Single Column', 'Elegant Whitespace', 'Subtle Dividers', 'Print Ready'],
+        accentColor: '#4facfe',
+        profilePage: 'candidate-profile.html'
+    }
+};
+
+function openTemplate(key) {
+    const tpl = resumeTemplates[key];
+    if (!tpl) return;
+    const modal = document.getElementById('templateModal');
+    const content = document.getElementById('templateModalContent');
+    if (!modal || !content) return;
+
+    content.innerHTML = `
+        <div style="overflow:hidden;border-radius:var(--radius-lg) var(--radius-lg) 0 0;max-height:340px;">
+            <img src="${tpl.image}" alt="${tpl.name}"
+                 style="width:100%;object-fit:cover;display:block;"
+                 onerror="this.parentElement.style.background='linear-gradient(135deg,${tpl.accentColor},#764ba2)';this.style.display='none';">
+        </div>
+        <div style="padding:32px 40px 36px;">
+            <h2 style="font-size:1.7rem;margin-bottom:10px;">${tpl.name}</h2>
+            <p style="color:var(--gray);line-height:1.7;margin-bottom:24px;">${tpl.description}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;">
+                ${tpl.features.map(f => `<span style="background:var(--primary-light);color:var(--primary);padding:6px 14px;border-radius:20px;font-size:0.85rem;font-weight:600;">${f}</span>`).join('')}
+            </div>
+            <div style="display:flex;gap:14px;">
+                <button class="btn btn-primary" style="flex:1;padding:14px;" onclick="useTemplate('${key}')">
+                    <i class="fas fa-edit"></i> Use This Template
+                </button>
+                <button class="btn btn-outline" style="padding:14px 22px;" onclick="document.getElementById('templateModal').classList.remove('show')">
+                    Browse Others
+                </button>
+            </div>
+        </div>
+    `;
+    modal.classList.add('show');
+}
+
+function useTemplate(key) {
+    document.getElementById('templateModal').classList.remove('show');
+    if (currentUser) {
+        // Navigate to candidate profile to fill in details
+        window.location.href = 'candidate-profile.html';
+    } else {
+        showToast('Please sign in to use a template', 'error');
+        setTimeout(() => navigateToPage('login-page'), 1200);
+    }
+}
+
 // ===== RESUME TIPS FUNCTIONS =====
 function showResumeTip(tip) {
     const content = document.getElementById('resumeTipContent');
