@@ -264,6 +264,84 @@ const careerAdvice = [
             <h4>6. Adaptability & Continuous Learning</h4>
             <p>The half-life of specific technical skills is shrinking. Employers value candidates who demonstrate a habit of learning — through courses, side projects, or open-source contributions — over those who simply list static credentials.</p>
         `
+    },
+    {
+        id: 4,
+        title: "The Future of Remote Work: 2026 Trends",
+        category: "Trends",
+        image: "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&q=80&auto=format&fit=crop",
+        excerpt: "How companies are adapting to hybrid and distributed teams in 2026 — and what it means for your career.",
+        readTime: "5 min read",
+        author: "Sarah Chen",
+        fullContent: `
+            <p>The workplace has been reshaped permanently. Here's how leading companies are navigating hybrid work in 2026 — and how you can position yourself for success.</p>
+            <h4>1. Hybrid is the New Default</h4>
+            <p>Over 70% of Fortune 500 companies now operate on a structured hybrid model. Roles that were once seen as requiring full presence — like engineering, design, and product — are now fully hybrid-eligible.</p>
+            <h4>2. Async-First Culture is Rising</h4>
+            <p>Top distributed teams document everything, default to written communication, and minimize synchronous meetings. Learning to communicate effectively in async environments is now a core workplace skill.</p>
+            <h4>3. Home Office Stipends Are Standard</h4>
+            <p>Companies competing for remote talent now offer $1k–$3k annual home office stipends as standard. When evaluating offers, factor in equipment, ergonomics, and internet costs alongside base salary.</p>
+            <h4>4. Location Flexibility Unlocks Salary Arbitrage</h4>
+            <p>Remote workers in lower cost-of-living cities can earn top-market salaries from companies headquartered in San Francisco, New York, or London. Negotiate location-neutral compensation wherever possible.</p>
+            <h4>5. "Proximity Bias" is a Real Career Risk</h4>
+            <p>Studies consistently show remote employees are promoted at lower rates unless companies actively counter proximity bias. Make your work visible: send weekly recaps, present in all-hands meetings, and build relationships across the organization.</p>
+            <h4>6. The Best Remote Jobs Go to the Best Communicators</h4>
+            <p>Remote-first companies screen heavily for written communication, autonomy, and proactiveness. Tailor your resume and interviews to show these strengths explicitly.</p>
+        `
+    },
+    {
+        id: 5,
+        title: "10 Resume Mistakes Costing You Interviews",
+        category: "Resume",
+        image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=80&auto=format&fit=crop",
+        excerpt: "Avoid these common resume pitfalls that get candidates rejected before a human ever reads their application.",
+        readTime: "7 min read",
+        author: "Priya Nair",
+        fullContent: `
+            <p>Most resumes are eliminated in under 10 seconds — often for preventable reasons. Here are the top mistakes costing candidates interviews, and how to fix them.</p>
+            <h4>1. Ignoring ATS Optimization</h4>
+            <p>Over 90% of large companies use Applicant Tracking Systems to filter resumes before human review. Use keywords from the job description, avoid tables and graphics, and stick to standard section headings.</p>
+            <h4>2. Leading With a Generic Objective Statement</h4>
+            <p>Replace "Seeking a challenging role..." with a 2–3 sentence professional summary that immediately communicates your value: who you are, what you're great at, and what you're targeting.</p>
+            <h4>3. Listing Duties Instead of Achievements</h4>
+            <p>Recruiters don't want to know what your job required — they want to know what you accomplished. Start every bullet with an action verb and include a measurable outcome: "Reduced API latency by 40%."</p>
+            <h4>4. One Resume for Every Job</h4>
+            <p>Tailor your resume for each application. It takes 10 minutes but dramatically improves your match score. Emphasize the skills most relevant to each specific role.</p>
+            <h4>5. Inconsistent Formatting</h4>
+            <p>Mixed fonts, uneven spacing, and inconsistent date formats signal carelessness. Use a single font, consistent margins, and one date format throughout.</p>
+            <h4>6. Burying Education at the Top</h4>
+            <p>Once you have meaningful work experience, move education to the bottom. Lead with your professional experience where you have the most to show.</p>
+            <h4>7. No Links or Portfolio</h4>
+            <p>Include a clean LinkedIn URL, GitHub, portfolio site, or relevant project links. For technical and creative roles, these are often more important than your resume itself.</p>
+            <h4>8. Typos and Grammatical Errors</h4>
+            <p>A single typo can eliminate an otherwise strong candidate. Use spell check, read it aloud, and have at least one other person review before submitting.</p>
+        `
+    },
+    {
+        id: 6,
+        title: "How to Negotiate Your Salary Like a Pro",
+        category: "Career",
+        image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80&auto=format&fit=crop",
+        excerpt: "Expert tactics and exact scripts to confidently negotiate higher compensation at any career stage.",
+        readTime: "9 min read",
+        author: "David Kim",
+        fullContent: `
+            <p>Salary negotiation is one of the highest-ROI skills you can develop. A single successful negotiation can be worth tens of thousands of dollars over your career. Here's how to do it confidently.</p>
+            <h4>1. Never Give a Number First</h4>
+            <p>When asked about salary expectations early in the process, deflect: "I'd love to understand the full scope of the role first. What range did you have in mind?" This preserves your leverage.</p>
+            <h4>2. Research Thoroughly Before Any Conversation</h4>
+            <p>Use Levels.fyi (tech), Glassdoor, LinkedIn Salary, and industry surveys to build a solid understanding of market rates for your role, level, and location. Know your number before you pick up the phone.</p>
+            <h4>3. Anchor High — With Justification</h4>
+            <p>Once you give a number, anchor at the top of your researched range. Back it up: "Based on market data and my experience, I'm targeting $X." Specific justification makes the request professional, not presumptuous.</p>
+            <h4>4. Negotiate the Package, Not Just Base Salary</h4>
+            <p>If base is non-negotiable, push on signing bonus, equity, remote flexibility, extra PTO, or professional development budget. Total compensation is what matters.</p>
+            <h4>5. Use Silence as a Tool</h4>
+            <p>After stating your number, stop talking. Silence creates pressure on the other side to respond or move. Filling the silence yourself weakens your position.</p>
+            <h4>6. Always Negotiate — Even When You're Excited</h4>
+            <p>Roughly 85% of offers have negotiation room. Hiring managers expect it and rarely rescind offers because a candidate negotiated professionally.</p>
+            <h4>7. Get It In Writing</h4>
+            <p>Verbal commitments are not commitments. Don't give notice at your current job until you have a signed written offer that matches what was discussed.</p>
+        `
     }
 ];
 
@@ -338,6 +416,8 @@ function navigateToPage(pageId) {
             renderSavedJobs();
         } else if (pageId === 'settings-page') {
             renderSettings();
+        } else if (pageId === 'blog-page') {
+            renderBlogPage();
         }
         
         // Update active nav link
@@ -1013,6 +1093,67 @@ function followCompany(companyId) {
 }
 
 // ===== CAREER ADVICE FUNCTIONS =====
+function renderBlogPage() {
+    const container = document.getElementById('blogPageContent');
+    if (!container) return;
+
+    const categoryColors = {
+        interview: '#4361ee', networking: '#7209b7', skills: '#06d6a0',
+        Trends: '#f72585', Resume: '#4361ee', Career: '#3a0ca3'
+    };
+
+    function categoryBadge(cat) {
+        const color = categoryColors[cat] || '#4361ee';
+        return `<span style="background:${color}22;color:${color};padding:4px 12px;border-radius:30px;font-size:0.78rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;">${cat}</span>`;
+    }
+
+    const [featured, ...rest] = careerAdvice;
+
+    container.innerHTML = `
+        <div class="blog-grid">
+            <div class="blog-card featured" style="cursor:pointer;" onclick="openArticle(${featured.id})">
+                <div class="blog-image" style="overflow:hidden;">
+                    <img src="${featured.image}" alt="${featured.title}"
+                         style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s ease;"
+                         onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"
+                         onerror="this.style.display='none'">
+                </div>
+                <div class="blog-content">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                        ${categoryBadge(featured.category)}
+                        <span style="color:var(--gray);font-size:0.83rem;"><i class="fas fa-clock"></i> ${featured.readTime}</span>
+                    </div>
+                    <div class="blog-meta"><span><i class="fas fa-user"></i> ${featured.author}</span></div>
+                    <h3>${featured.title}</h3>
+                    <p>${featured.excerpt}</p>
+                    <span class="read-more" style="color:var(--primary);font-weight:600;display:inline-flex;align-items:center;gap:8px;">Read Article <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </div>
+
+            ${rest.map(article => `
+                <div class="blog-card" style="cursor:pointer;" onclick="openArticle(${article.id})">
+                    <div class="blog-image" style="overflow:hidden;position:relative;">
+                        <img src="${article.image}" alt="${article.title}"
+                             style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s ease;"
+                             onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'"
+                             onerror="this.style.display='none'">
+                        <div style="position:absolute;top:12px;left:12px;">${categoryBadge(article.category)}</div>
+                    </div>
+                    <div style="padding:20px 20px 22px;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                            <span style="color:var(--gray);font-size:0.83rem;"><i class="fas fa-user"></i> ${article.author}</span>
+                            <span style="color:var(--gray);font-size:0.83rem;"><i class="fas fa-clock"></i> ${article.readTime}</span>
+                        </div>
+                        <h4 style="font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:8px;line-height:1.4;">${article.title}</h4>
+                        <p class="blog-excerpt" style="color:var(--gray);font-size:0.9rem;line-height:1.6;margin-bottom:16px;">${article.excerpt}</p>
+                        <span class="read-more" style="color:var(--primary);font-weight:600;font-size:0.9rem;display:inline-flex;align-items:center;gap:6px;">Read More <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
 function renderCareerAdvice() {
     const container = document.getElementById('careerAdvice');
     if (!container) return;
@@ -1759,3 +1900,5 @@ window.logout = logout;
 window.renderSavedJobs = renderSavedJobs;
 window.renderSettings = renderSettings;
 window.saveSettings = saveSettings;
+window.openArticle = openArticle;
+window.renderBlogPage = renderBlogPage;
