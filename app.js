@@ -66,6 +66,66 @@ const sampleJobs = [
         remote: "On-site",
         skills: ["Figma", "UI/UX", "Prototyping", "User Testing"],
         featured: true
+    },
+    {
+        id: 5,
+        title: "Senior Software Engineer",
+        company: "CareerBridge",
+        companyLogo: "CB",
+        location: "Remote",
+        type: "Full-time",
+        level: "Senior level",
+        salary: "$140k - $185k",
+        description: "Build and scale the core platform that connects millions of job seekers with top employers worldwide. You'll work on high-impact features across the full stack.",
+        posted: "1 day ago",
+        remote: "Remote",
+        skills: ["React", "Node.js", "TypeScript", "PostgreSQL", "AWS"],
+        featured: false
+    },
+    {
+        id: 6,
+        title: "Product Manager",
+        company: "CareerBridge",
+        companyLogo: "CB",
+        location: "San Francisco, CA",
+        type: "Full-time",
+        level: "Mid level",
+        salary: "$130k - $170k",
+        description: "Drive product strategy and roadmap for CareerBridge's job seeker and employer products. Work cross-functionally with engineering, design, and marketing to ship impactful features.",
+        posted: "2 days ago",
+        remote: "Hybrid",
+        skills: ["Product Strategy", "Agile", "User Research", "Data Analysis", "Roadmapping"],
+        featured: false
+    },
+    {
+        id: 7,
+        title: "Enterprise Account Executive",
+        company: "CareerBridge",
+        companyLogo: "CB",
+        location: "New York, NY",
+        type: "Full-time",
+        level: "Senior level",
+        salary: "$120k - $160k + commission",
+        description: "Own and grow enterprise relationships with Fortune 500 companies, helping them leverage CareerBridge's platform to attract and hire top talent at scale.",
+        posted: "3 days ago",
+        remote: "Hybrid",
+        skills: ["B2B Sales", "SaaS", "CRM", "Negotiation", "Enterprise Software"],
+        featured: false
+    },
+    {
+        id: 8,
+        title: "Customer Success Manager",
+        company: "CareerBridge",
+        companyLogo: "CB",
+        location: "Remote",
+        type: "Full-time",
+        level: "Mid level",
+        salary: "$90k - $120k",
+        description: "Ensure CareerBridge customers achieve their hiring goals. You'll onboard new accounts, drive adoption, and serve as the primary point of contact for a portfolio of clients.",
+        posted: "4 days ago",
+        remote: "Remote",
+        skills: ["Customer Success", "SaaS", "Onboarding", "Data Analysis", "Communication"],
+        featured: false
     }
 ];
 
