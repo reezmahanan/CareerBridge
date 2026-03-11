@@ -1102,57 +1102,68 @@ function renderBlogPage() {
         Trends: '#f72585', Resume: '#4361ee', Career: '#3a0ca3'
     };
 
-    function categoryBadge(cat) {
+    function categoryBadge(cat, large = false) {
         const color = categoryColors[cat] || '#4361ee';
-        return `<span style="background:${color}22;color:${color};padding:4px 12px;border-radius:30px;font-size:0.78rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;">${cat}</span>`;
+        const pad = large ? '6px 16px' : '4px 12px';
+        const size = large ? '0.82rem' : '0.78rem';
+        return `<span style="background:${color}22;color:${color};padding:${pad};border-radius:30px;font-size:${size};font-weight:700;letter-spacing:0.5px;text-transform:uppercase;">${cat}</span>`;
     }
 
     const [featured, ...rest] = careerAdvice;
 
     container.innerHTML = `
         <div class="blog-grid">
-            <div class="blog-card featured" style="cursor:pointer;" onclick="openArticle(${featured.id})">
-                <div class="blog-image" style="overflow:hidden;">
+            <!-- Featured full-width card -->
+            <div class="blog-card featured" onclick="navigateToBlogArticle(${featured.id})">
+                <div class="blog-image" style="position:relative;">
                     <img src="${featured.image}" alt="${featured.title}"
-                         style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s ease;"
-                         onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"
                          onerror="this.style.display='none'">
-                </div>
-                <div class="blog-content">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-                        ${categoryBadge(featured.category)}
-                        <span style="color:var(--gray);font-size:0.83rem;"><i class="fas fa-clock"></i> ${featured.readTime}</span>
+                    <div class="blog-image-overlay"></div>
+                    <div class="blog-featured-content">
+                        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+                            ${categoryBadge(featured.category, true)}
+                            <span style="color:rgba(255,255,255,0.72);font-size:0.85rem;"><i class="fas fa-clock"></i> ${featured.readTime}</span>
+                        </div>
+                        <div class="blog-featured-meta">
+                            <span><i class="fas fa-user"></i> ${featured.author}</span>
+                            <span style="background:rgba(255,255,255,0.18);padding:3px 10px;border-radius:20px;font-size:0.78rem;letter-spacing:0.5px;">FEATURED</span>
+                        </div>
+                        <h3>${featured.title}</h3>
+                        <p>${featured.excerpt}</p>
+                        <span style="color:#fff;font-weight:700;display:inline-flex;align-items:center;gap:8px;font-size:0.95rem;">
+                            Read Article <i class="fas fa-arrow-right"></i>
+                        </span>
                     </div>
-                    <div class="blog-meta"><span><i class="fas fa-user"></i> ${featured.author}</span></div>
-                    <h3>${featured.title}</h3>
-                    <p>${featured.excerpt}</p>
-                    <span class="read-more" style="color:var(--primary);font-weight:600;display:inline-flex;align-items:center;gap:8px;">Read Article <i class="fas fa-arrow-right"></i></span>
                 </div>
             </div>
 
-            ${rest.map(article => `
-                <div class="blog-card" style="cursor:pointer;" onclick="openArticle(${article.id})">
-                    <div class="blog-image" style="overflow:hidden;position:relative;">
-                        <img src="${article.image}" alt="${article.title}"
-                             style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s ease;"
-                             onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'"
-                             onerror="this.style.display='none'">
-                        <div style="position:absolute;top:12px;left:12px;">${categoryBadge(article.category)}</div>
-                    </div>
-                    <div style="padding:20px 20px 22px;">
-                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-                            <span style="color:var(--gray);font-size:0.83rem;"><i class="fas fa-user"></i> ${article.author}</span>
-                            <span style="color:var(--gray);font-size:0.83rem;"><i class="fas fa-clock"></i> ${article.readTime}</span>
+            <!-- 3-column grid for remaining articles -->
+            <div class="blog-cards-grid">
+                ${rest.map(article => `
+                    <div class="blog-card" onclick="navigateToBlogArticle(${article.id})">
+                        <div class="blog-image">
+                            <img src="${article.image}" alt="${article.title}"
+                                 onerror="this.style.display='none'">
+                            <div style="position:absolute;top:12px;left:12px;">${categoryBadge(article.category)}</div>
                         </div>
-                        <h4 style="font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:8px;line-height:1.4;">${article.title}</h4>
-                        <p class="blog-excerpt" style="color:var(--gray);font-size:0.9rem;line-height:1.6;margin-bottom:16px;">${article.excerpt}</p>
-                        <span class="read-more" style="color:var(--primary);font-weight:600;font-size:0.9rem;display:inline-flex;align-items:center;gap:6px;">Read More <i class="fas fa-arrow-right"></i></span>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><i class="fas fa-user"></i> ${article.author}</span>
+                                <span><i class="fas fa-clock"></i> ${article.readTime}</span>
+                            </div>
+                            <h3>${article.title}</h3>
+                            <p>${article.excerpt}</p>
+                            <span style="color:var(--primary);font-weight:600;font-size:0.9rem;display:inline-flex;align-items:center;gap:6px;margin-top:auto;">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </span>
+                        </div>
                     </div>
-                </div>
-            `).join('')}
+                `).join('')}
+            </div>
         </div>
     `;
 }
+
 
 function renderCareerAdvice() {
     const container = document.getElementById('careerAdvice');
@@ -1188,44 +1199,57 @@ function renderCareerAdvice() {
     `).join('');
 }
 
-function openArticle(id) {
+function navigateToBlogArticle(id) {
     const advice = careerAdvice.find(a => a.id === id);
     if (!advice) return;
 
-    const modal = document.getElementById('articleModal');
-    const content = document.getElementById('articleContent');
-    if (!modal || !content) return;
+    const categoryColors = {
+        interview: '#4361ee', networking: '#7209b7', skills: '#06d6a0',
+        Trends: '#f72585', Resume: '#4361ee', Career: '#3a0ca3'
+    };
+    const color = categoryColors[advice.category] || '#4361ee';
 
-    content.innerHTML = `
-        <div style="overflow: hidden; border-radius: var(--radius-lg) var(--radius-lg) 0 0;">
+    const container = document.getElementById('blogArticleContent');
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="blog-article-hero">
             <img src="${advice.image}" alt="${advice.title}"
-                 style="width: 100%; height: 280px; object-fit: cover; display: block;"
-                 onerror="this.style.background='linear-gradient(135deg,var(--primary),var(--primary-dark))'; this.style.height='200px';">
+                 onerror="this.style.display='none'">
+            <div class="blog-article-hero-overlay"></div>
         </div>
-        <div style="padding: 32px 40px 40px;">
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap;">
-                <span style="background: var(--primary-light); color: var(--primary); padding: 4px 14px; border-radius: 30px; font-size: 0.85rem; font-weight: 600;">
-                    ${advice.category.charAt(0).toUpperCase() + advice.category.slice(1)}
+        <div class="blog-article-body">
+            <div class="blog-article-meta">
+                <span style="background:${color}22;color:${color};padding:4px 14px;border-radius:30px;font-size:0.82rem;font-weight:700;text-transform:uppercase;">
+                    ${advice.category}
                 </span>
-                <span style="color: var(--gray); font-size: 0.9rem;"><i class="fas fa-clock"></i> ${advice.readTime}</span>
-                <span style="color: var(--gray); font-size: 0.9rem; margin-left: auto;"><i class="fas fa-user"></i> ${advice.author}</span>
+                <span><i class="fas fa-user"></i> ${advice.author}</span>
+                <span><i class="fas fa-clock"></i> ${advice.readTime}</span>
             </div>
-            <h2 style="font-size: 1.7rem; margin-bottom: 24px; line-height: 1.3;">${advice.title}</h2>
-            <div style="color: var(--dark); line-height: 1.8; font-size: 1rem;">
-                ${advice.fullContent}
+            <h1>${advice.title}</h1>
+            <div class="blog-article-lead">${advice.excerpt}</div>
+            <div>${advice.fullContent}</div>
+            <div class="blog-article-cta">
+                <span>Ready to put these insights into action?</span>
+                <button class="btn btn-primary" onclick="navigateToPage('browse-jobs-page')">
+                    <i class="fas fa-briefcase"></i> Browse Jobs
+                </button>
+                <button class="btn btn-outline" onclick="navigateToPage('resources-page')">
+                    <i class="fas fa-book"></i> More Resources
+                </button>
             </div>
         </div>
     `;
 
-    content.querySelectorAll('h4').forEach(h => {
-        h.style.cssText = 'margin: 24px 0 8px; font-size: 1.1rem; color: var(--dark);';
-    });
-    content.querySelectorAll('p').forEach(p => {
-        p.style.cssText = 'margin-bottom: 14px; color: #555;';
-    });
-
-    modal.classList.add('show');
+    navigateToPage('blog-article-page');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+function openArticle(id) {
+    navigateToBlogArticle(id);
+}
+
+
 
 function filterAdvice(category) {
     showToast('Filtering by: ' + category, 'success');
@@ -1901,6 +1925,7 @@ window.renderSavedJobs = renderSavedJobs;
 window.renderSettings = renderSettings;
 window.saveSettings = saveSettings;
 window.openArticle = openArticle;
+window.navigateToBlogArticle = navigateToBlogArticle;
 window.renderBlogPage = renderBlogPage;
 window.downloadFile = downloadFile;
 window.brandAssetsContent = brandAssetsContent;
