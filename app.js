@@ -1255,6 +1255,33 @@ function filterAdvice(category) {
     showToast('Filtering by: ' + category, 'success');
 }
 
+function filterResources(query) {
+    const q = (query || '').toLowerCase().trim();
+    document.querySelectorAll('#resourcesGrid .resource-card').forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.classList.toggle('hidden', q !== '' && !text.includes(q));
+    });
+    document.querySelectorAll('.res-featured-card').forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.classList.toggle('hidden', q !== '' && !text.includes(q));
+    });
+}
+
+function filterResourceCategory(cat, btn) {
+    // Update button active state
+    document.querySelectorAll('.res-cat-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+
+    document.querySelectorAll('#resourcesGrid .resource-card').forEach(card => {
+        const cardCat = card.dataset.cat || '';
+        card.classList.toggle('hidden', cat !== 'all' && cardCat !== cat);
+    });
+    document.querySelectorAll('.res-featured-card').forEach(card => {
+        const cardCat = card.dataset.cat || '';
+        card.classList.toggle('hidden', cat !== 'all' && cardCat !== cat);
+    });
+}
+
 // ===== RESUME TEMPLATE FUNCTIONS =====
 const resumeTemplates = {
     modern: {
@@ -1913,6 +1940,8 @@ window.saveJob = saveJob;
 window.viewCompanyProfile = viewCompanyProfile;
 window.followCompany = followCompany;
 window.filterAdvice = filterAdvice;
+window.filterResources = filterResources;
+window.filterResourceCategory = filterResourceCategory;
 window.showResumeTip = showResumeTip;
 window.showSalaryRole = showSalaryRole;
 window.switchAccountType = switchAccountType;

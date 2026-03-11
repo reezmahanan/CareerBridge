@@ -2006,6 +2006,472 @@
             </div>
         </section>
 
+        <!-- RESOURCES HUB PAGE -->
+        <section id="resources-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-book-open"></i> Career Resources</h1>
+                <p>Everything you need to land your next great role — guides, tools, templates, and expert advice</p>
+            </div>
+
+            <!-- Search bar -->
+            <div class="resources-search-wrap">
+                <div class="resources-search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="resourceSearchInput" placeholder="Search resources…" oninput="filterResources(this.value)">
+                </div>
+            </div>
+
+            <!-- Category filters -->
+            <div class="resource-categories">
+                <button class="res-cat-btn active" onclick="filterResourceCategory('all', this)">All Resources</button>
+                <button class="res-cat-btn" onclick="filterResourceCategory('interview', this)">Interviews</button>
+                <button class="res-cat-btn" onclick="filterResourceCategory('resume', this)">Resume &amp; CV</button>
+                <button class="res-cat-btn" onclick="filterResourceCategory('career', this)">Career Growth</button>
+                <button class="res-cat-btn" onclick="filterResourceCategory('salary', this)">Salary &amp; Negotiation</button>
+                <button class="res-cat-btn" onclick="filterResourceCategory('networking', this)">Networking</button>
+            </div>
+
+            <!-- Featured (large) cards -->
+            <div class="resources-featured-row">
+                <div class="res-featured-card" data-cat="interview" onclick="navigateToPage('resource-interview-guide-page')">
+                    <div class="res-featured-img">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&q=80&auto=format&fit=crop" alt="Interview Guide" onerror="this.style.display='none'">
+                        <div class="res-featured-overlay"></div>
+                        <div class="res-featured-label"><span class="res-tag interview">Interview</span></div>
+                    </div>
+                    <div class="res-featured-body">
+                        <h3>The Complete Interview Guide</h3>
+                        <p>Master every stage — from the phone screen to the final-round panel. Includes 50+ common questions, STAR framework examples, and salary negotiation scripts.</p>
+                        <span class="res-read-link">Read Guide <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+                <div class="res-featured-card" data-cat="resume" onclick="navigateToPage('resource-cover-letter-page')">
+                    <div class="res-featured-img">
+                        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=900&q=80&auto=format&fit=crop" alt="Cover Letter Guide" onerror="this.style.display='none'">
+                        <div class="res-featured-overlay"></div>
+                        <div class="res-featured-label"><span class="res-tag resume">Resume</span></div>
+                    </div>
+                    <div class="res-featured-body">
+                        <h3>How to Write a Winning Cover Letter</h3>
+                        <p>A step-by-step framework for writing cover letters that get read — with real before-and-after examples for tech, marketing, finance, and more.</p>
+                        <span class="res-read-link">Read Guide <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All resources grid -->
+            <h2 class="resources-section-title">All Resources</h2>
+            <div class="resources-grid" id="resourcesGrid">
+
+                <div class="resource-card" data-cat="interview" onclick="navigateToPage('resource-interview-guide-page')">
+                    <div class="resource-card-icon" style="background:#4361ee22;color:#4361ee"><i class="fas fa-comments"></i></div>
+                    <div class="resource-card-body">
+                        <span class="res-tag interview">Interview</span>
+                        <h4>Complete Interview Guide</h4>
+                        <p>50+ questions, STAR answers, and negotiation scripts.</p>
+                    </div>
+                    <i class="fas fa-chevron-right resource-card-arrow"></i>
+                </div>
+
+                <div class="resource-card" data-cat="resume" onclick="navigateToPage('resume-tips-page')">
+                    <div class="resource-card-icon" style="background:#06d6a022;color:#06d6a0"><i class="fas fa-file-alt"></i></div>
+                    <div class="resource-card-body">
+                        <span class="res-tag resume">Resume</span>
+                        <h4>Resume Tips &amp; Templates</h4>
+                        <p>ATS-optimised layouts, section-by-section guidance, and free templates.</p>
+                    </div>
+                    <i class="fas fa-chevron-right resource-card-arrow"></i>
+                </div>
+
+                <div class="resource-card" data-cat="salary" onclick="navigateToPage('salary-guide-page')">
+                    <div class="resource-card-icon" style="background:#f7258522;color:#f72585"><i class="fas fa-dollar-sign"></i></div>
+                    <div class="resource-card-body">
+                        <span class="res-tag salary">Salary</span>
+                        <h4>Salary Guide by Industry</h4>
+                        <p>Real-time compensation data across 6 sectors with entry, mid, and senior ranges.</p>
+                    </div>
+                    <i class="fas fa-chevron-right resource-card-arrow"></i>
+                </div>
+
+                <div class="resource-card" data-cat="networking" onclick="navigateToPage('resource-networking-page')">
+                    <div class="resource-card-icon" style="background:#7209b722;color:#7209b7"><i class="fas fa-network-wired"></i></div>
+                    <div class="resource-card-body">
+                        <span class="res-tag networking">Networking</span>
+                        <h4>Networking Masterclass</h4>
+                        <p>Build genuine professional relationships that open doors to unadvertised roles.</p>
+                    </div>
+                    <i class="fas fa-chevron-right resource-card-arrow"></i>
+                </div>
+
+                <div class="resource-card" data-cat="career" onclick="navigateToPage('resource-job-search-page')">
+                    <div class="resource-card-icon" style="background:#3a0ca322;color:#3a0ca3"><i class="fas fa-search"></i></div>
+                    <div class="resource-card-body">
+                        <span class="res-tag career">Career</span>
+                        <h4>Job Search Playbook</h4>
+                        <p>A structured 30-day plan to go from applications to offers.</p>
+                    </div>
+                    <i class="fas fa-chevron-right resource-card-arrow"></i>
+                </div>
+
+                <div class="resource-card" data-cat="resume" onclick="navigateToPage('resource-cover-letter-page')">
+                    <div class="resource-card-icon" style="background:#4361ee22;color:#4361ee"><i class="fas fa-envelope-open-text"></i></div>
+                    <div class="resource-card-body">
+                        <span class="res-tag resume">Resume</span>
+                        <h4>Cover Letter Toolkit</h4>
+                        <p>Templates and examples tailored to every industry and experience level.</p>
+                    </div>
+                    <i class="fas fa-chevron-right resource-card-arrow"></i>
+                </div>
+
+                <div class="resource-card" data-cat="networking" onclick="navigateToPage('resource-linkedin-page')">
+                    <div class="resource-card-icon" style="background:#0077b622;color:#0077b6"><i class="fab fa-linkedin"></i></div>
+                    <div class="resource-card-body">
+                        <span class="res-tag networking">Networking</span>
+                        <h4>LinkedIn Profile Optimization</h4>
+                        <p>Turn your profile into a 24/7 recruiter magnet with proven tactics.</p>
+                    </div>
+                    <i class="fas fa-chevron-right resource-card-arrow"></i>
+                </div>
+
+                <div class="resource-card" data-cat="career" onclick="navigateToPage('resource-career-change-page')">
+                    <div class="resource-card-icon" style="background:#f7258522;color:#f72585"><i class="fas fa-exchange-alt"></i></div>
+                    <div class="resource-card-body">
+                        <span class="res-tag career">Career</span>
+                        <h4>Career Change Roadmap</h4>
+                        <p>Pivot to a new industry confidently with transferable skills mapping and portfolio tips.</p>
+                    </div>
+                    <i class="fas fa-chevron-right resource-card-arrow"></i>
+                </div>
+
+                <div class="resource-card" data-cat="career" onclick="navigateToPage('career-advice-page')">
+                    <div class="resource-card-icon" style="background:#06d6a022;color:#06d6a0"><i class="fas fa-lightbulb"></i></div>
+                    <div class="resource-card-body">
+                        <span class="res-tag career">Career</span>
+                        <h4>Career Advice Articles</h4>
+                        <p>Expert-written guides on skills, leadership, remote work, and more.</p>
+                    </div>
+                    <i class="fas fa-chevron-right resource-card-arrow"></i>
+                </div>
+
+                <div class="resource-card" data-cat="salary" onclick="navigateToBlogArticle(6)">
+                    <div class="resource-card-icon" style="background:#3a0ca322;color:#3a0ca3"><i class="fas fa-handshake"></i></div>
+                    <div class="resource-card-body">
+                        <span class="res-tag salary">Salary</span>
+                        <h4>How to Negotiate Your Salary</h4>
+                        <p>Scripts, tactics, and psychology-backed strategies to maximise your offer.</p>
+                    </div>
+                    <i class="fas fa-chevron-right resource-card-arrow"></i>
+                </div>
+
+                <div class="resource-card" data-cat="interview" onclick="navigateToBlogArticle(1)">
+                    <div class="resource-card-icon" style="background:#4361ee22;color:#4361ee"><i class="fas fa-laptop-code"></i></div>
+                    <div class="resource-card-body">
+                        <span class="res-tag interview">Interview</span>
+                        <h4>Ace Your Technical Interview</h4>
+                        <p>Data structures, system design, and live-coding strategies for engineering roles.</p>
+                    </div>
+                    <i class="fas fa-chevron-right resource-card-arrow"></i>
+                </div>
+
+                <div class="resource-card" data-cat="resume" onclick="navigateToBlogArticle(5)">
+                    <div class="resource-card-icon" style="background:#f7258522;color:#f72585"><i class="fas fa-times-circle"></i></div>
+                    <div class="resource-card-body">
+                        <span class="res-tag resume">Resume</span>
+                        <h4>10 Resume Mistakes to Avoid</h4>
+                        <p>The most common CV errors that cost candidates interviews — fixed.</p>
+                    </div>
+                    <i class="fas fa-chevron-right resource-card-arrow"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESOURCE: INTERVIEW GUIDE PAGE -->
+        <section id="resource-interview-guide-page" class="page">
+            <div class="blog-article-container">
+                <div class="blog-article-back">
+                    <button class="btn btn-outline" onclick="navigateToPage('resources-page')">
+                        <i class="fas fa-arrow-left"></i> Back to Resources
+                    </button>
+                </div>
+                <div class="blog-article-hero">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1200&q=85&auto=format&fit=crop" alt="Interview Guide">
+                    <div class="blog-article-hero-overlay"></div>
+                </div>
+                <div class="blog-article-body">
+                    <div class="blog-article-meta">
+                        <span class="res-tag interview">Interview</span>
+                        <span><i class="fas fa-clock"></i> 18 min read</span>
+                        <span><i class="fas fa-user"></i> CareerBridge Editorial</span>
+                    </div>
+                    <h1>The Complete Interview Guide: From Phone Screen to Final Round</h1>
+                    <div class="blog-article-lead">Whether you're preparing for a behavioural panel, a technical deep-dive, or a case interview, this guide gives you a repeatable framework to walk in confident and walk out with an offer.</div>
+
+                    <h4>1. Research Like a Recruiter</h4>
+                    <p>Spend 90 minutes studying the company before any interview. Go beyond the homepage — read recent press releases, Glassdoor reviews (especially comments from interviewers), LinkedIn posts by employees, and the job description line-by-line. Map every bullet in the JD to a concrete example from your experience.</p>
+
+                    <h4>2. Master the STAR Framework</h4>
+                    <p><strong>Situation →</strong> Set the scene in one or two sentences. <strong>Task →</strong> Describe your specific responsibility. <strong>Action →</strong> Walk through exactly what you did (use "I", not "we"). <strong>Result →</strong> Quantify the outcome. Aim for at least 8 STAR stories that cover leadership, conflict, failure, innovation, and collaboration.</p>
+
+                    <h4>3. The 50 Questions You Must Prepare</h4>
+                    <p>Classic openers: "Tell me about yourself", "Why this role?", "Where do you see yourself in 5 years?" Behavioural: "Describe a time you failed", "Tell me about a conflict with a manager." Situational: "How would you handle a project running over deadline?" Role-specific: "What's your approach to [core skill]?"</p>
+
+                    <h4>4. Technical Interviews</h4>
+                    <p>For engineering roles, practise on LeetCode (easy + medium), review Big-O notation, and be ready for system design questions. Think aloud — interviewers value your reasoning process. For non-tech roles, "technical" usually means case studies or analytical exercises: practice structuring your answer before jumping in.</p>
+
+                    <h4>5. Questions to Ask</h4>
+                    <p>Strong closing questions: "What does success look like in the first 90 days?", "What are the biggest challenges the team is facing this year?", "How is performance reviewed?" Avoid asking about salary, benefits, or work hours in an early-stage interview.</p>
+
+                    <h4>6. Salary Negotiation at the Offer Stage</h4>
+                    <p>Never accept the first number. Research the market range (use CareerBridge Salary Guide), and anchor high: "Based on my research and experience, I was expecting something closer to $X — is there flexibility?" Most employers expect negotiation. You can also negotiate sign-on bonus, extra PTO, or remote days if the base is firm.</p>
+
+                    <h4>7. After the Interview</h4>
+                    <p>Send a personalised thank-you email within 24 hours — reference something specific from the conversation. If you haven't heard back within the stated timeline, one polite follow-up is appropriate.</p>
+
+                    <div class="blog-article-cta">
+                        <span>Ready to practice?</span>
+                        <button class="btn btn-primary" onclick="navigateToPage('browse-jobs-page')"><i class="fas fa-briefcase"></i> Browse Jobs</button>
+                        <button class="btn btn-outline" onclick="navigateToPage('salary-guide-page')"><i class="fas fa-dollar-sign"></i> Salary Guide</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESOURCE: NETWORKING GUIDE PAGE -->
+        <section id="resource-networking-page" class="page">
+            <div class="blog-article-container">
+                <div class="blog-article-back">
+                    <button class="btn btn-outline" onclick="navigateToPage('resources-page')">
+                        <i class="fas fa-arrow-left"></i> Back to Resources
+                    </button>
+                </div>
+                <div class="blog-article-hero">
+                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&q=85&auto=format&fit=crop" alt="Networking Masterclass">
+                    <div class="blog-article-hero-overlay"></div>
+                </div>
+                <div class="blog-article-body">
+                    <div class="blog-article-meta">
+                        <span class="res-tag networking">Networking</span>
+                        <span><i class="fas fa-clock"></i> 14 min read</span>
+                        <span><i class="fas fa-user"></i> CareerBridge Editorial</span>
+                    </div>
+                    <h1>Networking Masterclass: Build Relationships That Open Doors</h1>
+                    <div class="blog-article-lead">Up to 85% of roles are filled through connections rather than job boards. This guide teaches you how to build a genuine network — not a transactional one — that creates career opportunities you'd never find otherwise.</div>
+
+                    <h4>1. Shift Your Mindset: Give Before You Get</h4>
+                    <p>The most effective networkers lead with generosity. Share an article, offer an introduction, congratulate someone on a promotion. When you consistently add value, people remember you without you ever having to ask for anything.</p>
+
+                    <h4>2. Map Your Existing Network</h4>
+                    <p>Before reaching out to strangers, audit who you already know. List former colleagues, classmates, managers, and clients. Reconnecting with warm contacts is 10× easier than cold outreach and often more fruitful.</p>
+
+                    <h4>3. Craft the Perfect Informational Interview Request</h4>
+                    <p>Keep it short (under 90 words), be specific ("I'd love 20 minutes to learn about your transition from agency to in-house marketing"), and make it easy to say yes ("Happy to meet over Zoom or coffee — whichever works for you"). Respect their time and come prepared with three focused questions.</p>
+
+                    <h4>4. LinkedIn Outreach That Gets Replies</h4>
+                    <p>Personalise every connection request. Reference a shared connection, a post they wrote, or their specific career path. Follow up with a value-first message before making any ask. Connection requests with a note have 3× higher acceptance rates.</p>
+
+                    <h4>5. Industry Events and Communities</h4>
+                    <p>Identify 2–3 recurring events in your industry (meetups, conferences, Slack communities, Discord servers). Regular attendance builds familiarity faster than sporadic appearances. Volunteer to speak or organise — it multiplies your visibility instantly.</p>
+
+                    <h4>6. Maintain Your Network</h4>
+                    <p>Schedule monthly "nurture" time. Reach out to 5 people with a genuine update, share something useful, or just check in. Use a simple CRM (even a spreadsheet) to track when you last spoke and what you discussed.</p>
+
+                    <div class="blog-article-cta">
+                        <span>Optimise your profile for networking</span>
+                        <button class="btn btn-primary" onclick="navigateToPage('resource-linkedin-page')"><i class="fab fa-linkedin"></i> LinkedIn Guide</button>
+                        <button class="btn btn-outline" onclick="navigateToPage('browse-jobs-page')"><i class="fas fa-briefcase"></i> Browse Jobs</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESOURCE: JOB SEARCH PLAYBOOK PAGE -->
+        <section id="resource-job-search-page" class="page">
+            <div class="blog-article-container">
+                <div class="blog-article-back">
+                    <button class="btn btn-outline" onclick="navigateToPage('resources-page')">
+                        <i class="fas fa-arrow-left"></i> Back to Resources
+                    </button>
+                </div>
+                <div class="blog-article-hero">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=85&auto=format&fit=crop" alt="Job Search Playbook">
+                    <div class="blog-article-hero-overlay"></div>
+                </div>
+                <div class="blog-article-body">
+                    <div class="blog-article-meta">
+                        <span class="res-tag career">Career</span>
+                        <span><i class="fas fa-clock"></i> 16 min read</span>
+                        <span><i class="fas fa-user"></i> CareerBridge Editorial</span>
+                    </div>
+                    <h1>The 30-Day Job Search Playbook</h1>
+                    <div class="blog-article-lead">A structured, week-by-week plan that takes you from scattered applications to a signed offer — with daily actions, measurable targets, and the mindset to stay consistent when results take time.</div>
+
+                    <h4>Week 1 — Foundations (Days 1–7)</h4>
+                    <p>Day 1–2: Define your target role, industries, and locations. Write your "job search brief" — one page that clarifies what you want and what you won't accept. Day 3–4: Refresh your CV and LinkedIn with accomplishment-led bullet points. Day 5–7: Research 20 target companies and identify a contact at each.</p>
+
+                    <h4>Week 2 — Building Pipeline (Days 8–14)</h4>
+                    <p>Apply to 5–10 roles per day using tailored CVs (not one generic document blasted everywhere). Reach out to 3 people in your network daily — not to ask for jobs, but to have conversations. Set up job alerts on CareerBridge, LinkedIn, and niche job boards for your sector.</p>
+
+                    <h4>Week 3 — Interview Preparation (Days 15–21)</h4>
+                    <p>At this point you should be getting interview requests. Spend 2 hours per interview on company research, another hour on STAR preparation, and 30 minutes on practise questions out loud (not in your head). Record yourself to catch filler words and pacing issues.</p>
+
+                    <h4>Week 4 — Evaluating & Negotiating (Days 22–30)</h4>
+                    <p>Don't let excitement lead you to accept the first offer you receive. Evaluate each role against your brief from Day 1. Run at least two competing processes — even if you prefer one company, a competing offer dramatically strengthens your negotiating position.</p>
+
+                    <h4>Daily Habits That Make the Difference</h4>
+                    <p>Block 2–3 focused hours on job searching rather than browsing all day. Track every application in a spreadsheet (role, company, date, status, contact). Follow up on applications after 7 days with a brief, confident message. Take weekends off — burnout is real and kills your interview performance.</p>
+
+                    <div class="blog-article-cta">
+                        <span>Start your search today</span>
+                        <button class="btn btn-primary" onclick="navigateToPage('browse-jobs-page')"><i class="fas fa-briefcase"></i> Browse Jobs</button>
+                        <button class="btn btn-outline" onclick="navigateToPage('resume-tips-page')"><i class="fas fa-file-alt"></i> Resume Tips</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESOURCE: COVER LETTER PAGE -->
+        <section id="resource-cover-letter-page" class="page">
+            <div class="blog-article-container">
+                <div class="blog-article-back">
+                    <button class="btn btn-outline" onclick="navigateToPage('resources-page')">
+                        <i class="fas fa-arrow-left"></i> Back to Resources
+                    </button>
+                </div>
+                <div class="blog-article-hero">
+                    <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&q=85&auto=format&fit=crop" alt="Cover Letter Toolkit">
+                    <div class="blog-article-hero-overlay"></div>
+                </div>
+                <div class="blog-article-body">
+                    <div class="blog-article-meta">
+                        <span class="res-tag resume">Resume</span>
+                        <span><i class="fas fa-clock"></i> 12 min read</span>
+                        <span><i class="fas fa-user"></i> CareerBridge Editorial</span>
+                    </div>
+                    <h1>How to Write a Winning Cover Letter</h1>
+                    <div class="blog-article-lead">A great cover letter doesn't summarise your CV — it tells a story that makes the hiring manager feel they'd be missing out if they didn't call you. Here's how to write one in under an hour using a proven structure.</div>
+
+                    <h4>The 3-Paragraph Formula</h4>
+                    <p><strong>Paragraph 1 — The Hook:</strong> Lead with the most compelling thing about you relative to this role. Not "I am applying for…" — that's obvious. Try: "After leading a $2M product redesign that increased retention by 34%, I'm excited by [Company]'s challenge of [specific problem from JD]."</p>
+                    <p><strong>Paragraph 2 — The Proof:</strong> Two or three concrete achievements that directly address the key requirements. Use numbers wherever possible. Tie each point back to what the employer is looking for.</p>
+                    <p><strong>Paragraph 3 — The Close:</strong> Express genuine enthusiasm for this specific company (not generic praise). End with a confident, forward-looking statement: "I'd welcome the chance to discuss how I can contribute to [team goal]."</p>
+
+                    <h4>The One Thing Most People Get Wrong</h4>
+                    <p>Most cover letters are written from the applicant's perspective ("I want… I need… I am looking for…"). Flip this. Write from the employer's perspective: "You need someone who can… I've done exactly that by…"</p>
+
+                    <h4>Formatting Rules</h4>
+                    <p>Maximum one page. Use the same font and header as your CV. Address by name if at all possible (LinkedIn makes this easy). Keep paragraphs to 3–5 lines. No templates with bright colours — simplicity signals confidence.</p>
+
+                    <h4>Industry-Specific Tips</h4>
+                    <p><strong>Tech:</strong> Mention specific technologies and link to GitHub/portfolio. <strong>Marketing:</strong> Quantify campaigns and channels. <strong>Finance:</strong> Emphasise analytical rigour and regulatory awareness. <strong>Creative:</strong> Let your voice come through — a dull cover letter for a creative role is an instant rejection.</p>
+
+                    <div class="blog-article-cta">
+                        <span>Polish your full application</span>
+                        <button class="btn btn-primary" onclick="navigateToPage('resume-tips-page')"><i class="fas fa-file-alt"></i> Resume Tips</button>
+                        <button class="btn btn-outline" onclick="navigateToPage('resource-interview-guide-page')"><i class="fas fa-comments"></i> Interview Guide</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESOURCE: LINKEDIN OPTIMIZATION PAGE -->
+        <section id="resource-linkedin-page" class="page">
+            <div class="blog-article-container">
+                <div class="blog-article-back">
+                    <button class="btn btn-outline" onclick="navigateToPage('resources-page')">
+                        <i class="fas fa-arrow-left"></i> Back to Resources
+                    </button>
+                </div>
+                <div class="blog-article-hero">
+                    <img src="https://images.unsplash.com/photo-1611944212129-29977ae1398c?w=1200&q=85&auto=format&fit=crop" alt="LinkedIn Optimization">
+                    <div class="blog-article-hero-overlay"></div>
+                </div>
+                <div class="blog-article-body">
+                    <div class="blog-article-meta">
+                        <span class="res-tag networking">Networking</span>
+                        <span><i class="fas fa-clock"></i> 13 min read</span>
+                        <span><i class="fas fa-user"></i> CareerBridge Editorial</span>
+                    </div>
+                    <h1>LinkedIn Profile Optimization: Become a Recruiter Magnet</h1>
+                    <div class="blog-article-lead">Over 95% of recruiters use LinkedIn to source candidates. An optimised profile doesn't just improve your search ranking — it positions you as the obvious choice before you've even applied for a role.</div>
+
+                    <h4>1. Headline: Your Billboard</h4>
+                    <p>Don't just list your job title. Use the 220-character headline to pack in keywords and value: "Senior Product Manager | B2B SaaS | 0→1 Products | Ex-Stripe, Notion." Recruiters search by keyword, so think about the terms they type to find someone like you.</p>
+
+                    <h4>2. Photo and Banner</h4>
+                    <p>Professional headshot with a plain or blurred background — smile, good lighting, face fills 60% of the frame. Your banner image is prime real estate: use it to reinforce your brand (a relevant industry image, a tagline, or your portfolio URL).</p>
+
+                    <h4>3. About Section</h4>
+                    <p>Write in first person. Start with a hook (what you do and for whom), move to your biggest career achievement, and end with a call to action ("Open to Product Manager roles in FinTech — DM me or email [address]"). Sprinkle in 5–8 keywords naturally.</p>
+
+                    <h4>4. Experience: Accomplishments, Not Duties</h4>
+                    <p>Every bullet should answer "so what?" Replace "Responsible for managing campaigns" with "Managed $400K/year paid search campaigns, reducing CPA by 22% in Q3." Three to five bullets per role, focused on results.</p>
+
+                    <h4>5. Skills and Endorsements</h4>
+                    <p>Pin your top 3 skills — these appear most prominently. Add up to 50 skills total for maximum search coverage. Ask 5–10 colleagues for targeted endorsements on specific skills rather than a generic one.</p>
+
+                    <h4>6. Creator Mode and Content</h4>
+                    <p>Posting 2–3 times per week dramatically increases profile views. Share lessons from your work, comment thoughtfully on industry trends, and engage with posts from people you want to know. Visibility builds inbound opportunities over time.</p>
+
+                    <h4>7. Open to Work Settings</h4>
+                    <p>Use the "Open to Work" frame if you're actively searching — it increases recruiter messages significantly. Set your preferences precisely (role titles, locations, start date) so you only hear from relevant recruiters.</p>
+
+                    <div class="blog-article-cta">
+                        <span>Build your full presence</span>
+                        <button class="btn btn-primary" onclick="navigateToPage('resource-networking-page')"><i class="fas fa-network-wired"></i> Networking Guide</button>
+                        <button class="btn btn-outline" onclick="navigateToPage('resume-tips-page')"><i class="fas fa-file-alt"></i> Resume Tips</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESOURCE: CAREER CHANGE ROADMAP PAGE -->
+        <section id="resource-career-change-page" class="page">
+            <div class="blog-article-container">
+                <div class="blog-article-back">
+                    <button class="btn btn-outline" onclick="navigateToPage('resources-page')">
+                        <i class="fas fa-arrow-left"></i> Back to Resources
+                    </button>
+                </div>
+                <div class="blog-article-hero">
+                    <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200&q=85&auto=format&fit=crop" alt="Career Change Roadmap">
+                    <div class="blog-article-hero-overlay"></div>
+                </div>
+                <div class="blog-article-body">
+                    <div class="blog-article-meta">
+                        <span class="res-tag career">Career</span>
+                        <span><i class="fas fa-clock"></i> 15 min read</span>
+                        <span><i class="fas fa-user"></i> CareerBridge Editorial</span>
+                    </div>
+                    <h1>Career Change Roadmap: How to Pivot Without Starting Over</h1>
+                    <div class="blog-article-lead">Changing careers feels daunting — but most professionals underestimate how many of their skills are transferable. This roadmap shows you how to pivot confidently, close skill gaps strategically, and tell a story that makes sense to a new industry.</div>
+
+                    <h4>1. Identify Your Transferable Skills</h4>
+                    <p>Project management, stakeholder communication, data analysis, problem-solving, and leadership transcend industry. List every skill and accomplishment from your career without labelling it with your old job title — you'll be surprised how many are relevant to your target field.</p>
+
+                    <h4>2. Research Your Target Industry</h4>
+                    <p>Spend two weeks doing informational interviews with 5–10 people in your target industry. Ask: "What skills do you use every day?", "What would someone with my background need to learn?", "What roles are good entry points for people transitioning in?" This research is more valuable than any course.</p>
+
+                    <h4>3. Close the Skill Gaps Strategically</h4>
+                    <p>Not every gap needs a formal qualification. Identify the 2–3 hardest requirements for your target role and address them specifically: a certificate, a side project, freelance work, or volunteering. Hiring managers in most fields value demonstrated work over credentials.</p>
+
+                    <h4>4. Reframe Your Story</h4>
+                    <p>Your CV and LinkedIn need a new narrative. Lead with a clear "pivot pitch": "After 8 years in financial services developing my analytical and stakeholder management skills, I'm transitioning into data product management — where I can combine both." Recruiters don't object to career changes; they object to unexplained ones.</p>
+
+                    <h4>5. Target the Right Companies</h4>
+                    <p>Companies that already hire cross-functional or non-traditional candidates are your best bet. Look for job descriptions that value "diverse backgrounds" or list soft skills prominently alongside technical ones. Startups are often more open to pivots than large enterprises.</p>
+
+                    <h4>6. Salary Expectations</h4>
+                    <p>Be realistic: a career change may involve a temporary pay reduction if you're entry-level in a new field. However, if you're bringing premium transferable skills, negotiate firmly. Use the CareerBridge Salary Guide to understand the market before any conversation.</p>
+
+                    <div class="blog-article-cta">
+                        <span>Start your new chapter</span>
+                        <button class="btn btn-primary" onclick="navigateToPage('browse-jobs-page')"><i class="fas fa-briefcase"></i> Browse Jobs</button>
+                        <button class="btn btn-outline" onclick="navigateToPage('salary-guide-page')"><i class="fas fa-dollar-sign"></i> Salary Guide</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- CAREERS PAGE -->
         <section id="careers-page" class="page">
             <div class="page-header">
