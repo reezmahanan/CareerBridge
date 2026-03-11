@@ -1902,3 +1902,148 @@ window.renderSettings = renderSettings;
 window.saveSettings = saveSettings;
 window.openArticle = openArticle;
 window.renderBlogPage = renderBlogPage;
+window.downloadFile = downloadFile;
+window.brandAssetsContent = brandAssetsContent;
+window.factSheetContent = factSheetContent;
+window.leadershipPhotoContent = leadershipPhotoContent;
+
+// ===== DOWNLOAD HELPERS =====
+function downloadFile(filename, content, mimeType) {
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast(`"${filename}" downloaded successfully!`, 'success');
+}
+
+function brandAssetsContent() {
+    return `CAREERBRIDGE — LOGOS & BRAND ASSETS
+=====================================
+Version: 2026.1 | Released: March 2026
+
+PRIMARY LOGO
+  File: CareerBridge-Logo-Primary.svg
+  Colors: Primary Blue #4361EE, Dark #1E1E2E
+  Usage: Use on white or light backgrounds only
+
+REVERSED LOGO (WHITE)
+  File: CareerBridge-Logo-White.svg
+  Colors: White #FFFFFF
+  Usage: Use on dark or primary-color backgrounds
+
+ICON / FAVICON
+  File: CareerBridge-Icon.svg
+  Description: Bridge icon mark only, no wordmark
+
+COLOR PALETTE
+  Primary Blue:   #4361EE
+  Primary Dark:   #3A0CA3
+  Accent:         #F72585
+  Success:        #06D6A0
+  Dark:           #1E1E2E
+  Gray:           #6B7280
+
+TYPOGRAPHY
+  Primary Font:   Plus Jakarta Sans (Google Fonts)
+  Weights:        300, 400, 500, 600, 700, 800
+
+BRAND GUIDELINES
+  - Do not stretch, distort, or recolor the logo
+  - Maintain clear space equal to the height of the "C"
+  - Do not use the logo smaller than 24px height
+  - Do not place the primary logo on dark backgrounds
+
+For questions: brand@careerbridge.com
+`;
+}
+
+function factSheetContent() {
+    return `CAREERBRIDGE — COMPANY FACT SHEET
+===================================
+Updated: March 2026
+
+COMPANY OVERVIEW
+  Name:        CareerBridge, Inc.
+  Founded:     2022
+  HQ:          123 Market Street, Suite 400, San Francisco, CA 94105
+  Website:     https://careerbridge.com
+  CEO:         James Wilson
+  CTO:         Sarah Chen
+  COO:         Michael Adebayo
+
+MISSION
+  To bridge the gap between talent and opportunity — connecting
+  professionals with companies that value their potential.
+
+KEY METRICS (March 2026)
+  Registered Job Seekers:   500,000+
+  Employer Partners:        10,000+
+  Successful Placements:    50,000+
+  Countries Active:         15
+  Average Time-to-Hire:     12 days (68% below industry avg.)
+  Net Promoter Score:       72
+
+FUNDING
+  Total Raised:  $75M
+  Series C:      $50M (March 2026) — led by Sequoia Capital
+  Series B:      $18M (2024) — led by Andreessen Horowitz
+  Series A:      $5M  (2023) — led by Y Combinator
+
+PRODUCTS & PLANS
+  Starter:       $99/month   — 5 job posts, basic analytics
+  Professional:  $249/month  — 20 job posts, AI matching, analytics suite
+  Enterprise:    $599/month  — Unlimited posts, dedicated account manager
+
+RECOGNITION
+  - Forbes Best Startup Employers 2026 — #7
+  - TechCrunch Disrupt Battlefield Finalist 2024
+  - Built In Best Places to Work 2025
+
+CONTACT
+  Press:    press@careerbridge.com
+  Sales:    sales@careerbridge.com
+  Support:  support@careerbridge.com
+  Phone:    +1 (888) 123-4567
+`;
+}
+
+function leadershipPhotoContent() {
+    return `CAREERBRIDGE — LEADERSHIP PHOTOS
+==================================
+Updated: March 2026
+
+All images are provided in high-resolution (3000×3000px) JPEG format.
+Licensed for editorial and press use only.
+
+EXECUTIVE TEAM
+
+1. James Wilson — Co-Founder & CEO
+   File: james-wilson-ceo-headshot.jpg
+   Bio:  James has 15+ years in HR tech and was previously VP of Product
+         at LinkedIn. He co-founded CareerBridge in 2022.
+   Download URL: https://randomuser.me/api/portraits/men/1.jpg
+
+2. Sarah Chen — Co-Founder & CTO
+   File: sarah-chen-cto-headshot.jpg
+   Bio:  Sarah holds a PhD in Machine Learning from Stanford and led
+         AI research at Google before co-founding CareerBridge.
+   Download URL: https://randomuser.me/api/portraits/women/2.jpg
+
+3. Michael Adebayo — Chief Operating Officer
+   File: michael-adebayo-coo-headshot.jpg
+   Bio:  Michael brings 12 years of operations leadership from Airbnb
+         and Stripe, joining CareerBridge as COO in 2023.
+   Download URL: https://randomuser.me/api/portraits/men/3.jpg
+
+USAGE GUIDELINES
+  - Images may be used for press and editorial coverage of CareerBridge
+  - Do not alter, crop, or composite these images
+  - Credit: "Photo courtesy of CareerBridge"
+  - For other uses, contact: press@careerbridge.com
+`;
+}
