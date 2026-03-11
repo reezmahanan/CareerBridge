@@ -28,33 +28,33 @@
                 <li class="nav-dropdown">
                     <a href="#" class="nav-link"><i class="fas fa-users"></i> Job Seekers <i class="fas fa-chevron-down dropdown-icon"></i></a>
                     <div class="dropdown-content">
-                        <a href="#browse-jobs"><i class="fas fa-search"></i> Browse Jobs</a>
-                        <a href="#companies"><i class="fas fa-building"></i> Companies</a>
-                        <a href="#career-advice"><i class="fas fa-lightbulb"></i> Career Advice</a>
-                        <a href="#resume-tips"><i class="fas fa-file-alt"></i> Resume Tips</a>
-                        <a href="#salary-guide"><i class="fas fa-dollar-sign"></i> Salary Guide</a>
+                        <a href="#browse-jobs" class="nav-link"><i class="fas fa-search"></i> Browse Jobs</a>
+                        <a href="#companies" class="nav-link"><i class="fas fa-building"></i> Companies</a>
+                        <a href="#career-advice" class="nav-link"><i class="fas fa-lightbulb"></i> Career Advice</a>
+                        <a href="#resume-tips" class="nav-link"><i class="fas fa-file-alt"></i> Resume Tips</a>
+                        <a href="#salary-guide" class="nav-link"><i class="fas fa-dollar-sign"></i> Salary Guide</a>
                     </div>
                 </li>
                 <!-- For Employers -->
                 <li class="nav-dropdown">
                     <a href="#" class="nav-link"><i class="fas fa-briefcase"></i> Employers <i class="fas fa-chevron-down dropdown-icon"></i></a>
                     <div class="dropdown-content">
-                        <a href="#post-job"><i class="fas fa-plus-circle"></i> Post a Job</a>
-                        <a href="#search-candidates"><i class="fas fa-search"></i> Search Candidates</a>
-                        <a href="#pricing"><i class="fas fa-tag"></i> Pricing</a>
-                        <a href="#recruitment-solutions"><i class="fas fa-handshake"></i> Recruitment Solutions</a>
-                        <a href="#employer-branding" onclick="navigateToPage('employer-branding-page')"><i class="fas fa-star"></i> Employer Branding</a>
+                        <a href="#post-job" class="nav-link"><i class="fas fa-plus-circle"></i> Post a Job</a>
+                        <a href="#search-candidates" class="nav-link"><i class="fas fa-search"></i> Search Candidates</a>
+                        <a href="#pricing" class="nav-link"><i class="fas fa-tag"></i> Pricing</a>
+                        <a href="#recruitment-solutions" class="nav-link"><i class="fas fa-handshake"></i> Recruitment Solutions</a>
+                        <a href="#employer-branding" class="nav-link"><i class="fas fa-star"></i> Employer Branding</a>
                     </div>
                 </li>
                 <!-- Company -->
                 <li class="nav-dropdown">
                     <a href="#" class="nav-link"><i class="fas fa-flag"></i> Company <i class="fas fa-chevron-down dropdown-icon"></i></a>
                     <div class="dropdown-content">
-                        <a href="#about-us"><i class="fas fa-info-circle"></i> About Us</a>
-                        <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
-                        <a href="#press"><i class="fas fa-newspaper"></i> Press</a>
-                        <a href="#blog"><i class="fas fa-blog"></i> Blog</a>
-                        <a href="#careers"><i class="fas fa-user-tie"></i> Careers</a>
+                        <a href="#about-us" class="nav-link"><i class="fas fa-info-circle"></i> About Us</a>
+                        <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+                        <a href="#press" class="nav-link"><i class="fas fa-newspaper"></i> Press</a>
+                        <a href="#blog" class="nav-link"><i class="fas fa-blog"></i> Blog</a>
+                        <a href="#careers" class="nav-link"><i class="fas fa-user-tie"></i> Careers</a>
                     </div>
                 </li>
                 <li class="nav-divider"></li>
@@ -89,10 +89,10 @@
                     <p class="hero-subtitle">Join 500K+ professionals and 10K+ companies on CareerBridge – where dream careers take flight.</p>
                     
                     <div class="hero-cta">
-                        <a href="#browse-jobs" class="btn btn-primary btn-large">
+                        <a href="javascript:void(0)" class="btn btn-primary btn-large" onclick="navigateToPage('browse-jobs-page')">
                             <i class="fas fa-search"></i> Find Jobs
                         </a>
-                        <a href="#post-job" class="btn btn-outline btn-large">
+                        <a href="javascript:void(0)" class="btn btn-outline btn-large" onclick="requireLogin(() => navigateToPage('post-job-page'))">
                             <i class="fas fa-plus-circle"></i> Post a Job
                         </a>
                     </div>
@@ -1173,7 +1173,7 @@
                         <li class="disabled"><i class="fas fa-times"></i> Featured listings</li>
                         <li class="disabled"><i class="fas fa-times"></i> Priority support</li>
                     </ul>
-                    <button class="btn btn-outline btn-block">Get Started</button>
+                    <button class="btn btn-outline btn-block" onclick="requireLogin(() => navigateToPage('post-job-page'))">Get Started</button>
                 </div>
                 
                 <div class="pricing-card">
@@ -1192,7 +1192,7 @@
                         <li><i class="fas fa-check"></i> 5 featured listings</li>
                         <li class="disabled"><i class="fas fa-times"></i> Dedicated account manager</li>
                     </ul>
-                    <button class="btn btn-primary btn-block">Get Started</button>
+                    <button class="btn btn-primary btn-block" onclick="requireLogin(() => navigateToPage('post-job-page'))">Get Started</button>
                 </div>
                 
                 <div class="pricing-card">
@@ -1211,7 +1211,7 @@
                         <li><i class="fas fa-check"></i> Unlimited featured listings</li>
                         <li><i class="fas fa-check"></i> Dedicated account manager</li>
                     </ul>
-                    <button class="btn btn-outline btn-block">Contact Sales</button>
+                    <button class="btn btn-outline btn-block" onclick="navigateToPage('contact-page')">Contact Sales</button>
                 </div>
             </div>
             
@@ -1251,8 +1251,8 @@
                             <li><i class="fas fa-check-circle"></i> Dedicated success manager</li>
                         </ul>
                         <div class="hero-actions">
-                            <a href="#contact" class="btn btn-primary btn-large">Schedule a Demo</a>
-                            <a href="#pricing" class="btn btn-outline btn-large">See Pricing</a>
+                            <a href="javascript:void(0)" class="btn btn-primary btn-large" onclick="navigateToPage('contact-page')">Schedule a Demo</a>
+                            <a href="javascript:void(0)" class="btn btn-outline btn-large" onclick="navigateToPage('pricing-page')">See Pricing</a>
                         </div>
                     </div>
                     <div class="solutions-hero-visual">
@@ -1309,7 +1309,7 @@
                             <li><i class="fas fa-check"></i> Basic analytics</li>
                             <li><i class="fas fa-check"></i> Email support</li>
                         </ul>
-                        <button class="btn btn-outline btn-block">Get Started</button>
+                        <button class="btn btn-outline btn-block" onclick="requireLogin(() => navigateToPage('post-job-page'))">Get Started</button>
                     </div>
                     <div class="pricing-card pricing-featured">
                         <h4>Growth</h4>
@@ -1319,7 +1319,7 @@
                             <li><i class="fas fa-check"></i> Advanced analytics</li>
                             <li><i class="fas fa-check"></i> Priority support</li>
                         </ul>
-                        <button class="btn btn-primary btn-block">Start Growth</button>
+                        <button class="btn btn-primary btn-block" onclick="requireLogin(() => navigateToPage('post-job-page'))">Start Growth</button>
                     </div>
                     <div class="pricing-card pricing-enterprise">
                         <h4>Enterprise</h4>
@@ -1329,7 +1329,7 @@
                             <li><i class="fas fa-check"></i> Custom SLAs & integrations</li>
                             <li><i class="fas fa-check"></i> On-site training</li>
                         </ul>
-                        <button class="btn btn-outline btn-block">Contact Sales</button>
+                        <button class="btn btn-outline btn-block" onclick="navigateToPage('contact-page')">Contact Sales</button>
                     </div>
                 </div>
 
@@ -1366,8 +1366,8 @@
                     <h2>See how Recruitment Solutions can work for you</h2>
                     <p>Book a 30-minute walkthrough and get a tailored plan.</p>
                     <div class="hero-actions">
-                        <a href="#contact" class="btn btn-primary btn-large">Request Demo</a>
-                        <a href="#" class="btn btn-outline btn-large">Download Brochure</a>
+                        <a href="javascript:void(0)" class="btn btn-primary btn-large" onclick="navigateToPage('contact-page')">Request Demo</a>
+                        <a href="javascript:void(0)" class="btn btn-outline btn-large" onclick="showToast('Brochure download coming soon!', 'success')">Download Brochure</a>
                     </div>
                 </div>
             </div>
@@ -1769,21 +1769,21 @@
                     <div class="press-date">March 15, 2026</div>
                     <h3>CareerBridge Raises $50M Series C to Expand Global Footprint</h3>
                     <p>New funding will accelerate product development and international expansion.</p>
-                    <a href="#" class="read-more">Read Press Release <i class="fas fa-arrow-right"></i></a>
+                    <a href="javascript:void(0)" class="read-more" onclick="showToast('Full press release opening soon!', 'success')">Read Press Release <i class="fas fa-arrow-right"></i></a>
                 </div>
                 
                 <div class="press-card">
                     <div class="press-date">February 28, 2026</div>
                     <h3>CareerBridge Launches AI-Powered Candidate Matching</h3>
                     <p>New feature helps employers find qualified candidates 3x faster.</p>
-                    <a href="#" class="read-more">Read Article</a>
+                    <a href="javascript:void(0)" class="read-more" onclick="showToast('Full article opening soon!', 'success')">Read Article</a>
                 </div>
                 
                 <div class="press-card">
                     <div class="press-date">January 10, 2026</div>
                     <h3>Named in Forbes' Best Startup Employers 2026</h3>
                     <p>CareerBridge recognized for employee satisfaction and growth.</p>
-                    <a href="#" class="read-more">Read Article</a>
+                    <a href="javascript:void(0)" class="read-more" onclick="showToast('Full article opening soon!', 'success')">Read Article</a>
                 </div>
             </div>
             
@@ -1793,17 +1793,17 @@
                     <div class="resource-item">
                         <i class="fas fa-file-image"></i>
                         <h4>Logos & Brand Assets</h4>
-                        <button class="btn btn-outline btn-sm">Download</button>
+                        <button class="btn btn-outline btn-sm" onclick="showToast('Logos & Brand Assets downloaded!', 'success')">Download</button>
                     </div>
                     <div class="resource-item">
                         <i class="fas fa-file-alt"></i>
                         <h4>Fact Sheet</h4>
-                        <button class="btn btn-outline btn-sm">Download</button>
+                        <button class="btn btn-outline btn-sm" onclick="showToast('Fact Sheet downloaded!', 'success')">Download</button>
                     </div>
                     <div class="resource-item">
                         <i class="fas fa-file-image"></i>
                         <h4>Leadership Photos</h4>
-                        <button class="btn btn-outline btn-sm">Download</button>
+                        <button class="btn btn-outline btn-sm" onclick="showToast('Leadership Photos downloaded!', 'success')">Download</button>
                     </div>
                 </div>
             </div>
@@ -1961,7 +1961,7 @@
                             <h4>Engineering Manager</h4>
                             <p>Meta • Hybrid</p>
                         </div>
-                        <a href="#recommendations" class="view-all-link nav-link">View all recommendations →</a>
+                        <a href="#browse-jobs" class="view-all-link nav-link">View all recommendations →</a>
                     </div>
                 </div>
             </div>
@@ -2025,10 +2025,10 @@
                     </div>
                     
                     <div class="social-auth">
-                        <button class="btn-social">
+                        <button class="btn-social" onclick="showToast('Google sign-in coming soon!', 'success')">
                             <i class="fab fa-google"></i> Google
                         </button>
-                        <button class="btn-social">
+                        <button class="btn-social" onclick="showToast('LinkedIn sign-in coming soon!', 'success')">
                             <i class="fab fa-linkedin-in"></i> LinkedIn
                         </button>
                     </div>
@@ -2181,11 +2181,5 @@
     </div>
 
     <script src="app.js"></script>
-</body>
-<!-- Connect additional JS files for full interactivity -->
-<script src="app.js"></script>
-<script src="login-role-selector.js"></script>
-<script src="role-selector.js"></script>
-</html>
 </body>
 </html>
