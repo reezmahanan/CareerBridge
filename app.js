@@ -456,14 +456,16 @@ function checkAuthState() {
     }
 }
 
-function login(email, role) {
+function login(email, role, name = null) {
     // Simulate login
+    // Use provided name or fallback to defaults
+    const displayName = name || (role === 'employer' ? 'Google' : 'Alex Morgan');
     currentUser = {
         id: Date.now(),
         email: email,
         role: role,
-        name: role === 'employer' ? 'Google' : 'Alex Morgan',
-        avatar: `https://ui-avatars.com/api/?name=${role === 'employer' ? 'Google' : 'Alex+Morgan'}&background=4361ee&color=fff`
+        name: displayName,
+        avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName.replace(/ /g, '+'))}&background=4361ee&color=fff`
     };
     
     localStorage.setItem('careerbridge_user', JSON.stringify(currentUser));
@@ -1762,7 +1764,18 @@ function setupEventListeners() {
             const isEmployer = document.getElementById('employerRegisterFields')?.style.display === 'block';
             const role = isEmployer ? 'employer' : 'jobseeker';
             const email = document.querySelector('#registerForm input[type="email"]').value;
-            login(email, role);
+            
+            // Get name based on account type
+            let name;
+            if (isEmployer) {
+                name = document.getElementById('companyName')?.value || 'Company';
+            } else {
+                const firstName = document.getElementById('firstName')?.value || '';
+                const lastName = document.getElementById('lastName')?.value || '';
+                name = `${firstName} ${lastName}`.trim() || 'User';
+            }
+            
+            login(email, role, name);
         });
     }
     
