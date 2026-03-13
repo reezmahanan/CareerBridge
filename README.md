@@ -1,6 +1,6 @@
 # 🌉 CareerBridge
 
-> A fully functional **job portal web app** built with plain HTML, CSS, and JavaScript — no frameworks, no installs, no build tools. Just open it in a browser and it works!
+A fully functional **job portal web app** built with plain HTML, CSS, and JavaScript — no frameworks, no installs, no build tools. Just open it in a browser and it works!
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
