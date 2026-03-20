@@ -4256,6 +4256,14 @@ body.role-jobseeker .jobseeker-only {
 .cta-section.compact h2 {
     margin-bottom: 8px;
 }
+.cta-section.compact .hero-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(160px, 1fr));
+    justify-content: center;
+    gap: 14px;
+    max-width: 520px;
+    margin: 0 auto;
+}
 
 @media (max-width: 900px) {
     .solutions-hero-inner { grid-template-columns: 1fr; }
@@ -4275,6 +4283,15 @@ body.role-jobseeker .jobseeker-only {
     .case-card div { padding: 12px; }
     .case-card h4 { font-size: 1rem; }
     .case-card p { font-size: 0.9rem; }
+    .cta-section.compact .hero-actions {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        max-width: 260px;
+    }
+    .cta-section.compact .hero-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 /* ===== EMPLOYER BRANDING PAGE (redesigned) ===== */
