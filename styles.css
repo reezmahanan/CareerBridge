@@ -4218,7 +4218,7 @@ body.role-jobseeker .jobseeker-only {
 }
 .case-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 18px;
     margin-bottom: 36px;
 }
@@ -4239,6 +4239,13 @@ body.role-jobseeker .jobseeker-only {
 .case-card div {
     padding: 14px;
 }
+.case-card h4 {
+    margin-bottom: 8px;
+}
+.case-card p {
+    color: var(--gray);
+    line-height: 1.6;
+}
 .cta-section.compact {
     background: linear-gradient(90deg, rgba(67,97,238,0.06), rgba(58,86,212,0.04));
     padding: 28px;
@@ -4254,8 +4261,20 @@ body.role-jobseeker .jobseeker-only {
     .solutions-hero-inner { grid-template-columns: 1fr; }
     .pricing-grid { grid-template-columns: 1fr; }
     .solutions-hero { padding: 32px 0; }
+    .case-grid { grid-template-columns: 1fr; }
     .case-card { flex-direction: column; }
     .case-card img { width: 100%; height: 180px; }
+}
+
+@media (max-width: 1200px) {
+    .case-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+    .case-grid { grid-template-columns: 1fr; gap: 14px; }
+    .case-card div { padding: 12px; }
+    .case-card h4 { font-size: 1rem; }
+    .case-card p { font-size: 0.9rem; }
 }
 
 /* ===== EMPLOYER BRANDING PAGE (redesigned) ===== */
