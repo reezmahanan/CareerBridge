@@ -4148,6 +4148,14 @@ body.role-jobseeker .jobseeker-only {
     color: var(--dark);
     font-weight: 600;
 }
+.solutions-hero .hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+.solutions-hero .hero-actions .btn {
+    justify-content: center;
+}
 .solutions-hero-visual img {
     border-radius: 12px;
     box-shadow: var(--shadow-lg);
@@ -4283,6 +4291,11 @@ body.role-jobseeker .jobseeker-only {
     .case-card div { padding: 12px; }
     .case-card h4 { font-size: 1rem; }
     .case-card p { font-size: 0.9rem; }
+    .solutions-hero .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
     .cta-section.compact .hero-actions {
         grid-template-columns: 1fr;
         gap: 12px;
