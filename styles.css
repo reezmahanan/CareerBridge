@@ -3784,11 +3784,14 @@ body.role-jobseeker .jobseeker-only {
     padding: 24px;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow);
+    align-self: start;
     position: sticky;
     top: calc(var(--navbar-height) + 12px);
     z-index: 40;
-    max-height: calc(100vh - (var(--navbar-height) + 60px));
-    overflow: auto;
+    max-height: calc(100dvh - (var(--navbar-height) + 24px));
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -4086,7 +4089,7 @@ body.role-jobseeker .jobseeker-only {
         grid-template-columns: 1fr;
     }
     .search-filters {
-        position: relative;
+        position: static;
         top: 0;
         max-height: none;
     }
