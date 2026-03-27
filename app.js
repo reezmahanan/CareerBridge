@@ -721,36 +721,36 @@ function renderJobDetailsPage(jobId) {
     if (!container) return;
 
     container.innerHTML = `
-        <div style="max-width:1100px;margin:40px auto;padding:24px;background:#fff;border-radius:12px;">
-            <div style="display:flex;gap:24px;align-items:center;margin-bottom:24px;">
-                <div style="width:84px;height:84px;background:var(--primary-light);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:700;color:var(--primary);">${job.companyLogo}</div>
-                <div>
-                    <h1 style="margin:0 0 6px 0;">${job.title}</h1>
-                    <div style="color:var(--gray);">${job.company} • ${job.location}</div>
+        <div class="job-details-shell">
+            <div class="job-details-head">
+                <div class="job-details-company-logo">${job.companyLogo}</div>
+                <div class="job-details-title-wrap">
+                    <h1>${job.title}</h1>
+                    <div class="job-details-company-line">${job.company} • ${job.location}</div>
                 </div>
             </div>
 
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px;">
-                <div><div style="color:var(--gray);font-size:0.85rem;margin-bottom:6px;">Job Type</div><div style="font-weight:600;">${job.type}</div></div>
-                <div><div style="color:var(--gray);font-size:0.85rem;margin-bottom:6px;">Experience</div><div style="font-weight:600;">${job.level}</div></div>
-                <div><div style="color:var(--gray);font-size:0.85rem;margin-bottom:6px;">Salary</div><div style="font-weight:600;color:var(--success);">${job.salary}</div></div>
-                <div><div style="color:var(--gray);font-size:0.85rem;margin-bottom:6px;">Remote</div><div style="font-weight:600;">${job.remote}</div></div>
+            <div class="job-details-meta-grid">
+                <div class="job-details-meta-item"><div class="job-details-meta-label">Job Type</div><div class="job-details-meta-value">${job.type}</div></div>
+                <div class="job-details-meta-item"><div class="job-details-meta-label">Experience</div><div class="job-details-meta-value">${job.level}</div></div>
+                <div class="job-details-meta-item"><div class="job-details-meta-label">Salary</div><div class="job-details-meta-value salary">${job.salary}</div></div>
+                <div class="job-details-meta-item"><div class="job-details-meta-label">Remote</div><div class="job-details-meta-value">${job.remote}</div></div>
             </div>
 
-            <div style="margin-bottom:20px;">
+            <div class="job-details-section">
                 <h3>Job Description</h3>
-                <p style="color:var(--dark);line-height:1.6;">${job.description}</p>
+                <p>${job.description}</p>
             </div>
 
-            <div style="margin-bottom:20px;">
+            <div class="job-details-section">
                 <h3>Required Skills</h3>
-                <div style="display:flex;flex-wrap:wrap;gap:10px;">${(job.skills || []).map(s => `<span style="background:var(--primary-light);color:var(--primary);padding:8px 16px;border-radius:20px;font-weight:600;">${s}</span>`).join('')}</div>
+                <div class="job-details-skills">${(job.skills || []).map(s => `<span class="job-details-skill-tag">${s}</span>`).join('')}</div>
             </div>
 
-            <div style="display:flex;gap:12px;">
+            <div class="job-details-actions">
                 <button class="btn btn-primary" onclick="applyForJob(${job.id})">Apply Now</button>
                 <button class="btn btn-outline" onclick="saveJob(${job.id})">Save</button>
-                <a href="index.html#saved-jobs" class="btn" style="margin-left:auto;">Back to Saved Jobs</a>
+                <a href="index.html#saved-jobs" class="btn job-details-back-link">Back to Saved Jobs</a>
             </div>
         </div>
     `;
