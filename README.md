@@ -1,3 +1,119 @@
+# 🇱🇰 CareerBridge — Sri Lankan Student Job Portal
+
+CareerBridge is a frontend job portal built with HTML, CSS, and JavaScript, designed around Sri Lankan hiring use cases and student-focused job journeys.
+
+### 🌐 Live Demo
+https://reezmahanan.github.io/CareerBridge/
+
+---
+
+## 🎯 Project Focus
+
+This project models a **Sri Lankan job portal** where students and early-career users can:
+
+- Discover internships, part-time jobs, and entry-level roles
+- Build a profile and apply quickly
+- Save jobs and track applications
+- Learn from career content tailored to first-time applicants
+
+It also includes employer and admin views for a complete portal flow.
+
+---
+
+## 👨‍🎓 Student Types Supported
+
+CareerBridge is structured for different student categories commonly seen in Sri Lanka:
+
+1. **School Leavers (A/L Completed)**
+   - Looking for first job exposure, trainee roles, and vocational opportunities
+
+2. **Undergraduate Students**
+   - Seeking internships, part-time roles, and industry placements during study
+
+3. **Final-Year Students**
+   - Preparing for full-time graduate entry roles and structured career starts
+
+4. **Fresh Graduates**
+   - Targeting graduate programs and junior executive/associate-level jobs
+
+These types can be represented in onboarding, profile labels, and job matching logic.
+
+---
+
+## 🇱🇰 Sri Lanka Job Portal Context
+
+CareerBridge content and UX can be used for Sri Lankan market scenarios such as:
+
+- Job locations like Colombo, Kandy, Galle, Jaffna, and remote/hybrid options
+- Work categories relevant to local demand (IT, BPO, Banking, Hospitality, Retail)
+- Student-friendly filters (internship, part-time, contract, trainee)
+- Entry-level salary and experience guidance for local applicants
+
+---
+
+## 🧩 Core Roles
+
+- **Student / Job Seeker**: browse, filter, save, and apply for jobs
+- **Employer**: post jobs and discover candidates
+- **Admin**: monitor platform-level insights
+
+---
+
+## 📁 Project Structure
+
+```text
+CareerBridge/
+├── index.html
+├── app.js
+├── styles.css
+├── candidate-profile.html
+├── job-details.html
+└── README.md
+```
+
+---
+
+## ⚙️ Run Locally
+
+### Option 1: Open directly
+- Double-click `index.html`
+
+### Option 2: Use local server (recommended)
+
+With Python:
+
+```bash
+python -m http.server 8000
+```
+
+Then visit:
+
+```text
+http://localhost:8000
+```
+
+---
+
+## 🛠️ Tech Stack
+
+- HTML5
+- CSS3
+- JavaScript (ES6+)
+- Browser localStorage for demo state persistence
+
+---
+
+## 📝 Notes
+
+- This is a frontend learning/demo project (no real backend authentication).
+- Job and user data are simulated for UI/UX development.
+- Best suited for portfolio, academic demos, and feature prototyping.
+
+---
+
+## 📄 License
+
+MIT
 # 🌉 CareerBridge
 
 A fully functional **job portal web app** built with plain HTML, CSS, and JavaScript — no frameworks, no installs, no build tools. Just open it in a browser and it works!
