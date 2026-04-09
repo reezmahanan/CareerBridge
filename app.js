@@ -1692,17 +1692,44 @@ function switchAccountType(type) {
     const employerBtn = document.getElementById('registerEmployerBtn');
     const seekerFields = document.getElementById('seekerRegisterFields');
     const employerFields = document.getElementById('employerRegisterFields');
+    const firstNameInput = document.getElementById('firstName');
+    const lastNameInput = document.getElementById('lastName');
+    const companyNameInput = document.getElementById('companyName');
     
     if (type === 'seeker') {
         seekerBtn.classList.add('active');
         employerBtn.classList.remove('active');
         if (seekerFields) seekerFields.style.display = 'block';
         if (employerFields) employerFields.style.display = 'none';
+        if (firstNameInput) {
+            firstNameInput.required = true;
+            firstNameInput.disabled = false;
+        }
+        if (lastNameInput) {
+            lastNameInput.required = true;
+            lastNameInput.disabled = false;
+        }
+        if (companyNameInput) {
+            companyNameInput.required = false;
+            companyNameInput.disabled = true;
+        }
     } else {
         employerBtn.classList.add('active');
         seekerBtn.classList.remove('active');
         if (employerFields) employerFields.style.display = 'block';
         if (seekerFields) seekerFields.style.display = 'none';
+        if (firstNameInput) {
+            firstNameInput.required = false;
+            firstNameInput.disabled = true;
+        }
+        if (lastNameInput) {
+            lastNameInput.required = false;
+            lastNameInput.disabled = true;
+        }
+        if (companyNameInput) {
+            companyNameInput.required = true;
+            companyNameInput.disabled = false;
+        }
     }
 }
 
@@ -1841,7 +1868,7 @@ function setupEventListeners() {
     if (registerForm) {
         registerForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const isEmployer = document.getElementById('employerRegisterFields')?.style.display === 'block';
+            const isEmployer = document.getElementById('registerEmployerBtn')?.classList.contains('active');
             const role = isEmployer ? 'employer' : 'jobseeker';
             const email = document.querySelector('#registerForm input[type="email"]').value;
             
@@ -1857,6 +1884,9 @@ function setupEventListeners() {
             
             login(email, role, name);
         });
+
+        // Ensure the default field validation state is correct on page load.
+        switchAccountType('seeker');
     }
     
     // Post job form
