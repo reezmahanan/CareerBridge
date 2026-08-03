@@ -3,6 +3,7 @@ let currentUser = null;
 let currentPage = 'home';
 let jobs = [];
 let companies = [];
+let candidates = [];
 let skills = [];
 
 // ===== SAMPLE DATA =====
@@ -272,6 +273,45 @@ const sampleCompanies = [
     }
 ];
 
+const sampleCandidates = [
+    {
+        id: 1,
+        name: 'Sanduni Perera',
+        role: 'Software Engineer',
+        location: 'Colombo, Sri Lanka',
+        experience: '3 years',
+        availability: 'Available Now',
+        skills: ['React', 'TypeScript', 'Node.js', 'Java', 'SQL'],
+        about: 'Experienced software engineer with expertise in full-stack development. Worked on enterprise applications for local and international clients. Passionate about clean code and user experience.',
+        img: 'https://randomuser.me/api/portraits/women/44.jpg',
+        type: 'Full-time'
+    },
+    {
+        id: 2,
+        name: 'Kasun Fernando',
+        role: 'Marketing Graduate',
+        location: 'Kandy, Sri Lanka',
+        experience: 'Fresh Graduate',
+        availability: 'Seeking Internship',
+        skills: ['Digital Marketing', 'Social Media', 'Content Writing', 'SEO', 'Analytics'],
+        about: 'Recent marketing graduate looking for internship opportunities. Strong academic background with hands-on experience in social media campaigns and content creation during university projects.',
+        img: 'https://randomuser.me/api/portraits/men/32.jpg',
+        type: 'Internship'
+    },
+    {
+        id: 3,
+        name: 'Nimasha Silva',
+        role: 'Business Analyst',
+        location: 'Colombo, Sri Lanka',
+        experience: '4 years',
+        availability: 'Available Now',
+        skills: ['Business Analysis', 'SQL', 'Power BI', 'Requirements Gathering', 'Agile'],
+        about: 'Business analyst with experience in banking and finance sector. Skilled in requirements gathering, data analysis, and stakeholder management. Looking for new challenges in business transformation.',
+        img: 'https://randomuser.me/api/portraits/women/68.jpg',
+        type: 'Full-time'
+    }
+];
+
 const careerAdvice = [
     {
         id: 1,
@@ -427,18 +467,41 @@ const careerAdvice = [
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', function() {
-    // Load sample data
-    jobs = [...sampleJobs];
-    companies = [...sampleCompanies];
+    // Load/initialize data from localStorage
+    const storedJobs = localStorage.getItem('careerbridge_jobs');
+    if (storedJobs) {
+        try { jobs = JSON.parse(storedJobs); } catch(e) { jobs = [...sampleJobs]; }
+    } else {
+        jobs = [...sampleJobs];
+        localStorage.setItem('careerbridge_jobs', JSON.stringify(jobs));
+    }
+
+    const storedCompanies = localStorage.getItem('careerbridge_companies');
+    if (storedCompanies) {
+        try { companies = JSON.parse(storedCompanies); } catch(e) { companies = [...sampleCompanies]; }
+    } else {
+        companies = [...sampleCompanies];
+        localStorage.setItem('careerbridge_companies', JSON.stringify(companies));
+    }
+
+    const storedCandidates = localStorage.getItem('careerbridge_candidates');
+    if (storedCandidates) {
+        try { candidates = JSON.parse(storedCandidates); } catch(e) { candidates = [...sampleCandidates]; }
+    } else {
+        candidates = [...sampleCandidates];
+        localStorage.setItem('careerbridge_candidates', JSON.stringify(candidates));
+    }
     
     // Initialize UI
     renderFeaturedJobs();
     renderCompanies();
     renderCareerAdvice();
     renderAllCompanies();
+    renderCandidatesList();
     
     // Setup event listeners
     setupEventListeners();
+    setupCandidateFilters();
     
     // Handle initial route
     handleRouting();
@@ -498,6 +561,18 @@ function navigateToPage(pageId) {
             renderSettings();
         } else if (pageId === 'blog-page') {
             renderBlogPage();
+        } else if (pageId === 'applications-page') {
+            renderApplicationsList();
+        } else if (pageId === 'recommendations-page') {
+            renderRecommendations();
+        } else if (pageId === 'search-candidates-page') {
+            renderCandidatesList();
+        } else if (pageId === 'dashboard-page') {
+            renderDashboard();
+        } else if (pageId === 'interview-prep-page') {
+            resetInterviewUI();
+        } else if (pageId === 'resume-builder-page') {
+            updateResumePreview();
         }
         
         // Update active nav link
@@ -549,6 +624,14 @@ function login(email, role, name = null) {
     };
     
     localStorage.setItem('careerbridge_user', JSON.stringify(currentUser));
+    
+    // Add user to dynamic candidates/companies lists
+    if (role === 'jobseeker') {
+        updateCandidateInDatabase(currentUser);
+    } else if (role === 'employer') {
+        updateCompanyInDatabase(currentUser);
+    }
+    
     updateUIForAuth();
     
     showToast(`Welcome back, ${currentUser.name}!`, 'success');
@@ -615,18 +698,7 @@ function updateUIForAuth() {
 }
 
 function updateDashboard() {
-    if (!currentUser) return;
-    
-    const jobseekerDashboard = document.getElementById('jobseekerDashboard');
-    const employerDashboard = document.getElementById('employerDashboard');
-    
-    if (currentUser.role === 'jobseeker') {
-        if (jobseekerDashboard) jobseekerDashboard.style.display = 'block';
-        if (employerDashboard) employerDashboard.style.display = 'none';
-    } else if (currentUser.role === 'employer') {
-        if (jobseekerDashboard) jobseekerDashboard.style.display = 'none';
-        if (employerDashboard) employerDashboard.style.display = 'block';
-    }
+    renderDashboard();
 }
 
 // ===== PROFILE RENDERING =====
@@ -720,37 +792,68 @@ function renderJobDetailsPage(jobId) {
     const container = document.getElementById('jobDetailsPageContent');
     if (!container) return;
 
+    const match = calculateSmartMatchScore(job, currentUser);
+    let matchHTML = '';
+    if (match) {
+        let matchClass = 'low';
+        if (match.percent >= 70) matchClass = 'high';
+        else if (match.percent >= 40) matchClass = 'medium';
+        matchHTML = `<span class="match-badge ${matchClass}" style="margin-left: 15px;"><i class="fas fa-magic"></i> ${match.percent}% Match</span>`;
+    }
+
     container.innerHTML = `
-        <div class="job-details-shell">
-            <div class="job-details-head">
-                <div class="job-details-company-logo">${job.companyLogo}</div>
+        <div class="job-details-shell" style="max-width: 800px; margin: 40px auto; padding: 40px; background: white; border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid var(--border-color);">
+            <div class="job-details-head" style="display: flex; align-items: center; gap: 24px; margin-bottom: 32px;">
+                <div class="job-details-company-logo" style="width: 80px; height: 80px; background: var(--primary-light); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; color: var(--primary);">${job.companyLogo}</div>
                 <div class="job-details-title-wrap">
-                    <h1>${job.title}</h1>
-                    <div class="job-details-company-line">${job.company} • ${job.location}</div>
+                    <h1 style="margin: 0 0 8px 0; font-size: 2.2rem; font-weight: 800; display: flex; align-items: center; flex-wrap: wrap;">${job.title} ${matchHTML}</h1>
+                    <div class="job-details-company-line" style="color: var(--gray); font-size: 1.1rem;"><i class="fas fa-building"></i> ${job.company} • <i class="fas fa-map-marker-alt"></i> ${job.location}</div>
                 </div>
             </div>
 
-            <div class="job-details-meta-grid">
-                <div class="job-details-meta-item"><div class="job-details-meta-label">Job Type</div><div class="job-details-meta-value">${job.type}</div></div>
-                <div class="job-details-meta-item"><div class="job-details-meta-label">Experience</div><div class="job-details-meta-value">${job.level}</div></div>
-                <div class="job-details-meta-item"><div class="job-details-meta-label">Salary</div><div class="job-details-meta-value salary">${job.salary}</div></div>
-                <div class="job-details-meta-item"><div class="job-details-meta-label">Remote</div><div class="job-details-meta-value">${job.remote}</div></div>
+            <div class="job-details-meta-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding: 24px; background: var(--gray-light); border-radius: var(--radius); margin-bottom: 32px;">
+                <div class="job-details-meta-item">
+                    <div class="job-details-meta-label" style="color: var(--gray); font-size: 0.85rem; margin-bottom: 4px;">Job Type</div>
+                    <div class="job-details-meta-value" style="font-weight: 600;">${job.type}</div>
+                </div>
+                <div class="job-details-meta-item">
+                    <div class="job-details-meta-label" style="color: var(--gray); font-size: 0.85rem; margin-bottom: 4px;">Experience</div>
+                    <div class="job-details-meta-value" style="font-weight: 600;">${job.level}</div>
+                </div>
+                <div class="job-details-meta-item">
+                    <div class="job-details-meta-label" style="color: var(--gray); font-size: 0.85rem; margin-bottom: 4px;">Salary</div>
+                    <div class="job-details-meta-value salary" style="font-weight: 600; color: var(--success);">${job.salary}</div>
+                </div>
+                <div class="job-details-meta-item">
+                    <div class="job-details-meta-label" style="color: var(--gray); font-size: 0.85rem; margin-bottom: 4px;">Remote Policy</div>
+                    <div class="job-details-meta-value" style="font-weight: 600;">${job.remote}</div>
+                </div>
             </div>
 
-            <div class="job-details-section">
-                <h3>Job Description</h3>
-                <p>${job.description}</p>
+            <div class="job-details-section" style="margin-bottom: 32px;">
+                <h3 style="margin-bottom: 16px; font-size: 1.3rem;">Job Description</h3>
+                <p style="line-height: 1.8; color: var(--dark);">${job.description}</p>
             </div>
 
-            <div class="job-details-section">
-                <h3>Required Skills</h3>
-                <div class="job-details-skills">${(job.skills || []).map(s => `<span class="job-details-skill-tag">${s}</span>`).join('')}</div>
+            <div class="job-details-section" style="margin-bottom: 32px;">
+                <h3 style="margin-bottom: 16px; font-size: 1.3rem;">Required Skills</h3>
+                <div class="job-details-skills" style="display: flex; flex-wrap: wrap; gap: 12px;">
+                    ${(job.skills || []).map(skill => {
+                        const seekerSkillsLower = (currentUser?.skills || []).map(s => s.toLowerCase());
+                        const isMatch = seekerSkillsLower.includes(skill.toLowerCase());
+                        const style = isMatch 
+                            ? 'background: #d1fae5; color: #065f46; border: 1px solid #10b981; padding: 8px 20px; border-radius: 30px; font-weight: 500; display: inline-flex; align-items: center; gap: 8px;' 
+                            : 'background: #f3f4f6; color: #475569; border: 1px solid #d1d5db; padding: 8px 20px; border-radius: 30px; font-weight: 500; display: inline-flex; align-items: center; gap: 8px;';
+                        const icon = isMatch ? '<i class="fas fa-check-circle" style="color: #10b981;"></i>' : '<i class="fas fa-plus-circle" style="color: #9ca3af;"></i>';
+                        return `<span style="${style}">${icon} ${skill}</span>`;
+                    }).join('')}
+                </div>
             </div>
 
-            <div class="job-details-actions">
-                <button class="btn btn-primary" onclick="applyForJob(${job.id})">Apply Now</button>
-                <button class="btn btn-outline" onclick="saveJob(${job.id})">Save</button>
-                <a href="index.html#saved-jobs" class="btn job-details-back-link">Back to Saved Jobs</a>
+            <div class="job-details-actions" style="display: flex; gap: 16px; margin-top: 40px;">
+                <button class="btn btn-primary" style="flex: 1; padding: 16px;" onclick="applyForJob(${job.id})">Apply Now</button>
+                <button class="btn btn-outline" style="padding: 16px 24px;" onclick="saveJob(${job.id})">Save</button>
+                <a href="index.html#saved-jobs" class="btn job-details-back-link" style="padding: 16px 24px; text-decoration: none; text-align: center; border: 1px solid var(--border-color); border-radius: var(--radius); color: var(--dark);">Back to Saved Jobs</a>
             </div>
         </div>
     `;
@@ -771,6 +874,36 @@ function renderSettings() {
     if (nameInput) nameInput.value = currentUser.name || '';
     if (emailInput) emailInput.value = currentUser.email || '';
     if (notifSelect) notifSelect.value = currentUser.notifications || 'all';
+
+    // Show/hide role-specific settings fields
+    const seekerFields = document.querySelectorAll('.seeker-only');
+    const employerFields = document.querySelectorAll('.employer-only');
+    
+    if (currentUser.role === 'jobseeker') {
+        seekerFields.forEach(f => f.style.display = 'block');
+        employerFields.forEach(f => f.style.display = 'none');
+        
+        // Populate seeker fields
+        if (document.getElementById('settingsTitle')) document.getElementById('settingsTitle').value = currentUser.title || '';
+        if (document.getElementById('settingsLocation')) document.getElementById('settingsLocation').value = currentUser.location || '';
+        if (document.getElementById('settingsExperience')) document.getElementById('settingsExperience').value = currentUser.experience || '';
+        if (document.getElementById('settingsAvailability')) document.getElementById('settingsAvailability').value = currentUser.availability || 'Available Now';
+        if (document.getElementById('settingsSkills')) document.getElementById('settingsSkills').value = (currentUser.skills || []).join(', ');
+        if (document.getElementById('settingsBio')) document.getElementById('settingsBio').value = currentUser.bio || '';
+    } else if (currentUser.role === 'employer') {
+        seekerFields.forEach(f => f.style.display = 'none');
+        employerFields.forEach(f => f.style.display = 'block');
+        
+        // Populate employer fields
+        if (document.getElementById('settingsCompanyName')) document.getElementById('settingsCompanyName').value = currentUser.name || '';
+        if (document.getElementById('settingsCompanyIndustry')) document.getElementById('settingsCompanyIndustry').value = currentUser.industry || '';
+        if (document.getElementById('settingsCompanyLocation')) document.getElementById('settingsCompanyLocation').value = currentUser.location || '';
+        if (document.getElementById('settingsCompanySize')) document.getElementById('settingsCompanySize').value = currentUser.employees || '';
+        if (document.getElementById('settingsCompanyBio')) document.getElementById('settingsCompanyBio').value = currentUser.bio || '';
+    } else {
+        seekerFields.forEach(f => f.style.display = 'none');
+        employerFields.forEach(f => f.style.display = 'none');
+    }
 }
 
 function saveSettings(e) {
@@ -784,14 +917,129 @@ function saveSettings(e) {
     currentUser.name = name;
     currentUser.email = email;
     currentUser.notifications = notifications;
+    currentUser.avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(name.replace(/ /g, '+'))}&background=4361ee&color=fff`;
+
+    if (currentUser.role === 'jobseeker') {
+        currentUser.title = document.getElementById('settingsTitle')?.value || '';
+        currentUser.location = document.getElementById('settingsLocation')?.value || '';
+        currentUser.experience = document.getElementById('settingsExperience')?.value || '';
+        currentUser.availability = document.getElementById('settingsAvailability')?.value || 'Available Now';
+        
+        const skillsText = document.getElementById('settingsSkills')?.value || '';
+        currentUser.skills = skillsText.split(',').map(s => s.trim()).filter(s => s.length > 0);
+        currentUser.bio = document.getElementById('settingsBio')?.value || '';
+        
+        // Update user in the candidates database
+        updateCandidateInDatabase(currentUser);
+    } else if (currentUser.role === 'employer') {
+        const companyName = document.getElementById('settingsCompanyName')?.value || currentUser.name;
+        currentUser.name = companyName;
+        currentUser.industry = document.getElementById('settingsCompanyIndustry')?.value || '';
+        currentUser.location = document.getElementById('settingsCompanyLocation')?.value || '';
+        currentUser.employees = document.getElementById('settingsCompanySize')?.value || '';
+        currentUser.bio = document.getElementById('settingsCompanyBio')?.value || '';
+        
+        // Update company in the companies database
+        updateCompanyInDatabase(currentUser);
+    }
 
     localStorage.setItem('careerbridge_user', JSON.stringify(currentUser));
     updateUIForAuth();
-    showToast('Settings saved', 'success');
+    showToast('Settings saved successfully', 'success');
     renderProfilePage();
 }
 
+function updateCandidateInDatabase(user) {
+    let candidatesList = JSON.parse(localStorage.getItem('careerbridge_candidates')) || [...sampleCandidates];
+    
+    // Find candidate by email or user id
+    let idx = candidatesList.findIndex(c => c.userId === user.id || c.email === user.email);
+    const candidateData = {
+        id: idx >= 0 ? candidatesList[idx].id : candidatesList.length + 1,
+        userId: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.title || 'Job Seeker',
+        location: user.location || 'Sri Lanka',
+        experience: user.experience || 'Entry level',
+        availability: user.availability || 'Available Now',
+        skills: user.skills || [],
+        about: user.bio || 'Tell us about yourself.',
+        img: user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=4361ee&color=fff`,
+        type: 'Full-time'
+    };
+    
+    if (idx >= 0) {
+        candidatesList[idx] = candidateData;
+    } else {
+        candidatesList.push(candidateData);
+    }
+    
+    localStorage.setItem('careerbridge_candidates', JSON.stringify(candidatesList));
+    candidates = candidatesList;
+}
+
+function updateCompanyInDatabase(user) {
+    let companiesList = JSON.parse(localStorage.getItem('careerbridge_companies')) || [...sampleCompanies];
+    
+    let idx = companiesList.findIndex(c => c.name.toLowerCase() === user.name.toLowerCase());
+    const companyData = {
+        id: idx >= 0 ? companiesList[idx].id : companiesList.length + 1,
+        name: user.name,
+        logo: user.name.charAt(0).toUpperCase(),
+        industry: user.industry || 'Conglomerate',
+        location: user.location || 'Colombo, Sri Lanka',
+        employees: user.employees || '1-50',
+        bio: user.bio || '',
+        openJobs: jobs.filter(j => j.company.toLowerCase() === user.name.toLowerCase()).length,
+        featured: false
+    };
+    
+    if (idx >= 0) {
+        companiesList[idx] = companyData;
+    } else {
+        companiesList.push(companyData);
+    }
+    
+    localStorage.setItem('careerbridge_companies', JSON.stringify(companiesList));
+    companies = companiesList;
+    renderCompanies();
+    renderAllCompanies();
+}
+
 // ===== JOBS FUNCTIONS =====
+function calculateSmartMatchScore(job, seeker) {
+    if (!seeker || !seeker.skills || seeker.skills.length === 0 || !job.skills || job.skills.length === 0) {
+        return null;
+    }
+    const seekerSkillsLower = seeker.skills.map(s => s.toLowerCase());
+    let matchCount = 0;
+    const matchedSkills = [];
+    const missingSkills = [];
+    
+    job.skills.forEach(skill => {
+        if (seekerSkillsLower.includes(skill.toLowerCase())) {
+            matchCount++;
+            matchedSkills.push(skill);
+        } else {
+            missingSkills.push(skill);
+        }
+    });
+    
+    const percent = Math.round((matchCount / job.skills.length) * 100);
+    return { percent, matchedSkills, missingSkills };
+}
+
+function getMatchBadgeHTML(job) {
+    if (!currentUser || currentUser.role !== 'jobseeker') return '';
+    const match = calculateSmartMatchScore(job, currentUser);
+    if (!match) return '';
+    let matchClass = 'low';
+    if (match.percent >= 70) matchClass = 'high';
+    else if (match.percent >= 40) matchClass = 'medium';
+    return `<span class="match-badge ${matchClass}" style="margin-left: 10px;"><i class="fas fa-magic"></i> ${match.percent}% Match</span>`;
+}
+
 function renderFeaturedJobs() {
     const container = document.getElementById('featuredJobs');
     if (!container) return;
@@ -811,7 +1059,7 @@ function renderFeaturedJobs() {
             </div>
             <div class="job-details">
                 <span><i class="fas fa-map-marker-alt"></i> ${job.location}</span>
-                <span><i class="fas fa-briefcase"></i> ${job.type}</span>
+                <span><i class="fas fa-briefcase"></i> ${job.type} ${getMatchBadgeHTML(job)}</span>
                 <span><i class="fas fa-clock"></i> ${job.posted}</span>
             </div>
             <div class="job-tags">
@@ -920,10 +1168,11 @@ function renderJobsList() {
                     <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
                         <div>
                             <h3 style="margin-bottom: 6px; font-size: 1.2rem;">${job.title}</h3>
-                            <div style="display: flex; gap: 20px; color: var(--gray); font-size: 0.95rem;">
+                            <div style="display: flex; gap: 20px; color: var(--gray); font-size: 0.95rem; align-items: center; flex-wrap: wrap;">
                                 <span><i class="fas fa-building"></i> ${job.company}</span>
                                 <span><i class="fas fa-map-marker-alt"></i> ${job.location}</span>
                                 <span><i class="fas fa-briefcase"></i> ${job.type}</span>
+                                ${getMatchBadgeHTML(job)}
                             </div>
                         </div>
                         <span style="font-weight: 700; color: var(--success); font-size: 1.1rem;">${job.salary}</span>
@@ -996,7 +1245,15 @@ function viewJobDetails(jobId) {
             <div style="margin-bottom: 32px;">
                 <h3 style="margin-bottom: 16px;">Required Skills</h3>
                 <div style="display: flex; flex-wrap: wrap; gap: 12px;">
-                    ${job.skills.map(skill => `<span style="background: var(--primary-light); color: var(--primary); padding: 8px 20px; border-radius: 30px; font-weight: 500;">${skill}</span>`).join('')}
+                    ${job.skills.map(skill => {
+                        const seekerSkillsLower = (currentUser?.skills || []).map(s => s.toLowerCase());
+                        const isMatch = seekerSkillsLower.includes(skill.toLowerCase());
+                        const style = isMatch 
+                            ? 'background: #d1fae5; color: #065f46; border: 1px solid #10b981; padding: 8px 20px; border-radius: 30px; font-weight: 500; display: inline-flex; align-items: center; gap: 8px;' 
+                            : 'background: #f3f4f6; color: #475569; border: 1px solid #d1d5db; padding: 8px 20px; border-radius: 30px; font-weight: 500; display: inline-flex; align-items: center; gap: 8px;';
+                        const icon = isMatch ? '<i class="fas fa-check-circle" style="color: #10b981;"></i>' : '<i class="fas fa-plus-circle" style="color: #9ca3af;"></i>';
+                        return `<span style="${style}">${icon} ${skill}</span>`;
+                    }).join('')}
                 </div>
             </div>
             
@@ -1023,10 +1280,51 @@ function applyForJob(jobId) {
         return;
     }
     
+    if (currentUser.role !== 'jobseeker') {
+        showToast('Only job seekers can apply for jobs', 'error');
+        return;
+    }
+    
+    const job = jobs.find(j => j.id === jobId);
+    if (!job) {
+        showToast('Job not found', 'error');
+        return;
+    }
+    
+    let applicationsList = JSON.parse(localStorage.getItem('careerbridge_applications')) || [];
+    const alreadyApplied = applicationsList.some(app => app.jobId === jobId && app.seekerEmail === currentUser.email);
+    if (alreadyApplied) {
+        showToast('You have already applied for this job', 'warning');
+        return;
+    }
+    
+    const newApplication = {
+        id: Date.now(),
+        jobId: jobId,
+        jobTitle: job.title,
+        companyName: job.company,
+        seekerId: currentUser.id,
+        seekerName: currentUser.name,
+        seekerEmail: currentUser.email,
+        seekerAvatar: currentUser.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.name)}&background=4361ee&color=fff`,
+        appliedDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }),
+        status: 'Pending'
+    };
+    
+    applicationsList.push(newApplication);
+    localStorage.setItem('careerbridge_applications', JSON.stringify(applicationsList));
+    
     const modal = document.getElementById('jobModal');
-    modal.classList.remove('show');
+    if (modal) modal.classList.remove('show');
     
     showToast('Application submitted successfully!', 'success');
+    
+    if (currentPage === 'applications-page') {
+        renderApplicationsList();
+    }
+    if (currentPage === 'dashboard-page') {
+        renderDashboard();
+    }
 }
 
 function saveJob(jobId) {
@@ -1593,14 +1891,14 @@ function showSalaryRole(role) {
         
         salaryRoleDisplay.textContent = roleNames[role] || role;
         
-        // Set salary ranges based on role
+        // Set salary ranges based on role (LKR monthly ranges)
         const salaries = {
-            technology: { entry: '$75k', mid: '$105k', senior: '$145k', lead: '$175k' },
-            finance: { entry: '$65k', mid: '$95k', senior: '$135k', lead: '$165k' },
-            marketing: { entry: '$55k', mid: '$80k', senior: '$115k', lead: '$145k' },
-            sales: { entry: '$50k', mid: '$85k', senior: '$125k', lead: '$160k' },
-            hr: { entry: '$52k', mid: '$78k', senior: '$108k', lead: '$138k' },
-            operations: { entry: '$58k', mid: '$82k', senior: '$112k', lead: '$142k' }
+            technology: { entry: 'LKR 80K - 150K', mid: 'LKR 150K - 280K', senior: 'LKR 280K - 450K', lead: 'LKR 450K - 650K' },
+            finance: { entry: 'LKR 65K - 120K', mid: 'LKR 120K - 220K', senior: 'LKR 220K - 380K', lead: 'LKR 380K - 550K' },
+            marketing: { entry: 'LKR 50K - 95K', mid: 'LKR 95K - 180K', senior: 'LKR 180K - 280K', lead: 'LKR 280K - 420K' },
+            sales: { entry: 'LKR 45K - 80K', mid: 'LKR 80K - 160K', senior: 'LKR 160K - 250K', lead: 'LKR 250K - 380K' },
+            hr: { entry: 'LKR 55K - 90K', mid: 'LKR 90K - 150K', senior: 'LKR 150K - 240K', lead: 'LKR 240K - 350K' },
+            operations: { entry: 'LKR 60K - 100K', mid: 'LKR 100K - 170K', senior: 'LKR 170K - 260K', lead: 'LKR 260K - 380K' }
         };
         
         const roleSalaries = salaries[role] || salaries.technology;
@@ -1655,15 +1953,24 @@ function handlePostJob(e) {
         return;
     }
     
+    const formatVal = (val) => {
+        const num = parseInt(val, 10);
+        if (isNaN(num)) return val;
+        if (num >= 1000) return Math.round(num / 1000) + 'K';
+        return num;
+    };
+    
+    const salaryText = salaryMin && salaryMax ? `LKR ${formatVal(salaryMin)} - ${formatVal(salaryMax)}` : 'Competitive';
+    
     const newJob = {
-        id: jobs.length + 1,
+        id: Date.now(),
         title: title,
         company: company,
         companyLogo: logo,
         location: location,
         type: type,
         level: level,
-        salary: salaryMin && salaryMax ? `$${salaryMin} - $${salaryMax}` : 'Competitive',
+        salary: salaryText,
         description: description,
         posted: 'Just now',
         remote: remote,
@@ -1672,6 +1979,7 @@ function handlePostJob(e) {
     };
     
     jobs.unshift(newJob);
+    localStorage.setItem('careerbridge_jobs', JSON.stringify(jobs));
     
     // Reset form
     document.getElementById('postJobForm').reset();
@@ -1987,11 +2295,16 @@ function setupEventListeners() {
     const checkSalaryBtn = document.getElementById('checkSalaryBtn');
     if (checkSalaryBtn) {
         checkSalaryBtn.addEventListener('click', function() {
-            const title = document.getElementById('salaryJobTitle')?.value;
-            if (title) {
-                showSalaryRole('technology');
-                showToast(`Showing salaries for ${title}`, 'success');
-            }
+            const title = document.getElementById('salaryJobTitle')?.value.toLowerCase() || '';
+            let matchedCategory = 'technology';
+            if (title.includes('finance') || title.includes('account') || title.includes('audit')) matchedCategory = 'finance';
+            else if (title.includes('market') || title.includes('social') || title.includes('pr')) matchedCategory = 'marketing';
+            else if (title.includes('sales') || title.includes('retail') || title.includes('deal')) matchedCategory = 'sales';
+            else if (title.includes('hr') || title.includes('human') || title.includes('recruit')) matchedCategory = 'hr';
+            else if (title.includes('oper') || title.includes('manage') || title.includes('proc')) matchedCategory = 'operations';
+            
+            showSalaryRole(matchedCategory);
+            showToast(`Showing salaries matching "${title}"`, 'success');
         });
     }
     
@@ -2076,6 +2389,7 @@ window.logout = logout;
 window.renderSavedJobs = renderSavedJobs;
 window.renderSettings = renderSettings;
 window.saveSettings = saveSettings;
+window.renderJobDetailsPage = renderJobDetailsPage;
 window.openArticle = openArticle;
 window.navigateToBlogArticle = navigateToBlogArticle;
 window.renderBlogPage = renderBlogPage;
@@ -2083,6 +2397,21 @@ window.downloadFile = downloadFile;
 window.brandAssetsContent = brandAssetsContent;
 window.factSheetContent = factSheetContent;
 window.leadershipPhotoContent = leadershipPhotoContent;
+window.renderCandidatesList = renderCandidatesList;
+window.setupCandidateFilters = setupCandidateFilters;
+window.renderApplicationsList = renderApplicationsList;
+window.renderRecommendations = renderRecommendations;
+window.renderDashboard = renderDashboard;
+window.renderEmployerDashboard = renderEmployerDashboard;
+window.updateApplicationStatus = updateApplicationStatus;
+window.deleteJobListing = deleteJobListing;
+window.startInterviewSession = startInterviewSession;
+window.submitInterviewAnswer = submitInterviewAnswer;
+window.endInterviewSession = endInterviewSession;
+window.resetInterviewUI = resetInterviewUI;
+window.updateResumePreview = updateResumePreview;
+window.printResume = printResume;
+window.downloadResumeHTML = downloadResumeHTML;
 
 // ===== DOWNLOAD HELPERS =====
 function downloadFile(filename, content, mimeType) {
@@ -2223,4 +2552,844 @@ USAGE GUIDELINES
   - Credit: "Photo courtesy of CareerBridge"
   - For other uses, contact: press@careerbridge.com
 `;
+}
+
+// ===== CANDIDATE SEARCH & FILTERING =====
+function renderCandidatesList() {
+    const container = document.getElementById('candidatesList');
+    if (!container) return;
+
+    // Get filters
+    const keywords = document.getElementById('candidateKeywordFilter')?.value.toLowerCase() || '';
+    const location = document.getElementById('candidateLocationFilter')?.value.toLowerCase() || '';
+    const expLevel = document.getElementById('candidateExpFilter')?.value || '';
+    const availability = document.getElementById('candidateAvailabilityFilter')?.value || '';
+    const jobType = document.getElementById('candidateTypeFilter')?.value || '';
+
+    // Load candidate list from localStorage
+    const localCandidates = localStorage.getItem('careerbridge_candidates');
+    let candidatesList = [];
+    if (localCandidates) {
+        try { candidatesList = JSON.parse(localCandidates); } catch(e) { candidatesList = [...sampleCandidates]; }
+    } else {
+        candidatesList = [...sampleCandidates];
+    }
+
+    let filtered = candidatesList.filter(c => {
+        // Keyword filter: matches name, role, skills, or about
+        if (keywords) {
+            const matchName = c.name.toLowerCase().includes(keywords);
+            const matchRole = c.role.toLowerCase().includes(keywords);
+            const matchAbout = c.about.toLowerCase().includes(keywords);
+            const matchSkills = c.skills.some(s => s.toLowerCase().includes(keywords));
+            if (!matchName && !matchRole && !matchAbout && !matchSkills) return false;
+        }
+
+        // Location filter
+        if (location && !c.location.toLowerCase().includes(location)) {
+            return false;
+        }
+
+        // Experience filter
+        if (expLevel) {
+            const years = parseInt(c.experience) || 0;
+            if (expLevel === 'fresh' && c.experience.toLowerCase() !== 'fresh graduate') return false;
+            if (expLevel === '1-3' && (years < 1 || years > 3)) return false;
+            if (expLevel === '3-5' && (years < 3 || years > 5)) return false;
+            if (expLevel === '5-8' && (years < 5 || years > 8)) return false;
+            if (expLevel === '8+' && years < 8) return false;
+        }
+
+        // Availability filter
+        if (availability && c.availability.toLowerCase() !== availability.toLowerCase()) {
+            return false;
+        }
+
+        // Job type filter
+        if (jobType && c.type && c.type.toLowerCase() !== jobType.toLowerCase()) {
+            return false;
+        }
+
+        return true;
+    });
+
+    // Update candidate stats
+    const activeCountEl = document.getElementById('candidateActiveCount');
+    const availableCountEl = document.getElementById('candidateAvailableCount');
+    const addedCountEl = document.getElementById('candidateAddedCount');
+
+    if (activeCountEl) activeCountEl.textContent = candidatesList.length;
+    if (availableCountEl) availableCountEl.textContent = candidatesList.filter(c => c.availability.toLowerCase() === 'available now').length;
+    if (addedCountEl) addedCountEl.textContent = '1'; // Seed stat
+
+    if (filtered.length === 0) {
+        container.innerHTML = `
+            <div class="no-results" style="grid-column: span 3; text-align: center; padding: 40px;">
+                <i class="fas fa-user-slash" style="font-size: 3rem; color: var(--gray); margin-bottom: 20px;"></i>
+                <h3>No candidates found</h3>
+                <p style="color: var(--gray);">Try adjusting your search criteria</p>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = filtered.map(c => `
+        <div class="candidate-card">
+            <div class="candidate-header">
+                <img src="${c.img}" alt="${c.name}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(c.name)}&background=4361ee&color=fff'">
+                <div>
+                    <h4>${c.name}</h4>
+                    <p>${c.role}</p>
+                </div>
+                <span class="availability ${c.availability.toLowerCase() === 'available now' ? 'available' : ''}">${c.availability}</span>
+            </div>
+            <div class="candidate-skills">
+                ${(c.skills || []).map(s => `<span>${s}</span>`).join('')}
+            </div>
+            <div class="candidate-footer">
+                <span><i class="fas fa-map-marker-alt"></i> ${c.location}</span>
+                <span><i class="fas fa-briefcase"></i> ${c.experience}</span>
+                <button class="btn btn-outline btn-sm" onclick="window.open('candidate-profile.html?id=${c.id}', '_blank')">View Profile</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function setupCandidateFilters() {
+    const kwFilter = document.getElementById('candidateKeywordFilter');
+    const locFilter = document.getElementById('candidateLocationFilter');
+    const expFilter = document.getElementById('candidateExpFilter');
+    const availFilter = document.getElementById('candidateAvailabilityFilter');
+    const typeFilter = document.getElementById('candidateTypeFilter');
+    const searchBtn = document.getElementById('searchCandidatesBtn');
+    const resetBtn = document.getElementById('resetCandidatesBtn');
+
+    const triggerSearch = () => {
+        renderCandidatesList();
+    };
+
+    kwFilter?.addEventListener('input', triggerSearch);
+    locFilter?.addEventListener('input', triggerSearch);
+    expFilter?.addEventListener('change', triggerSearch);
+    availFilter?.addEventListener('change', triggerSearch);
+    typeFilter?.addEventListener('change', triggerSearch);
+
+    searchBtn?.addEventListener('click', triggerSearch);
+    resetBtn?.addEventListener('click', () => {
+        if (kwFilter) kwFilter.value = '';
+        if (locFilter) locFilter.value = '';
+        if (expFilter) expFilter.value = '';
+        if (availFilter) availFilter.value = '';
+        if (typeFilter) typeFilter.value = '';
+        renderCandidatesList();
+    });
+}
+
+// ===== JOB APPLICATIONS LIST =====
+function renderApplicationsList() {
+    const container = document.querySelector('#applications-page .applications-list');
+    if (!container) return;
+
+    if (!currentUser) {
+        container.innerHTML = `<p style="text-align: center; color: var(--gray); padding: 20px;">Please login to view your applications.</p>`;
+        return;
+    }
+
+    const applicationsList = JSON.parse(localStorage.getItem('careerbridge_applications')) || [];
+    const myApps = applicationsList.filter(app => app.seekerEmail === currentUser.email);
+
+    if (myApps.length === 0) {
+        container.innerHTML = `
+            <div class="no-results" style="padding: 40px; text-align: center; background: white; border-radius: var(--radius-lg); box-shadow: 0 4px 20px rgba(0,0,0,0.02);">
+                <i class="fas fa-file-signature" style="font-size: 3rem; color: var(--gray); margin-bottom: 20px;"></i>
+                <h3>No applications yet</h3>
+                <p style="color: var(--gray); margin-bottom: 20px;">You haven't applied to any jobs.</p>
+                <button class="btn btn-primary" onclick="navigateToPage('browse-jobs-page')">Browse Jobs</button>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = `
+        <div class="dashboard-card">
+            ${myApps.map(app => {
+                let statusClass = 'pending';
+                if (app.status.toLowerCase() === 'shortlisted' || app.status.toLowerCase() === 'interview') statusClass = 'interview';
+                if (app.status.toLowerCase() === 'rejected') statusClass = 'rejected';
+                if (app.status.toLowerCase() === 'offered' || app.status.toLowerCase() === 'accepted') statusClass = 'success';
+
+                return `
+                    <div class="application-item" style="display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--border-color);">
+                        <div>
+                            <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 4px;">${app.jobTitle}</h4>
+                            <p style="color: var(--gray); font-size: 0.9rem;">${app.companyName} • Applied ${app.appliedDate}</p>
+                        </div>
+                        <span class="status ${statusClass}">${app.status}</span>
+                    </div>
+                `;
+            }).join('')}
+        </div>
+    `;
+}
+
+// ===== RECOMMENDATIONS PAGE =====
+function renderRecommendations() {
+    const container = document.getElementById('recommendationsList');
+    if (!container) return;
+
+    if (!currentUser) {
+        container.innerHTML = `<p style="grid-column: span 3; text-align: center; color: var(--gray); padding: 20px;">Please login to view recommendations.</p>`;
+        return;
+    }
+
+    const seekerSkills = currentUser.skills || [];
+    let matchingJobs = [];
+
+    if (seekerSkills.length > 0) {
+        matchingJobs = jobs.filter(job =>
+            job.skills.some(skill => seekerSkills.some(ss => ss.toLowerCase() === skill.toLowerCase()))
+        );
+    }
+
+    if (matchingJobs.length === 0) {
+        matchingJobs = jobs.filter(j => j.featured);
+    }
+
+    container.innerHTML = matchingJobs.map(job => `
+        <div class="job-card" onclick="viewJobDetails(${job.id})">
+            <div class="job-card-header">
+                <div class="company-logo">${job.companyLogo}</div>
+                <div class="job-info">
+                    <h3>${job.title}</h3>
+                    <div class="company-name">
+                        <i class="fas fa-building"></i> ${job.company}
+                    </div>
+                </div>
+            </div>
+            <div class="job-details-meta-grid" style="margin: 16px 0; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.85rem;">
+                <div><i class="fas fa-map-marker-alt"></i> ${job.location}</div>
+                <div><i class="fas fa-briefcase"></i> ${job.type}</div>
+            </div>
+            <span class="job-card-salary" style="font-weight: 600; color: var(--primary);">${job.salary}</span>
+        </div>
+    `).join('');
+}
+
+// ===== DYNAMIC DASHBOARDS =====
+function renderDashboard() {
+    if (!currentUser) return;
+
+    const jobseekerDashboard = document.getElementById('jobseekerDashboard');
+    const employerDashboard = document.getElementById('employerDashboard');
+
+    if (currentUser.role === 'jobseeker') {
+        if (jobseekerDashboard) jobseekerDashboard.style.display = 'block';
+        if (employerDashboard) employerDashboard.style.display = 'none';
+
+        const applicationsList = JSON.parse(localStorage.getItem('careerbridge_applications')) || [];
+        const myApps = applicationsList.filter(app => app.seekerEmail === currentUser.email);
+        const mySaved = currentUser.savedJobs || [];
+
+        // Update stats
+        const statsCards = document.querySelectorAll('#jobseekerDashboard .stat-card .stat-number');
+        if (statsCards.length >= 4) {
+            statsCards[0].textContent = myApps.length;
+            statsCards[1].textContent = mySaved.length;
+            statsCards[2].textContent = '12'; // Simulated Profile Views
+            statsCards[3].textContent = myApps.filter(app => app.status === 'Interview').length;
+        }
+
+        // Render recent applications
+        const recentAppsContainer = document.querySelector('#jobseekerDashboard .dashboard-card:first-child');
+        if (recentAppsContainer) {
+            if (myApps.length === 0) {
+                recentAppsContainer.innerHTML = `
+                    <h3>Recent Applications</h3>
+                    <p style="color: var(--gray); font-size: 0.95rem; margin: 15px 0;">No applications yet.</p>
+                    <a href="#browse-jobs" class="view-all-link nav-link" onclick="navigateToPage('browse-jobs-page')">Find jobs →</a>
+                `;
+            } else {
+                const slicedApps = myApps.slice(-3).reverse();
+                recentAppsContainer.innerHTML = `
+                    <h3>Recent Applications</h3>
+                    ${slicedApps.map(app => {
+                        let statusClass = 'pending';
+                        if (app.status.toLowerCase() === 'shortlisted' || app.status.toLowerCase() === 'interview') statusClass = 'interview';
+                        if (app.status.toLowerCase() === 'rejected') statusClass = 'rejected';
+                        if (app.status.toLowerCase() === 'offered' || app.status.toLowerCase() === 'accepted') statusClass = 'success';
+
+                        return `
+                            <div class="application-item">
+                                <div>
+                                    <h4>${app.jobTitle}</h4>
+                                    <p>${app.companyName} • Applied ${app.appliedDate}</p>
+                                </div>
+                                <span class="status ${statusClass}">${app.status}</span>
+                            </div>
+                        `;
+                    }).join('')}
+                    <a href="#applications" class="view-all-link nav-link" onclick="navigateToPage('applications-page')">View all applications →</a>
+                `;
+            }
+        }
+
+        // Render recommended jobs
+        const recommendationsContainer = document.querySelector('#jobseekerDashboard .dashboard-card:last-child');
+        if (recommendationsContainer) {
+            const seekerSkills = currentUser.skills || [];
+            let matchingJobs = [];
+
+            if (seekerSkills.length > 0) {
+                matchingJobs = jobs.filter(job =>
+                    job.skills.some(skill => seekerSkills.some(ss => ss.toLowerCase() === skill.toLowerCase()))
+                );
+            }
+
+            if (matchingJobs.length === 0) {
+                matchingJobs = jobs.filter(j => j.featured);
+            }
+
+            const slicedRecs = matchingJobs.slice(0, 2);
+            recommendationsContainer.innerHTML = `
+                <h3>Recommended Jobs</h3>
+                ${slicedRecs.map(job => `
+                    <div class="job-item" onclick="viewJobDetails(${job.id})" style="cursor: pointer;">
+                        <h4>${job.title}</h4>
+                        <p>${job.company} • ${job.location}</p>
+                    </div>
+                `).join('')}
+                <a href="#browse-jobs" class="view-all-link nav-link" onclick="navigateToPage('browse-jobs-page')">View all jobs →</a>
+            `;
+        }
+
+    } else if (currentUser.role === 'employer') {
+        if (jobseekerDashboard) jobseekerDashboard.style.display = 'none';
+        if (employerDashboard) employerDashboard.style.display = 'block';
+
+        renderEmployerDashboard();
+    }
+}
+
+function renderEmployerDashboard() {
+    const container = document.getElementById('employerDashboard');
+    if (!container) return;
+
+    const employerCompany = currentUser.name || 'Company';
+    const myJobs = jobs.filter(j => j.company.toLowerCase() === employerCompany.toLowerCase());
+    const applicationsList = JSON.parse(localStorage.getItem('careerbridge_applications')) || [];
+    const myApps = applicationsList.filter(app => app.companyName.toLowerCase() === employerCompany.toLowerCase());
+    const pendingApps = myApps.filter(app => app.status === 'Pending' || app.status === 'Under Review');
+
+    container.innerHTML = `
+        <div class="dashboard-stats" style="margin-bottom: 32px;">
+            <div class="stat-card">
+                <i class="fas fa-briefcase" style="color: var(--primary);"></i>
+                <div>
+                    <span class="stat-label">Active Listings</span>
+                    <span class="stat-number">${myJobs.length}</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-file-signature" style="color: #10b981;"></i>
+                <div>
+                    <span class="stat-label">Total Applications</span>
+                    <span class="stat-number">${myApps.length}</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-clock" style="color: #f59e0b;"></i>
+                <div>
+                    <span class="stat-label">Pending Reviews</span>
+                    <span class="stat-number">${pendingApps.length}</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-check-circle" style="color: #6366f1;"></i>
+                <div>
+                    <span class="stat-label">Shortlisted</span>
+                    <span class="stat-number">${myApps.filter(app => app.status === 'Shortlisted' || app.status === 'Interview').length}</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="dashboard-grid">
+            <div class="dashboard-card" style="grid-column: span 2;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3>Received Applications</h3>
+                </div>
+                ${myApps.length === 0 ? `
+                    <p style="color: var(--gray); text-align: center; padding: 20px;">No applications received yet for your job postings.</p>
+                ` : `
+                    <div style="overflow-x: auto;">
+                        <table class="dashboard-table" style="width: 100%; border-collapse: collapse; text-align: left;">
+                            <thead>
+                                <tr style="border-bottom: 2px solid var(--border-color); color: var(--gray); font-weight: 600;">
+                                    <th style="padding: 12px 8px;">Candidate</th>
+                                    <th style="padding: 12px 8px;">Applied For</th>
+                                    <th style="padding: 12px 8px;">Date</th>
+                                    <th style="padding: 12px 8px;">Status</th>
+                                    <th style="padding: 12px 8px; text-align: right;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${myApps.map(app => {
+                                    let statusClass = 'pending';
+                                    if (app.status.toLowerCase() === 'shortlisted' || app.status.toLowerCase() === 'interview') statusClass = 'interview';
+                                    if (app.status.toLowerCase() === 'rejected') statusClass = 'rejected';
+                                    if (app.status.toLowerCase() === 'offered' || app.status.toLowerCase() === 'accepted') statusClass = 'success';
+                                    
+                                    const candidatesList = JSON.parse(localStorage.getItem('careerbridge_candidates')) || [];
+                                    const candidate = candidatesList.find(c => c.email === app.seekerEmail);
+                                    const candProfileId = candidate ? candidate.id : 1;
+                                    
+                                    return `
+                                        <tr style="border-bottom: 1px solid var(--border-color);">
+                                            <td style="padding: 16px 8px; display: flex; align-items: center; gap: 12px;">
+                                                <img src="${app.seekerAvatar}" alt="${app.seekerName}" style="width: 36px; height: 36px; border-radius: 50%;" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(app.seekerName)}&background=4361ee&color=fff'">
+                                                <div>
+                                                    <div style="font-weight: 600;">${app.seekerName}</div>
+                                                    <div style="font-size: 0.8rem; color: var(--gray);">${app.seekerEmail}</div>
+                                                </div>
+                                            </td>
+                                            <td style="padding: 16px 8px; font-weight: 500;">${app.jobTitle}</td>
+                                            <td style="padding: 16px 8px; color: var(--gray); font-size: 0.9rem;">${app.appliedDate}</td>
+                                            <td style="padding: 16px 8px;"><span class="status ${statusClass}">${app.status}</span></td>
+                                            <td style="padding: 16px 8px; text-align: right;">
+                                                <button class="btn btn-outline btn-sm" style="padding: 6px 12px; margin-right: 6px;" onclick="window.open('candidate-profile.html?id=${candProfileId}', '_blank')">View Profile</button>
+                                                ${app.status === 'Pending' || app.status === 'Under Review' ? `
+                                                    <button class="btn btn-primary btn-sm" style="padding: 6px 12px; background: #10b981; border-color: #10b981; margin-right: 6px;" onclick="updateApplicationStatus(${app.id}, 'Shortlisted')">Shortlist</button>
+                                                    <button class="btn btn-sm" style="padding: 6px 12px; background: #ef4444; border-color: #ef4444; color: white;" onclick="updateApplicationStatus(${app.id}, 'Rejected')">Reject</button>
+                                                ` : ''}
+                                            </td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `}
+            </div>
+            
+            <div class="dashboard-card" style="grid-column: span 2; margin-top: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3>Manage Job Postings</h3>
+                    <button class="btn btn-primary btn-sm" onclick="navigateToPage('post-job-page')"><i class="fas fa-plus-circle"></i> Post New Job</button>
+                </div>
+                ${myJobs.length === 0 ? `
+                    <p style="color: var(--gray); text-align: center; padding: 20px;">You haven't posted any jobs yet.</p>
+                ` : `
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px;">
+                        ${myJobs.map(job => `
+                            <div class="job-item" style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 16px; margin: 0;">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                                    <h4 style="margin: 0; font-size: 1.1rem;">${job.title}</h4>
+                                    <button class="btn btn-sm" style="background: transparent; color: #ef4444; border: none; padding: 0;" onclick="deleteJobListing(${job.id})"><i class="fas fa-trash"></i></button>
+                                </div>
+                                <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 12px;">${job.type} • ${job.location} • ${job.remote}</p>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-weight: 600; color: var(--primary); font-size: 0.9rem;">${job.salary}</span>
+                                    <button class="btn btn-outline btn-sm" onclick="viewJobDetails(${job.id})">View Details</button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `}
+            </div>
+        </div>
+    `;
+}
+
+function updateApplicationStatus(appId, newStatus) {
+    let applicationsList = JSON.parse(localStorage.getItem('careerbridge_applications')) || [];
+    let idx = applicationsList.findIndex(app => app.id === appId);
+    if (idx >= 0) {
+        applicationsList[idx].status = newStatus;
+        localStorage.setItem('careerbridge_applications', JSON.stringify(applicationsList));
+        showToast(`Application status updated to ${newStatus}`, 'success');
+        renderEmployerDashboard();
+    }
+}
+
+function deleteJobListing(jobId) {
+    if (confirm('Are you sure you want to delete this job listing?')) {
+        let jobsList = JSON.parse(localStorage.getItem('careerbridge_jobs')) || jobs;
+        jobsList = jobsList.filter(job => job.id !== jobId);
+        localStorage.setItem('careerbridge_jobs', JSON.stringify(jobsList));
+        jobs = jobsList;
+        showToast('Job listing deleted successfully', 'success');
+        renderEmployerDashboard();
+        renderFeaturedJobs();
+    }
+}
+
+// ===== UNIQUE FEATURE: INTERACTIVE MOCK INTERVIEW SIMULATOR =====
+const interviewQuestions = {
+    software: [
+        "Tell me about a complex technical challenge you solved recently in your full-stack projects.",
+        "How do you ensure your React/Next.js applications are performant and accessible?",
+        "Explain the differences between SQL databases and NoSQL databases, and when you would choose each."
+    ],
+    qa: [
+        "What is your approach to designing a comprehensive test automation suite from scratch?",
+        "How do you handle flaky tests in your CI/CD pipeline?",
+        "Explain the difference between black-box testing and white-box testing with examples."
+    ],
+    marketing: [
+        "How would you design a digital marketing campaign to launch a new feature for PickMe in Sri Lanka?",
+        "What metrics do you look at to evaluate SEO success, and how do you optimize keywords?",
+        "Can you give an example of how you used A/B testing to improve conversion rates?"
+    ],
+    ba: [
+        "How do you gather requirements when stakeholders have conflicting visions for a product?",
+        "Explain the difference between functional requirements and non-functional requirements with examples.",
+        "What tools and methodologies do you prefer for mapping business workflows?"
+    ]
+};
+
+const interviewEvaluations = {
+    software: [
+        "Strong answers should highlight specific architecture design choices, debugging workflows (e.g. Chrome DevTools, profiling), and what was learned.",
+        "A premium response mentions lazy loading, server-side rendering (SSR), image optimization, semantic HTML landmarks, and ARIA labels.",
+        "Key aspects to cover: structured schemas/transactions (SQL) vs. horizontal scalability/flexibility (NoSQL), referencing ACID compliance."
+    ],
+    qa: [
+        "Mention Page Object Model, test reporting tools, test framework layers, and environment isolation.",
+        "A good answer discusses retry mechanisms, network mocking/waiting strategies, clean database seeds, and log analysis.",
+        "Differentiate between code-level code-path testing (White-box) vs specifications-driven user-flow testing (Black-box)."
+    ],
+    marketing: [
+        "Premium responses focus on localized messaging (Sinhala/Tamil/English), targeted social media (Facebook/TikTok), influencer marketing, and localized geo-fencing.",
+        "Key metrics include organic CTR, keyword difficulty, search volume, domain authority, and bounce rates.",
+        "Focus on defining a control group, hypothesis statements, minimum sample sizes, and statistical significance."
+    ],
+    ba: [
+        "A solid BA approach includes empathy mapping, 1-on-1 interviews, prioritizing via MoSCoW, and building prototypes to align expectations.",
+        "Functional defines what the system *does* (e.g., checkout page payment). Non-functional defines how the system *behaves* (e.g. transaction load time < 2s).",
+        "Reference using BPMN 2.0 diagramming, UML use-case mappings, Jira epic workflows, and Figma wireframes."
+    ]
+};
+
+let activeSessionTrack = null;
+let activeSessionIndex = 0;
+let activeSessionAnswers = [];
+
+function resetInterviewUI() {
+    activeSessionTrack = null;
+    activeSessionIndex = 0;
+    activeSessionAnswers = [];
+    
+    const setupDiv = document.getElementById('interviewSetup');
+    const chatDiv = document.getElementById('interviewChatContainer');
+    const chatLogs = document.getElementById('interviewChatLogs');
+    const inputField = document.getElementById('interviewAnswerInput');
+    
+    if (setupDiv) setupDiv.style.display = 'block';
+    if (chatDiv) chatDiv.style.display = 'none';
+    if (chatLogs) chatLogs.innerHTML = '';
+    if (inputField) inputField.value = '';
+}
+
+function startInterviewSession() {
+    if (!currentUser) {
+        showToast('Please login to use the Interview Prep Simulator', 'error');
+        navigateToPage('login-page');
+        return;
+    }
+    
+    const trackSelect = document.getElementById('interviewTrackSelect');
+    if (!trackSelect) return;
+    
+    activeSessionTrack = trackSelect.value;
+    activeSessionIndex = 0;
+    activeSessionAnswers = [];
+    
+    const setupDiv = document.getElementById('interviewSetup');
+    const chatDiv = document.getElementById('interviewChatContainer');
+    
+    if (setupDiv) setupDiv.style.display = 'none';
+    if (chatDiv) chatDiv.style.display = 'block';
+    
+    appendInterviewBubble('interviewer', `Hello ${currentUser.name}! Welcome to your mock interview session. I'll ask you 3 industry questions for the ${activeSessionTrack.toUpperCase()} track. Let's begin.`);
+    
+    setTimeout(() => {
+        askNextInterviewQuestion();
+    }, 1000);
+}
+
+function askNextInterviewQuestion() {
+    const questions = interviewQuestions[activeSessionTrack];
+    if (activeSessionIndex < questions.length) {
+        appendInterviewBubble('interviewer', `<strong>Question ${activeSessionIndex + 1}:</strong> ${questions[activeSessionIndex]}`);
+    } else {
+        finishInterviewSession();
+    }
+}
+
+function submitInterviewAnswer() {
+    const inputField = document.getElementById('interviewAnswerInput');
+    if (!inputField) return;
+    
+    const answer = inputField.value.trim();
+    if (!answer) return;
+    
+    appendInterviewBubble('seeker', answer);
+    inputField.value = '';
+    activeSessionAnswers.push(answer);
+    
+    // Show typing indicator
+    appendInterviewBubble('interviewer', '<i class="fas fa-ellipsis-h fa-spin"></i> Processing your response...', 'typing');
+    
+    setTimeout(() => {
+        // Remove typing indicator
+        const typingEl = document.getElementById('typingIndicator');
+        if (typingEl) typingEl.remove();
+        
+        // Evaluate answer
+        const guide = interviewEvaluations[activeSessionTrack][activeSessionIndex];
+        const rating = evaluateAnswerText(answer);
+        
+        appendInterviewBubble('feedback', `<strong>Critique:</strong> Your answer looks ${rating}. <br><br><strong>Key topics you could mention or focus on:</strong> ${guide}`);
+        
+        activeSessionIndex++;
+        
+        setTimeout(() => {
+            askNextInterviewQuestion();
+        }, 1500);
+        
+    }, 2000);
+}
+
+function evaluateAnswerText(text) {
+    const wordCount = text.split(/\s+/).length;
+    if (wordCount < 10) return "a bit too brief. In interviews, try to use the STAR method (Situation, Task, Action, Result) to provide sufficient detail.";
+    if (wordCount < 30) return "solid, but could be enhanced with more specific metrics or concrete examples from your past work.";
+    return "comprehensive and well-explained! You demonstrated good command of the context.";
+}
+
+function appendInterviewBubble(sender, text, type = '') {
+    const logs = document.getElementById('interviewChatLogs');
+    if (!logs) return;
+    
+    const bubble = document.createElement('div');
+    bubble.className = `chat-bubble ${sender}`;
+    if (type === 'typing') {
+        bubble.id = 'typingIndicator';
+    }
+    bubble.innerHTML = text;
+    
+    logs.appendChild(bubble);
+    logs.scrollTop = logs.scrollHeight;
+}
+
+function finishInterviewSession() {
+    appendInterviewBubble('interviewer', `Excellent! We've completed the mock interview. You've answered all 3 questions. Here is your summary card:`);
+    
+    setTimeout(() => {
+        const score = Math.round(50 + Math.random() * 40); // Generate matching score
+        const performanceCard = `
+            <div style="background: white; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; margin-top: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); text-align: center;">
+                <h4 style="color: var(--primary); font-size: 1.2rem; margin-bottom: 8px;">Prep Performance Report</h4>
+                <div style="font-size: 2.2rem; font-weight: 800; color: #10b981; margin-bottom: 8px;">${score}% Score</div>
+                <p style="font-size: 0.95rem; color: var(--gray); line-height: 1.5;">Great progress! We recommend continuing practice in the <strong>${activeSessionTrack.toUpperCase()}</strong> track. Feel free to start a new simulation at any time.</p>
+                <button class="btn btn-primary btn-sm" onclick="resetInterviewUI()" style="margin-top: 14px;">Finish & Clear</button>
+            </div>
+        `;
+        appendInterviewBubble('interviewer', performanceCard);
+    }, 1000);
+}
+
+function endInterviewSession() {
+    if (confirm('Are you sure you want to quit the current mock interview session?')) {
+        resetInterviewUI();
+    }
+}
+
+// ===== UNIQUE FEATURE: ATS RESUME BUILDER & EXPORTER =====
+function updateResumePreview() {
+    const container = document.getElementById('resumePreviewContainer');
+    if (!container) return;
+    
+    if (!currentUser) {
+        container.innerHTML = `<p style="text-align: center; color: var(--gray); padding: 40px;">Please login to view and build your resume.</p>`;
+        return;
+    }
+    
+    if (currentUser.role !== 'jobseeker') {
+        container.innerHTML = `<p style="text-align: center; color: var(--gray); padding: 40px;">Only job seekers can use the Resume Builder.</p>`;
+        return;
+    }
+    
+    const templateSelect = document.getElementById('resumeTemplateSelect');
+    const template = templateSelect ? templateSelect.value : 'minimalist';
+    
+    const name = currentUser.name || 'Candidate Name';
+    const email = currentUser.email || 'email@example.com';
+    const title = currentUser.title || 'Professional Title';
+    const location = currentUser.location || 'Colombo, Sri Lanka';
+    const experience = currentUser.experience || 'Fresh Graduate';
+    const availability = currentUser.availability || 'Available Now';
+    const skills = currentUser.skills || [];
+    const bio = currentUser.bio || 'Professional summary describing key skills, experience, and projects.';
+    
+    let resumeHTML = '';
+    
+    if (template === 'minimalist') {
+        // Minimalist B&W template
+        resumeHTML = `
+            <div style="font-family: 'Inter', sans-serif; color: #1e293b; max-width: 700px; margin: 0 auto; line-height: 1.6;">
+                <div style="border-bottom: 2px solid #1e293b; padding-bottom: 20px; margin-bottom: 24px; text-align: center;">
+                    <h1 style="font-size: 2.2rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 6px 0;">${name}</h1>
+                    <div style="font-size: 1.1rem; font-weight: 600; color: #475569; margin-bottom: 8px;">${title}</div>
+                    <div style="font-size: 0.9rem; color: #64748b;">
+                        <i class="fas fa-envelope"></i> ${email} &nbsp;|&nbsp; 
+                        <i class="fas fa-map-marker-alt"></i> ${location} &nbsp;|&nbsp; 
+                        <i class="fas fa-clock"></i> ${availability}
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 24px;">
+                    <h3 style="font-size: 1.1rem; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; margin: 0 0 10px 0;">Professional Summary</h3>
+                    <p style="margin: 0; font-size: 0.95rem; text-align: justify;">${bio}</p>
+                </div>
+                
+                <div style="margin-bottom: 24px;">
+                    <h3 style="font-size: 1.1rem; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; margin: 0 0 10px 0;">Work History / Experience</h3>
+                    <div style="margin-bottom: 12px;">
+                        <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 0.95rem;">
+                            <span>${title}</span>
+                            <span>Present</span>
+                        </div>
+                        <div style="font-style: italic; font-size: 0.9rem; color: #64748b; margin-bottom: 6px;">CareerBridge Candidate Portfolio</div>
+                        <ul style="margin: 0; padding-left: 20px; font-size: 0.9rem;">
+                            <li>Possess overall background of <strong>${experience}</strong> working in high-growth team dynamics.</li>
+                            <li>Designed and optimized clean architectures ensuring modular components code quality.</li>
+                            <li>Collaborated with product teams to gather specs and deliver client products.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="font-size: 1.1rem; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; margin: 0 0 10px 0;">Technical Core Skills</h3>
+                    <div class="resume-skills-grid" style="margin-top: 8px;">
+                        ${skills.map(s => `<span class="resume-skill-tag">${s}</span>`).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+    } else if (template === 'modern') {
+        // Modern Clean template
+        resumeHTML = `
+            <div style="font-family: 'Outfit', sans-serif; color: #0f172a; max-width: 700px; margin: 0 auto; line-height: 1.6;">
+                <div style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 24px;">
+                    <h1 style="font-size: 2.2rem; font-weight: 800; margin: 0 0 6px 0; letter-spacing: -0.5px;">${name}</h1>
+                    <div style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 15px; font-weight: 500;">${title}</div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.88rem; opacity: 0.85; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 12px;">
+                        <span><i class="fas fa-envelope"></i> ${email}</span>
+                        <span><i class="fas fa-map-marker-alt"></i> ${location}</span>
+                        <span><i class="fas fa-briefcase"></i> ${experience} Exp</span>
+                        <span><i class="fas fa-clock"></i> ${availability}</span>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 24px;">
+                    <h3 class="resume-section-title" style="margin-top: 0; color: #1e3a8a;">Professional Profile</h3>
+                    <p style="margin: 0; font-size: 0.95rem;">${bio}</p>
+                </div>
+                
+                <div style="margin-bottom: 24px;">
+                    <h3 class="resume-section-title" style="color: #1e3a8a;">Core Competencies & Skills</h3>
+                    <div class="resume-skills-grid">
+                        ${skills.map(s => `<span class="resume-skill-tag" style="background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe;">${s}</span>`).join('')}
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="resume-section-title" style="color: #1e3a8a;">Career Milestones</h3>
+                    <div style="border-left: 3px solid #3b82f6; padding-left: 15px; margin-left: 8px;">
+                        <h4 style="margin: 0 0 4px 0; font-size: 1rem; color: #1e293b;">Active Seeker Profile — CareerBridge</h4>
+                        <div style="font-size: 0.85rem; color: #64748b; margin-bottom: 8px;">Colombo, Sri Lanka | Present</div>
+                        <p style="margin: 0; font-size: 0.9rem; color: #475569;">Active member of the portal database with a matching rating level across local corporate firms and engineering hubs.</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    } else {
+        // Creative design template
+        resumeHTML = `
+            <div style="font-family: 'Plus Jakarta Sans', sans-serif; color: #334155; max-width: 700px; margin: 0 auto; display: flex; gap: 30px; line-height: 1.6;">
+                <div style="width: 230px; background: #f8fafc; border-right: 1px solid #e2e8f0; padding-right: 20px;">
+                    <div style="text-align: center; margin-bottom: 24px;">
+                        <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=4361ee&color=fff" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 12px; border: 3px solid #e2e8f0;">
+                        <h2 style="font-size: 1.3rem; font-weight: 700; color: #0f172a; margin: 0 0 4px 0;">${name}</h2>
+                        <div style="font-size: 0.85rem; color: var(--primary); font-weight: 600;">${title}</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 24px; font-size: 0.82rem;">
+                        <h4 style="text-transform: uppercase; color: #0f172a; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px; margin-bottom: 10px;">Contact</h4>
+                        <div style="margin-bottom: 8px;"><i class="fas fa-envelope"></i> ${email}</div>
+                        <div style="margin-bottom: 8px;"><i class="fas fa-map-marker-alt"></i> ${location}</div>
+                        <div style="margin-bottom: 8px;"><i class="fas fa-clock"></i> ${availability}</div>
+                    </div>
+                    
+                    <div>
+                        <h4 style="text-transform: uppercase; color: #0f172a; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px; margin-bottom: 10px;">Core Skills</h4>
+                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                            ${skills.map(s => `<span style="font-size: 0.85rem; background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-weight: 500; text-align: center;">${s}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="flex: 1;">
+                    <div style="margin-bottom: 24px;">
+                        <h3 style="color: #0f172a; border-bottom: 2px solid var(--primary); padding-bottom: 6px; margin: 0 0 12px 0;">Executive Summary</h3>
+                        <p style="margin: 0; font-size: 0.92rem; text-align: justify;">${bio}</p>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: #0f172a; border-bottom: 2px solid var(--primary); padding-bottom: 6px; margin: 0 0 12px 0;">Experience</h3>
+                        <div>
+                            <h4 style="margin: 0 0 2px 0; font-size: 0.98rem; color: #0f172a;">${title}</h4>
+                            <div style="font-size: 0.82rem; color: var(--primary); font-weight: 600; margin-bottom: 8px;">CareerBridge Candidate &nbsp;|&nbsp; Present</div>
+                            <p style="margin: 0; font-size: 0.9rem; text-align: justify;">Actively seeking new opportunities. Possess solid academic and project background totaling <strong>${experience}</strong> in core functional tracks.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    
+    container.innerHTML = resumeHTML;
+}
+
+function printResume() {
+    window.print();
+}
+
+function downloadResumeHTML() {
+    const container = document.getElementById('resumePreviewContainer');
+    if (!container) return;
+    
+    const htmlContent = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - ${currentUser?.name || 'Candidate'}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background: #f8fafc; padding: 40px 20px; }
+        .resume-page { background: white; max-width: 800px; margin: 0 auto; padding: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border-radius: 8px; }
+        .resume-skill-tag { background: #f1f5f9; color: #475569; padding: 4px 10px; border-radius: 6px; font-size: 0.85rem; font-weight: 500; display: inline-block; margin: 4px; }
+    </style>
+</head>
+<body>
+    <div class="resume-page">
+        ${container.innerHTML}
+    </div>
+</body>
+</html>
+    `;
+    
+    downloadFile(`${(currentUser?.name || 'Candidate').replace(/\s+/g, '_')}_Resume.html`, htmlContent, 'text/html');
 }

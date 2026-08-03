@@ -4556,14 +4556,7 @@ body.role-jobseeker .jobseeker-only {
 .eb-tauthor strong { display: block; color: var(--white); font-size: 0.95rem; }
 .eb-tauthor span { color: rgba(255,255,255,0.65); font-size: 0.82rem; }
 
-/* Bottom CTA */
-.eb-bottom-cta { display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: center; background: var(--white); border: 1px solid var(--border-color); border-radius: 24px; padding: 48px; box-shadow: var(--shadow); margin-bottom: 80px; overflow: hidden; }
-.eb-cta-copy h2 { font-size: 2rem; margin-bottom: 12px; }
-.eb-cta-copy p { color: var(--gray); line-height: 1.7; margin-bottom: 28px; }
-.eb-cta-actions { display: flex; gap: 14px; flex-wrap: wrap; }
-.eb-cta-img { width: 100%; height: 260px; object-fit: cover; border-radius: 16px; display: block; }
-
-/* Responsive */
+/* ===== EMPLOYER BRANDING RESPONSIVE STYLES ===== */
 @media (max-width: 1024px) {
     .eb-steps { grid-template-columns: 1fr; }
     .eb-step-arrow { display: none; }
@@ -4590,4 +4583,175 @@ body.role-jobseeker .jobseeker-only {
     .eb-gallery-grid { grid-template-columns: 1fr; }
     .eb-bottom-cta { padding: 24px; gap: 20px; }
     .eb-cta-copy h2 { font-size: 1.5rem; }
+}
+
+/* ===== UNIQUE PREMIUM FEATURES ===== */
+
+/* 1. INTERVIEW PREP CHAT SIMULATOR */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.chat-bubble {
+    max-width: 75%;
+    padding: 12px 18px;
+    border-radius: var(--radius-md);
+    line-height: 1.5;
+    font-size: 0.95rem;
+    position: relative;
+    animation: bubbleSlideIn 0.3s ease;
+}
+@keyframes bubbleSlideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.chat-bubble.interviewer {
+    background: var(--white);
+    color: var(--dark);
+    align-self: flex-start;
+    border-top-left-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    border: 1px solid var(--border-color);
+}
+.chat-bubble.seeker {
+    background: var(--primary);
+    color: var(--white);
+    align-self: flex-end;
+    border-top-right-radius: 4px;
+}
+.chat-bubble.feedback {
+    background: #eff6ff;
+    color: #1e3a8a;
+    align-self: flex-start;
+    border-left: 4px solid var(--primary);
+    border-top-left-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+/* 2. SMART MATCH SCORE */
+.match-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+.match-badge.high {
+    background: #d1fae5;
+    color: #065f46;
+}
+.match-badge.medium {
+    background: #fef3c7;
+    color: #92400e;
+}
+.match-badge.low {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+/* 3. RESUME TEMPLATE PREVIEWS & ATS EXPORTS */
+.resume-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 6px;
+}
+.resume-subtitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+.resume-section-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1e293b;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 6px;
+    margin-top: 24px;
+    margin-bottom: 12px;
+}
+.resume-skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.resume-skill-tag {
+    background: #f1f5f9;
+    color: #475569;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* 4. PRINT OVERRIDES */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #resumePreviewContainer, #resumePreviewContainer * {
+        visibility: visible;
+    }
+    #resumePreviewContainer {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100% !important;
+        height: auto !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .page, .page-header, nav, footer, .filters-sidebar {
+        display: none !important;
+    }
+}
+
+/* ===== UNIQUE PREMIUM DOWNLOAD BUTTON ===== */
+.btn-download-unique {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--primary) 0%, #818cf8 100%);
+    color: var(--white);
+    border: none;
+    padding: 10px 22px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(67, 97, 238, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    margin-top: 8px;
+    text-decoration: none;
+}
+
+.btn-download-unique:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(67, 97, 238, 0.35);
+    background: linear-gradient(135deg, #3a0ca3 0%, var(--primary) 100%);
+    color: var(--white);
+}
+
+.btn-download-unique:active {
+    transform: translateY(0);
+}
+
+.btn-download-unique i {
+    font-size: 0.95rem;
+    color: var(--white) !important;
+    margin: 0 !important;
+    display: inline-block !important;
+    transition: transform 0.2s ease;
+}
+
+.btn-download-unique:hover i {
+    transform: translateY(2px);
 }

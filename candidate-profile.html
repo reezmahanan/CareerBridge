@@ -39,7 +39,13 @@
     </style>
 </head>
 <body>
+    <nav class="navbar" style="box-shadow: 0 4px 12px rgba(0,0,0,0.03); background: #fff; margin-bottom: 24px;">
+        <div class="nav-container" style="max-width: 1200px; margin: 0 auto; padding: 0 24px; height: 70px; display: flex; align-items: center;">
+            <a href="index.html" class="brand-logo" style="text-decoration: none; font-size: 1.5rem; font-weight: 800; color: var(--dark);"><i class="fas fa-bridge" style="color: var(--primary);"></i> Career<span style="color: var(--primary);">Bridge</span></a>
+        </div>
+    </nav>
     <div class="profile-container" id="profileContainer">
+        <div style="margin-bottom: 24px;"><a href="index.html#search-candidates" style="text-decoration: none; color: var(--primary); font-weight: 600; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 8px;"><i class="fas fa-arrow-left"></i> Back to Candidates</a></div>
         <div class="profile-header">
             <div class="profile-avatar">
                 <img id="profileImg" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Candidate">
@@ -64,54 +70,71 @@
         <i class="fas fa-user-times"></i>
         <h3>Candidate Not Found</h3>
         <p>The profile you are trying to view does not exist.</p>
-        <a href="index.html#search-candidates-page">Back to Candidates</a>
+        <a href="index.html#search-candidates">Back to Candidates</a>
     </div>
     <script>
-        // Simple demo: swap candidate info based on ?id= in URL
-        const candidates = {
-            1: {
-                img: 'https://randomuser.me/api/portraits/women/44.jpg',
-                name: 'Sanduni Perera',
-                role: 'Software Engineer',
-                location: 'Colombo, Sri Lanka',
-                experience: '3 years',
-                availability: 'Available Now',
-                skills: ['React','TypeScript','Node.js','Java','SQL'],
-                about: 'Experienced software engineer with expertise in full-stack development. Worked on enterprise applications for local and international clients. Passionate about clean code and user experience.'
-            },
-            2: {
-                img: 'https://randomuser.me/api/portraits/men/32.jpg',
-                name: 'Kasun Fernando',
-                role: 'Marketing Graduate',
-                location: 'Kandy, Sri Lanka',
-                experience: 'Fresh Graduate',
-                availability: 'Seeking Internship',
-                skills: ['Digital Marketing','Social Media','Content Writing','SEO','Analytics'],
-                about: 'Recent marketing graduate looking for internship opportunities. Strong academic background with hands-on experience in social media campaigns and content creation during university projects.'
-            },
-            3: {
-                img: 'https://randomuser.me/api/portraits/women/68.jpg',
-                name: 'Nimasha Silva',
-                role: 'Business Analyst',
-                location: 'Colombo, Sri Lanka',
-                experience: '4 years',
-                availability: 'Available Now',
-                skills: ['Business Analysis','SQL','Power BI','Requirements Gathering','Agile'],
-                about: 'Business analyst with experience in banking and finance sector. Skilled in requirements gathering, data analysis, and stakeholder management. Looking for new challenges in business transformation.'
+        // Load candidates from localStorage, fallback to default seed data
+        let candidates = {};
+        const localCandidates = localStorage.getItem('careerbridge_candidates');
+        if (localCandidates) {
+            try {
+                const arr = JSON.parse(localCandidates);
+                arr.forEach(c => {
+                    candidates[c.id] = c;
+                });
+            } catch(e) {
+                console.error('Failed to load candidates from localStorage', e);
             }
-        };
+        }
+        
+        // If empty, fall back to initial seeded candidates
+        if (Object.keys(candidates).length === 0) {
+            candidates = {
+                1: {
+                    img: 'https://randomuser.me/api/portraits/women/44.jpg',
+                    name: 'Sanduni Perera',
+                    role: 'Software Engineer',
+                    location: 'Colombo, Sri Lanka',
+                    experience: '3 years',
+                    availability: 'Available Now',
+                    skills: ['React','TypeScript','Node.js','Java','SQL'],
+                    about: 'Experienced software engineer with expertise in full-stack development. Worked on enterprise applications for local and international clients. Passionate about clean code and user experience.'
+                },
+                2: {
+                    img: 'https://randomuser.me/api/portraits/men/32.jpg',
+                    name: 'Kasun Fernando',
+                    role: 'Marketing Graduate',
+                    location: 'Kandy, Sri Lanka',
+                    experience: 'Fresh Graduate',
+                    availability: 'Seeking Internship',
+                    skills: ['Digital Marketing','Social Media','Content Writing','SEO','Analytics'],
+                    about: 'Recent marketing graduate looking for internship opportunities. Strong academic background with hands-on experience in social media campaigns and content creation during university projects.'
+                },
+                3: {
+                    img: 'https://randomuser.me/api/portraits/women/68.jpg',
+                    name: 'Nimasha Silva',
+                    role: 'Business Analyst',
+                    location: 'Colombo, Sri Lanka',
+                    experience: '4 years',
+                    availability: 'Available Now',
+                    skills: ['Business Analysis','SQL','Power BI','Requirements Gathering','Agile'],
+                    about: 'Business analyst with experience in banking and finance sector. Skilled in requirements gathering, data analysis, and stakeholder management. Looking for new challenges in business transformation.'
+                }
+            };
+        }
+        
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
         if (id && candidates[id]) {
             const c = candidates[id];
-            document.getElementById('profileImg').src = c.img;
+            document.getElementById('profileImg').src = c.img || `https://ui-avatars.com/api/?name=${encodeURIComponent(c.name)}&background=4361ee&color=fff`;
             document.getElementById('profileName').textContent = c.name;
             document.getElementById('profileRole').textContent = c.role;
             document.getElementById('profileLocation').textContent = c.location;
             document.getElementById('profileExperience').textContent = c.experience;
             document.getElementById('profileAvailability').textContent = c.availability;
-            document.getElementById('profileSkills').innerHTML = c.skills.map(s=>`<span>${s}</span>`).join('');
-            document.getElementById('profileAbout').textContent = c.about;
+            document.getElementById('profileSkills').innerHTML = (c.skills || []).map(s=>`<span>${s}</span>`).join('');
+            document.getElementById('profileAbout').textContent = c.about || 'No description available.';
         } else {
             document.getElementById('profileContainer').style.display = 'none';
             document.getElementById('profileNotFound').style.display = 'block';
