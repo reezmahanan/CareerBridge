@@ -2080,14 +2080,14 @@ function togglePricing() {
     
     if (toggle.checked) {
         // Yearly pricing (20% off)
-        starterPrice.textContent = '79';
-        professionalPrice.textContent = '199';
-        enterprisePrice.textContent = '479';
+        starterPrice.textContent = '12,000';
+        professionalPrice.textContent = '28,000';
+        enterprisePrice.textContent = '60,000';
     } else {
         // Monthly pricing
-        starterPrice.textContent = '99';
-        professionalPrice.textContent = '249';
-        enterprisePrice.textContent = '599';
+        starterPrice.textContent = '15,000';
+        professionalPrice.textContent = '35,000';
+        enterprisePrice.textContent = '75,000';
     }
 }
 
