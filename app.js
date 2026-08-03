@@ -620,6 +620,7 @@ function login(email, role, name = null) {
         email: email,
         role: role,
         name: displayName,
+        skills: role === 'jobseeker' ? ['React', 'TypeScript', 'Node.js', 'Java', 'SQL'] : [],
         avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName.replace(/ /g, '+'))}&background=4361ee&color=fff`
     };
     
