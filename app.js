@@ -6,6 +6,32 @@ let companies = [];
 let candidates = [];
 let skills = [];
 
+function getStoredJSON(key, fallback = []) {
+    try {
+        const value = JSON.parse(localStorage.getItem(key));
+        return value ?? fallback;
+    } catch (error) {
+        return fallback;
+    }
+}
+
+function setTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem('careerbridge_theme', theme);
+    const icon = document.querySelector('#themeToggle i');
+    if (icon) icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+}
+
+function initializePreferences() {
+    const savedTheme = localStorage.getItem('careerbridge_theme');
+    const theme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    setTheme(theme);
+
+    const savedLanguage = localStorage.getItem('careerbridge_language') || 'en';
+    const languageSelect = document.getElementById('languageSelect');
+    if (languageSelect) languageSelect.value = savedLanguage;
+}
+
 // ===== SAMPLE DATA =====
 const sampleJobs = [
     {
@@ -467,6 +493,7 @@ const careerAdvice = [
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', function() {
+    initializePreferences();
     // Load/initialize data from localStorage
     const storedJobs = localStorage.getItem('careerbridge_jobs');
     if (storedJobs) {
@@ -508,6 +535,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Check for logged in user
     checkAuthState();
+    renderNotifications();
     
     // Update stats
     updateStats();
@@ -735,6 +763,21 @@ function renderProfilePage() {
             skillsEl.appendChild(span);
         });
     }
+
+    const completionFields = [
+        currentUser.name,
+        currentUser.email,
+        currentUser.title,
+        currentUser.location,
+        currentUser.experience,
+        currentUser.bio,
+        currentUser.skills?.length
+    ];
+    const completion = Math.round(completionFields.filter(Boolean).length / completionFields.length * 100);
+    const completionValue = document.getElementById('profileCompletionValue');
+    const completionBar = document.getElementById('profileCompletionBar');
+    if (completionValue) completionValue.textContent = `${completion}%`;
+    if (completionBar) completionBar.style.width = `${completion}%`;
 }
 
 // ===== SAVED JOBS =====
@@ -748,15 +791,17 @@ function renderSavedJobs() {
     const listEl = document.getElementById('savedJobsList');
     if (!listEl) return;
 
-    // Use user's saved jobs; if none, seed with sample items and persist so View works
+    // An empty saved list is a real empty state; it must not show fictional bookmarks.
     let saved = Array.isArray(currentUser.savedJobs) ? currentUser.savedJobs.slice() : [];
     if (!saved.length) {
-        saved = [
-            { id: 101, title: 'Frontend Engineer', company: 'StartupX', location: 'Remote', description: 'Remote frontend role.' },
-            { id: 102, title: 'Product Designer', company: 'Designly', location: 'New York, NY', description: 'Design-focused role.' }
-        ];
-        currentUser.savedJobs = saved.slice();
-        localStorage.setItem('careerbridge_user', JSON.stringify(currentUser));
+        listEl.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-bookmark"></i>
+                <h3>No saved jobs yet</h3>
+                <p>Browse opportunities and bookmark jobs you want to revisit.</p>
+                <button class="btn btn-primary" onclick="navigateToPage('browse-jobs-page')">Browse Jobs</button>
+            </div>`;
+        return;
     }
 
     listEl.innerHTML = saved.map(job => `
@@ -1088,6 +1133,8 @@ function renderJobsList() {
     const salaryFilter = document.getElementById('salaryFilter')?.value || '';
     const dateFilter = document.getElementById('dateFilter')?.value || 'any';
     const sortBy = document.getElementById('jobSort')?.value || 'newest';
+    const skillFilter = document.getElementById('jobSkillFilter')?.value.toLowerCase() || '';
+    const experienceFilters = Array.from(document.querySelectorAll('#experienceFilters input[type="checkbox"]:checked')).map(cb => cb.value);
     
     let filteredJobs = [...jobs];
     
@@ -1119,7 +1166,8 @@ function renderJobsList() {
     // Apply salary filter
     if (salaryFilter) {
         filteredJobs = filteredJobs.filter(job => {
-            const salaryNum = parseInt(job.salary.replace(/[^0-9]/g, ''));
+            const salaryNumbers = (job.salary.match(/\d[\d,]*/g) || []).map(value => Number(value.replace(/,/g, '')));
+            const salaryNum = salaryNumbers.length ? Math.max(...salaryNumbers) : 0;
             if (salaryFilter === '0-50000') return salaryNum < 50000;
             if (salaryFilter === '50000-80000') return salaryNum >= 50000 && salaryNum < 80000;
             if (salaryFilter === '80000-100000') return salaryNum >= 80000 && salaryNum < 100000;
@@ -1127,6 +1175,19 @@ function renderJobsList() {
             if (salaryFilter === '150000+') return salaryNum >= 150000;
             return true;
         });
+    }
+
+    if (skillFilter) {
+        const skillsWanted = skillFilter.split(',').map(skill => skill.trim()).filter(Boolean);
+        filteredJobs = filteredJobs.filter(job =>
+            skillsWanted.every(skill => job.skills.some(jobSkill => jobSkill.toLowerCase().includes(skill)))
+        );
+    }
+
+    if (experienceFilters.length > 0) {
+        filteredJobs = filteredJobs.filter(job =>
+            experienceFilters.some(filter => job.level.toLowerCase().includes(filter === 'lead' ? 'lead' : filter))
+        );
     }
     
     // Apply sorting
@@ -1309,7 +1370,7 @@ function applyForJob(jobId) {
         seekerEmail: currentUser.email,
         seekerAvatar: currentUser.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.name)}&background=4361ee&color=fff`,
         appliedDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }),
-        status: 'Pending'
+        status: 'Applied'
     };
     
     applicationsList.push(newApplication);
@@ -2117,8 +2178,58 @@ function showToast(message, type = 'success') {
     }, 3000);
 }
 
+function renderNotifications() {
+    const notifications = getStoredJSON('careerbridge_notifications', []);
+    const list = document.getElementById('notificationList');
+    const count = document.getElementById('notificationCount');
+    const unread = notifications.filter(notification => !notification.read).length;
+    if (count) {
+        count.hidden = unread === 0;
+        count.textContent = String(unread);
+    }
+    if (!list) return;
+    if (!notifications.length) {
+        list.innerHTML = '<div class="notification-empty">You are all caught up.</div>';
+        return;
+    }
+    list.innerHTML = notifications.slice(0, 8).map(notification => `
+        <button type="button" class="notification-item${notification.read ? '' : ' unread'}">
+            <i class="fas fa-circle-check"></i>
+            <span>${notification.text}<small>${new Date(notification.date).toLocaleString()}</small></span>
+        </button>
+    `).join('');
+}
+
 // ===== EVENT LISTENERS =====
 function setupEventListeners() {
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+        });
+    }
+    const languageSelect = document.getElementById('languageSelect');
+    if (languageSelect) {
+        languageSelect.addEventListener('change', () => {
+            localStorage.setItem('careerbridge_language', languageSelect.value);
+            showToast(languageSelect.value === 'en' ? 'Language set to English' : 'Language preference saved', 'success');
+        });
+    }
+    const notificationToggle = document.getElementById('notificationToggle');
+    const notificationPanel = document.getElementById('notificationPanel');
+    if (notificationToggle && notificationPanel) {
+        notificationToggle.addEventListener('click', () => {
+            notificationPanel.hidden = !notificationPanel.hidden;
+            renderNotifications();
+        });
+    }
+    document.getElementById('markNotificationsRead')?.addEventListener('click', () => {
+        const notifications = getStoredJSON('careerbridge_notifications', []);
+        notifications.forEach(notification => notification.read = true);
+        localStorage.setItem('careerbridge_notifications', JSON.stringify(notifications));
+        renderNotifications();
+    });
+
     // Mobile navigation toggle
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');
@@ -2280,6 +2391,8 @@ function setupEventListeners() {
             document.querySelectorAll('.checkbox-group input[type="checkbox"]').forEach(cb => cb.checked = false);
             document.getElementById('salaryFilter').value = '';
             document.getElementById('dateFilter').value = 'any';
+            const skillFilter = document.getElementById('jobSkillFilter');
+            if (skillFilter) skillFilter.value = '';
             renderJobsList();
         });
     }
@@ -3006,6 +3119,16 @@ function updateApplicationStatus(appId, newStatus) {
     if (idx >= 0) {
         applicationsList[idx].status = newStatus;
         localStorage.setItem('careerbridge_applications', JSON.stringify(applicationsList));
+        const notifications = getStoredJSON('careerbridge_notifications', []);
+        notifications.unshift({
+            id: Date.now(),
+            text: `Your application status changed to ${newStatus}`,
+            applicationId: appId,
+            read: false,
+            date: new Date().toISOString()
+        });
+        localStorage.setItem('careerbridge_notifications', JSON.stringify(notifications.slice(0, 30)));
+        renderNotifications();
         showToast(`Application status updated to ${newStatus}`, 'success');
         renderEmployerDashboard();
     }
@@ -3186,7 +3309,15 @@ function finishInterviewSession() {
     appendInterviewBubble('interviewer', `Excellent! We've completed the mock interview. You've answered all 3 questions. Here is your summary card:`);
     
     setTimeout(() => {
-        const score = Math.round(50 + Math.random() * 40); // Generate matching score
+        const scores = activeSessionAnswers.map(answer => {
+            const words = answer.split(/\s+/).filter(Boolean).length;
+            return Math.min(100, 35 + words * 2);
+        });
+        const score = Math.round(scores.reduce((sum, value) => sum + value, 0) / scores.length);
+        const report = { track: activeSessionTrack, score, answers: [...activeSessionAnswers], date: new Date().toISOString() };
+        const reports = getStoredJSON('careerbridge_interview_reports', []);
+        reports.unshift(report);
+        localStorage.setItem('careerbridge_interview_reports', JSON.stringify(reports.slice(0, 10)));
         const performanceCard = `
             <div style="background: white; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; margin-top: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); text-align: center;">
                 <h4 style="color: var(--primary); font-size: 1.2rem; margin-bottom: 8px;">Prep Performance Report</h4>

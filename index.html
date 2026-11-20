@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div id="pageLoader" class="page-loader" aria-hidden="true"><div class="loader-spinner"></div></div>
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
@@ -24,6 +25,21 @@
                 <i class="fas fa-bars"></i>
             </div>
             <ul class="nav-menu" id="navMenu">
+                <li class="utility-controls">
+                    <button type="button" id="themeToggle" class="icon-button" title="Toggle dark mode" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+                    <select id="languageSelect" class="language-select" aria-label="Language">
+                        <option value="en">EN</option>
+                        <option value="si">සිං</option>
+                        <option value="ta">தமி</option>
+                    </select>
+                    <button type="button" id="notificationToggle" class="icon-button notification-button" title="Notifications" aria-label="Notifications">
+                        <i class="fas fa-bell"></i><span id="notificationCount" class="notification-count" hidden>0</span>
+                    </button>
+                </li>
+                <li id="notificationPanel" class="notification-panel" hidden>
+                    <div class="notification-panel-header"><strong>Notifications</strong><button type="button" id="markNotificationsRead">Mark all read</button></div>
+                    <div id="notificationList" class="notification-list"></div>
+                </li>
                 <!-- For Job Seekers -->
                 <li class="nav-dropdown">
                     <a href="#" class="nav-link"><i class="fas fa-users"></i> Job Seekers <i class="fas fa-chevron-down dropdown-icon"></i></a>
@@ -364,6 +380,10 @@
             </div>
 
             <div class="profile-card dashboard-card">
+                <div class="profile-completion">
+                    <div class="profile-completion-head"><span>Profile completion</span><strong id="profileCompletionValue">0%</strong></div>
+                    <div class="progress-track"><div id="profileCompletionBar" class="progress-bar"></div></div>
+                </div>
                 <div style="display:flex; gap:20px; align-items:center;">
                     <img id="profileAvatar" src="https://ui-avatars.com/api/?name=Alex+Morgan&background=4361ee&color=fff" alt="avatar" style="width:84px;height:84px;border-radius:50%;object-fit:cover;">
                     <div>
@@ -612,12 +632,16 @@
                         <label><i class="fas fa-dollar-sign"></i> Salary Range</label>
                         <select id="salaryFilter">
                             <option value="">Any salary</option>
-                            <option value="0-50000">Under $50k</option>
-                            <option value="50000-80000">$50k - $80k</option>
-                            <option value="80000-100000">$80k - $100k</option>
-                            <option value="100000-150000">$100k - $150k</option>
-                            <option value="150000+">$150k+</option>
+                            <option value="0-50000">Under LKR 50,000</option>
+                            <option value="50000-80000">LKR 50,000 - 80,000</option>
+                            <option value="80000-100000">LKR 80,000 - 100,000</option>
+                            <option value="100000-150000">LKR 100,000 - 150,000</option>
+                            <option value="150000+">LKR 150,000+</option>
                         </select>
+                    </div>
+                    <div class="filter-group">
+                        <label><i class="fas fa-code"></i> Skills</label>
+                        <input type="text" id="jobSkillFilter" placeholder="e.g. React, SQL">
                     </div>
                     
                     <div class="filter-group">
@@ -633,7 +657,7 @@
                     
                     <div class="filter-group">
                         <label><i class="fas fa-graduation-cap"></i> Experience Level</label>
-                        <div class="checkbox-group">
+                        <div class="checkbox-group" id="experienceFilters">
                             <label><input type="checkbox" value="entry"> Entry level</label>
                             <label><input type="checkbox" value="mid"> Mid level</label>
                             <label><input type="checkbox" value="senior"> Senior level</label>
